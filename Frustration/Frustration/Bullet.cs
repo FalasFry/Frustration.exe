@@ -22,9 +22,9 @@ namespace Frustration
             texture = Texture;
             rectangle = Rectangle;
         }
-        public void Move()
+        public void Update()
         {
-
+            rectangle.Location = (dir * speed).ToPoint();
         }
         public void Draw(SpriteBatch spriteBatch)
         {

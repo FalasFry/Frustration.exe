@@ -11,7 +11,7 @@ namespace Frustration
     {
         Vector2 scale;
         float speed;
-
+        Bullet bullet;
         Texture2D player;
         Rectangle playerRec;
         GraphicsDeviceManager graphics;
@@ -76,6 +76,7 @@ namespace Frustration
                 Exit();
             }
 
+            bullet.Update();
             // TODO: Add your update logic here
 
             KeyboardState keyState = Keyboard.GetState();
