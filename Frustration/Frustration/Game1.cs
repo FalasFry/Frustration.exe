@@ -9,8 +9,14 @@ namespace Frustration
     /// </summary>
     public class Game1 : Game
     {
+        Vector2 scale;
+        float speed;
+
+        Texture2D player;
+        Rectangle playerRec;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Vector2 playerPos;
 
         public Game1()
         {
@@ -29,6 +35,11 @@ namespace Frustration
             // TODO: Add your initialization logic here
 
             base.Initialize();
+            player = Content.Load<Texture2D>("ball");
+            playerPos = new Vector2(1, 1);
+            scale = new Vector2(0.33f, 0.33f);
+            playerRec = new Rectangle(playerPos.ToPoint(),((player.Bounds.Size).ToVector2() * scale).ToPoint());
+            speed = 5;
             IsMouseVisible = true;
         }
 
@@ -61,9 +72,38 @@ namespace Frustration
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
                 Exit();
+            }
 
             // TODO: Add your update logic here
+
+            KeyboardState keyState = Keyboard.GetState();
+            Vector2 dir = new Vector2();
+            
+
+            if(keyState.IsKeyDown(Keys.A))
+            {
+                dir.X = -1;
+            }
+            else if (keyState.IsKeyDown(Keys.D))
+            {
+                dir.X = 1;
+            }
+            else if (keyState.IsKeyDown(Keys.W))
+            {
+                dir.Y = -1;
+            }
+            else if (keyState.IsKeyDown(Keys.S))
+            {
+                dir.Y = 1;
+            }
+
+            if (dir.X > 1f || dir.Y > 1f)
+            {
+                dir.Normalize();
+            }
+            playerRec.Location += (dir * speed).ToPoint();
 
             base.Update(gameTime);
         }
@@ -77,6 +117,12 @@ namespace Frustration
             GraphicsDevice.Clear(Color.White);
 
             // TODO: Add your drawing code here
+
+            spriteBatch.Begin();
+
+            spriteBatch.Draw(player, playerRec, Color.Black);
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
