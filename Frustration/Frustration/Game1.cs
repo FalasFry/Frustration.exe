@@ -11,7 +11,7 @@ namespace Frustration
     {
         Vector2 scale;
         float speed;
-
+        int test = 12;
         Texture2D player;
         Rectangle playerRec;
         GraphicsDeviceManager graphics;
@@ -36,7 +36,7 @@ namespace Frustration
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            // TODO: Add your initialization logic here f
 
             base.Initialize();
             player = Content.Load<Texture2D>("ball");
@@ -80,7 +80,7 @@ namespace Frustration
                 Exit();
             }
 
-            // TODO: Add your update logic here
+            // TODO: Add your update logic here test
 
             KeyboardState keyState = Keyboard.GetState();
             Vector2 dir = new Vector2();
