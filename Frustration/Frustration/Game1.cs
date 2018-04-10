@@ -1,6 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
 
 namespace Frustration
 {
@@ -17,11 +22,10 @@ namespace Frustration
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Vector2 playerPos;
-        Vector2 dir;
         Texture2D bulletTexture;
-        
-
-
+        Random rnd = new Random();
+        int numBullets = 1;
+        List<Bullet> bullets;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -39,9 +43,11 @@ namespace Frustration
             // TODO: Add your initialization logic here
 
             base.Initialize();
-            bullet = new Bullet(10f, new Vector2(1,0),bulletTexture,new Vector2(10,100));
-            player = Content.Load<Texture2D>("ball");
+            bullets = new List<Bullet>();
 
+
+            
+            player = Content.Load<Texture2D>("ball");
             playerPos = new Vector2(1, 1);
             scale = new Vector2(0.33f, 0.33f);
             playerRec = new Rectangle(playerPos.ToPoint(),((player.Bounds.Size).ToVector2() * scale).ToPoint());
@@ -82,7 +88,12 @@ namespace Frustration
             {
                 Exit();
             }
-            bullet.Update();
+
+            for (int i = 0; i < bullets.Count; i++)
+            {
+                bullets[i].Update();
+            }
+            
             // TODO: Add your update logic here
             MouseState mouse = Mouse.GetState();
             KeyboardState keyState = Keyboard.GetState();
@@ -107,7 +118,8 @@ namespace Frustration
             }
             if (mouse.LeftButton == ButtonState.Pressed)
             {
-                bullet.GetDir(mouse.Position.ToVector2(),bullet.position);
+                Shoot();
+                    
             }
 
             if (dir.X > 1f || dir.Y > 1f)
@@ -115,7 +127,7 @@ namespace Frustration
                 dir.Normalize();
             }
             playerRec.Location += (dir * speed).ToPoint();
-
+            Console.Write(playerPos);
             base.Update(gameTime);
         }
 
@@ -123,6 +135,11 @@ namespace Frustration
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        /// 
+        public void Shoot()
+        {
+            bullets.Add(new Bullet(10f, new Vector2(1, 0), bulletTexture, playerPos));
+        }
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.White);
@@ -132,8 +149,11 @@ namespace Frustration
             spriteBatch.Begin();
 
             spriteBatch.Draw(player, playerRec, Color.Black);
-            bullet.DrawBullet(spriteBatch);
-            
+            for (int i =0;i<bullets.Count;i++)
+            {
+                bullets[i].DrawBullet(spriteBatch);
+            }
+
             spriteBatch.End();
 
             base.Draw(gameTime);
