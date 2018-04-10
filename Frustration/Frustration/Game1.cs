@@ -11,16 +11,12 @@ namespace Frustration
     {
         Vector2 scale;
         float speed;
-        int test = 12;
+
         Texture2D player;
         Rectangle playerRec;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Vector2 playerPos;
-
-
-        
-
 
         public Game1()
         {

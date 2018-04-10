@@ -44,6 +44,7 @@
     <Compile Include="Bullet.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Health.cs" />
     <Compile Include="Main_Menu.cs" />
     <Compile Include="Pause_Menu.cs" />
     <Compile Include="Program.cs" />
