@@ -17,8 +17,8 @@ namespace Frustration
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Vector2 playerPos;
-
-
+        Vector2 dir;
+        Texture2D bulletTexture;
         
 
 
@@ -39,7 +39,9 @@ namespace Frustration
             // TODO: Add your initialization logic here
 
             base.Initialize();
+            bullet = new Bullet(10f, new Vector2(1,0),bulletTexture,new Vector2(10,100));
             player = Content.Load<Texture2D>("ball");
+
             playerPos = new Vector2(1, 1);
             scale = new Vector2(0.33f, 0.33f);
             playerRec = new Rectangle(playerPos.ToPoint(),((player.Bounds.Size).ToVector2() * scale).ToPoint());
@@ -55,6 +57,7 @@ namespace Frustration
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            bulletTexture = Content.Load<Texture2D>("bullet");
 
             // TODO: use this.Content to load your game content here
         }
@@ -79,10 +82,9 @@ namespace Frustration
             {
                 Exit();
             }
-
             bullet.Update();
             // TODO: Add your update logic here
-
+            MouseState mouse = Mouse.GetState();
             KeyboardState keyState = Keyboard.GetState();
             Vector2 dir = new Vector2();
             
@@ -102,6 +104,10 @@ namespace Frustration
             else if (keyState.IsKeyDown(Keys.S))
             {
                 dir.Y = 1;
+            }
+            if (mouse.LeftButton == ButtonState.Pressed)
+            {
+                bullet.GetDir(mouse.Position.ToVector2(),bullet.position);
             }
 
             if (dir.X > 1f || dir.Y > 1f)
@@ -126,7 +132,8 @@ namespace Frustration
             spriteBatch.Begin();
 
             spriteBatch.Draw(player, playerRec, Color.Black);
-
+            bullet.DrawBullet(spriteBatch);
+            
             spriteBatch.End();
 
             base.Draw(gameTime);
