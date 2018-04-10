@@ -18,6 +18,10 @@ namespace Frustration
         SpriteBatch spriteBatch;
         Vector2 playerPos;
 
+
+        
+
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);

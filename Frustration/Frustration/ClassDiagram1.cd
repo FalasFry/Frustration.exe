@@ -3,7 +3,7 @@
   <Class Name="Frustration.Game1">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAEEAAAAAACwAAAAAAAAACAAAAAQgBABAAAAAIAAQ=</HashCode>
+      <HashCode>AAQAEEAAAAAACwAAAAAAAAACAAAAAQgBAAAAAAAIAAQ=</HashCode>
       <FileName>Game1.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -29,7 +29,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Frustration.Main_Menu">
-    <Position X="4" Y="0.5" Width="1.5" />
+    <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Main_Menu.cs</FileName>
