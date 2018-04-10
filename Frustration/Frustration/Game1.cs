@@ -26,6 +26,8 @@ namespace Frustration
         Random rnd = new Random();
         int numBullets = 1;
         List<Bullet> bullets;
+        Enemy enemy;
+        int enemycount;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -44,7 +46,7 @@ namespace Frustration
 
             base.Initialize();
             bullets = new List<Bullet>();
-
+            
 
             
             player = Content.Load<Texture2D>("ball");
@@ -98,9 +100,13 @@ namespace Frustration
             MouseState mouse = Mouse.GetState();
             KeyboardState keyState = Keyboard.GetState();
             Vector2 dir = new Vector2();
-            
 
-            if(keyState.IsKeyDown(Keys.A))
+            for (int i = 0; i < enemycount; enemycount--)
+            {
+                enemy.AddEnemy(Enemy())
+            }
+
+            if (keyState.IsKeyDown(Keys.A))
             {
                 dir.X = -1;
             }

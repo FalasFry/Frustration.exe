@@ -15,7 +15,7 @@ namespace Frustration
             health -= damage;
             if (health <= 0)
             {
-                enemyScript.Destroy(index);
+                //enemyScript.Destroy();
             }
             return health;
         }
