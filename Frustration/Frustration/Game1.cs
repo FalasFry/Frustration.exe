@@ -1,6 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
 
 namespace Frustration
 {
@@ -11,13 +16,16 @@ namespace Frustration
     {
         Vector2 scale;
         float speed;
-
+        Bullet bullet;
         Texture2D player;
         Rectangle playerRec;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Vector2 playerPos;
-
+        Texture2D bulletTexture;
+        Random rnd = new Random();
+        int numBullets = 1;
+        List<Bullet> bullets;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -32,9 +40,13 @@ namespace Frustration
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here f
+            // TODO: Add your initialization logic here
 
             base.Initialize();
+            bullets = new List<Bullet>();
+
+
+            
             player = Content.Load<Texture2D>("ball");
             playerPos = new Vector2(1, 1);
             scale = new Vector2(0.33f, 0.33f);
@@ -51,6 +63,7 @@ namespace Frustration
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            bulletTexture = Content.Load<Texture2D>("bullet");
 
             // TODO: use this.Content to load your game content here
         }
@@ -76,8 +89,13 @@ namespace Frustration
                 Exit();
             }
 
-            // TODO: Add your update logic here test
-
+            for (int i = 0; i < bullets.Count; i++)
+            {
+                bullets[i].Update();
+            }
+            
+            // TODO: Add your update logic here
+            MouseState mouse = Mouse.GetState();
             KeyboardState keyState = Keyboard.GetState();
             Vector2 dir = new Vector2();
             
@@ -98,13 +116,18 @@ namespace Frustration
             {
                 dir.Y = 1;
             }
+            if (mouse.LeftButton == ButtonState.Pressed)
+            {
+                Shoot();
+                    
+            }
 
             if (dir.X > 1f || dir.Y > 1f)
             {
                 dir.Normalize();
             }
             playerRec.Location += (dir * speed).ToPoint();
-
+            Console.Write(playerPos);
             base.Update(gameTime);
         }
 
@@ -112,6 +135,11 @@ namespace Frustration
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        /// 
+        public void Shoot()
+        {
+            bullets.Add(new Bullet(10f, new Vector2(1, 0), bulletTexture, playerPos));
+        }
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.White);
@@ -121,6 +149,10 @@ namespace Frustration
             spriteBatch.Begin();
 
             spriteBatch.Draw(player, playerRec, Color.Black);
+            for (int i =0;i<bullets.Count;i++)
+            {
+                bullets[i].DrawBullet(spriteBatch);
+            }
 
             spriteBatch.End();
 

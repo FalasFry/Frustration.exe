@@ -47,6 +47,7 @@
     <Compile Include="Health.cs" />
     <Compile Include="Main_Menu.cs" />
     <Compile Include="Pause_Menu.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
