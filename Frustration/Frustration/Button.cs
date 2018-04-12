@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Frustration
 {
-    class Button : Components
+    public class Button : Components
     {
         #region Fields
 
@@ -41,7 +41,7 @@ namespace Frustration
 
 
 
-        protected Button(Texture2D Texture, SpriteFont Font)
+        public Button(Texture2D Texture, SpriteFont Font)
         {
             texture = Texture;
             font = Font;
@@ -65,10 +65,10 @@ namespace Frustration
 
             if(!string.IsNullOrEmpty(Text))
             {
-                var x = (Rect.X + (Rect.X / 2) - (font.MeasureString(Text).X / 2));
-                var y = (Rect.Y + (Rect.Y / 2) - font.MeasureString(Text).Y / 2);
+                var x = (Rect.X + (Rect.Width / 2) - (font.MeasureString(Text).X / 2));
+                var y = (Rect.Y + (Rect.Height / 2) - font.MeasureString(Text).Y / 2);
 
-                spriteBatch.DrawString(font, Text, Pos, Paint);
+                spriteBatch.DrawString(font, Text, new Vector2(x,y), Paint);
             }
 
         }

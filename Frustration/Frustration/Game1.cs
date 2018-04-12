@@ -23,6 +23,8 @@ namespace Frustration
         Rectangle floorRect;
         Random rnd = new Random();
         List<Bullet> bullets;
+        List<Components> gameComponents;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -59,6 +61,26 @@ namespace Frustration
             bulletTexture = Content.Load<Texture2D>("bullet");
 
             // TODO: use this.Content to load your game content here
+
+            // Button script.
+            Button quit = new Button(Content.Load<Texture2D>("button"), Content.Load<SpriteFont>("font"))
+            {
+                Pos = new Vector2(300, 300),
+                Text = "Quit",
+                Paint = Color.Black,
+            };
+
+            quit.Click += Quit_Click;
+
+            gameComponents = new List<Components>()
+            {
+                quit,
+            };
+        }
+
+        private void Quit_Click(object sender, EventArgs e)
+        {
+            this.Exit();
         }
 
         /// <Unload>
@@ -77,11 +99,6 @@ namespace Frustration
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            {
-                Exit();
-            }
-
             for (int i = 0; i < bullets.Count; i++)
             {
                 bullets[i].Update();
@@ -100,6 +117,12 @@ namespace Frustration
             {
                 Shoot();
 
+            }
+
+            // For Buttons.
+            foreach (var components in gameComponents)
+            {
+                components.Update(gameTime);
             }
 
             //if (dir.X > 1f || dir.Y > 1f)
@@ -137,6 +160,12 @@ namespace Frustration
             for (int i =0;i<bullets.Count;i++)
             {
                 bullets[i].DrawBullet(spriteBatch);
+            }
+
+            // For Buttons.
+            foreach (var components in gameComponents)
+            {
+                components.Draw(gameTime, spriteBatch);
             }
 
             spriteBatch.End();
