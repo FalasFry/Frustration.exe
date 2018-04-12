@@ -19,6 +19,7 @@ namespace Frustration
         Color color;
         float speed;
         float rotation;
+        int Index = 0;
         List<Enemy> enemyList;
 
         public void AddEnemy(Enemy enemy)
@@ -37,10 +38,11 @@ namespace Frustration
             rectangle = new Rectangle((enemyStartPos - offset).ToPoint(), (enemyTexture.Bounds.Size.ToVector2() * enemyScale).ToPoint());
             color = enemyColor;
             rotation = enemyRotation;
+            Index = enemyList.Count + 1;
         }
         public void Destroy (Enemy enemy)
         {
-
+            enemyList.RemoveAt(enemy.Index);
         }
         public void Update(GameTime gameTime)
         {
@@ -48,7 +50,7 @@ namespace Frustration
             float pixelsToMove = speed * deltaTime;
             for (int i = 0; i < enemyList.Count; i++)
             {
-                    
+                     
             }
         }
     }

@@ -103,7 +103,7 @@ namespace Frustration
 
             for (int i = 0; i < enemycount; enemycount--)
             {
-                enemy.AddEnemy(Enemy())
+                enemy.AddEnemy(new Enemy(bulletTexture, Vector2.Zero, speed, scale, 0, Color.White));
             }
 
             if (keyState.IsKeyDown(Keys.A))
