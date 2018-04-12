@@ -11,9 +11,10 @@ namespace Frustration
     public class Bullet
     {
         public float speed,rotation = 0;
-        public Vector2 dir,position,offset,scale = new Vector2(0.1f,0.1f);
+        public Vector2 dir,position,offset,scale = new Vector2(0.07f,0.07f);
         public Texture2D texture;
         public Rectangle rectangle;
+        Player player;
 
         
         public Bullet(float Speed,Vector2 Dir,Texture2D Texture, Vector2 startPos)
@@ -30,18 +31,12 @@ namespace Frustration
         {
             position += (dir * speed);
             rectangle.Location = (position - offset).ToPoint();
-            
+            rotation = (float)Math.Atan2(dir.X,dir.Y)*-1;
+
         }
         public void DrawBullet(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position, null, Color.White, rotation, offset, scale, SpriteEffects.None, 0);
-        }
-        public Vector2 GetDir(Vector2 to,Vector2 from)
-        {
-            Vector2 dir = to - from;
-            dir.Normalize();
-            
-            return dir;
         }
     }
 }
