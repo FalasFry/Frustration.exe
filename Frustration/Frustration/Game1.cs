@@ -14,17 +14,14 @@ namespace Frustration
     /// </summary>
     public class Game1 : Game
     {
-        Vector2 scale;
-        float speed;
         Bullet bullet;
-        Texture2D player;
-        Rectangle playerRec;
+        Player player;
+        Texture2D playerTexture;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Vector2 playerPos;
-        Texture2D bulletTexture;
+        Texture2D bulletTexture,floorTexture;
+        Rectangle floorRect;
         Random rnd = new Random();
-        int numBullets = 1;
         List<Bullet> bullets;
         public Game1()
         {
@@ -45,13 +42,9 @@ namespace Frustration
             base.Initialize();
             bullets = new List<Bullet>();
 
-
             
-            player = Content.Load<Texture2D>("ball");
-            playerPos = new Vector2(1, 1);
-            scale = new Vector2(0.33f, 0.33f);
-            playerRec = new Rectangle(playerPos.ToPoint(),((player.Bounds.Size).ToVector2() * scale).ToPoint());
-            speed = 5;
+            playerTexture = Content.Load<Texture2D>("ball");
+            player = new Player(playerTexture);
             IsMouseVisible = true;
         }
 
@@ -92,42 +85,28 @@ namespace Frustration
             for (int i = 0; i < bullets.Count; i++)
             {
                 bullets[i].Update();
+                if (bullets[i].rectangle.Intersects(player.rectangle))
+                {
+                    player.position = new Vector2(10000, 10000);
+                }
             }
-            
-            // TODO: Add your update logic here
-            MouseState mouse = Mouse.GetState();
-            KeyboardState keyState = Keyboard.GetState();
-            Vector2 dir = new Vector2();
-            
 
-            if(keyState.IsKeyDown(Keys.A))
-            {
-                dir.X = -1;
-            }
-            else if (keyState.IsKeyDown(Keys.D))
-            {
-                dir.X = 1;
-            }
-            else if (keyState.IsKeyDown(Keys.W))
-            {
-                dir.Y = -1;
-            }
-            else if (keyState.IsKeyDown(Keys.S))
-            {
-                dir.Y = 1;
-            }
+            player.Update();
+            //// TODO: Add your update logic here
+            MouseState mouse = Mouse.GetState();
+            //KeyboardState keyState = Keyboard.GetState();
+            //Vector2 dir = new Vector2();
             if (mouse.LeftButton == ButtonState.Pressed)
             {
                 Shoot();
-                    
+
             }
 
-            if (dir.X > 1f || dir.Y > 1f)
-            {
-                dir.Normalize();
-            }
-            playerRec.Location += (dir * speed).ToPoint();
-            Console.Write(playerPos);
+            //if (dir.X > 1f || dir.Y > 1f)
+            //{
+            //    dir.Normalize();
+            //}
+            //playerRec.Location += (dir * speed).ToPoint();
             base.Update(gameTime);
         }
 
@@ -138,7 +117,13 @@ namespace Frustration
         /// 
         public void Shoot()
         {
-            bullets.Add(new Bullet(10f, new Vector2(1, 0), bulletTexture, playerPos));
+            MouseState mouse = Mouse.GetState();
+            if (player.ammo > 0)
+            {
+                bullets.Add(new Bullet(10f, GetDir(mouse.Position.ToVector2(), player.position), bulletTexture, player.position));
+                player.ammo--;
+            }
+            
         }
         protected override void Draw(GameTime gameTime)
         {
@@ -148,7 +133,7 @@ namespace Frustration
 
             spriteBatch.Begin();
 
-            spriteBatch.Draw(player, playerRec, Color.Black);
+            player.Draw(spriteBatch);
             for (int i =0;i<bullets.Count;i++)
             {
                 bullets[i].DrawBullet(spriteBatch);
@@ -157,6 +142,13 @@ namespace Frustration
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+        public Vector2 GetDir(Vector2 to, Vector2 from)
+        {
+            Vector2 dir = to - from;
+            dir.Normalize();
+
+            return dir;
         }
     }
 }
