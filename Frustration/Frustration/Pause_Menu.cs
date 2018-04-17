@@ -13,6 +13,7 @@ namespace Frustration
     {
         KeyboardState unPause = Keyboard.GetState();
         bool paused;
+        List<Components> components;
 
         public Pause_Menu(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content) : base(Game, graphicsDevice, content)
         {
@@ -25,7 +26,25 @@ namespace Frustration
             };
             resumeButton.Click += ResumeButton_Click;
 
+            Button menuButton = new Button(buttonText, buttonFont)
+            {
 
+            };
+            menuButton.Click += MenuButton_Click;
+
+            components = new List<Components>()
+            {
+                resumeButton,
+                menuButton,
+            };
+        }
+
+        private void MenuButton_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                game.PopStack();
+            }
         }
 
         private void ResumeButton_Click(object sender, EventArgs e)
@@ -35,7 +54,12 @@ namespace Frustration
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            throw new NotImplementedException();
+            spriteBatch.Begin();
+            foreach(var component in components)
+            {
+                component.Draw(gameTime, spriteBatch);
+            }
+            spriteBatch.End();
         }
 
         public override void PostUpdate(GameTime gameTime)
@@ -45,6 +69,11 @@ namespace Frustration
 
         public override bool Update(GameTime gameTime)
         {
+            foreach(var component in components)
+            {
+                component.Update(gameTime);
+            }
+
             if(unPause.IsKeyDown(Keys.Escape))
             {
                 return false;

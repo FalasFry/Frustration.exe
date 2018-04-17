@@ -208,5 +208,10 @@ namespace Frustration
 
             return dir;
         }
+
+        public void PopStack()
+        {
+            stateStack.Pop();
+        }
     }
 }
