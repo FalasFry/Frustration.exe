@@ -44,7 +44,7 @@ namespace Frustration
             {
                 startEzButton,
                 quitButton,
-
+                startHardButton,
             };
         }
 
@@ -85,7 +85,6 @@ namespace Frustration
             foreach(var component in components)
             {
                 component.Update(gameTime);
-            }
-        }
+            }        }
     }
 }
