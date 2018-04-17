@@ -14,6 +14,7 @@ namespace Frustration
     /// </summary>
     public class Game1 : Game
     {
+        int timeScale = 1;
         Bullet bullet;
         Player player; 
         Texture2D playerTexture;
@@ -161,7 +162,7 @@ namespace Frustration
             {
                 bullets[i].DrawBullet(spriteBatch);
             }
-
+            
 
             spriteBatch.End();
 
