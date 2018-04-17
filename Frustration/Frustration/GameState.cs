@@ -12,6 +12,9 @@ namespace Frustration
 {
     public class GameState : States
     {
+        KeyboardState pause = Keyboard.GetState();
+        float pressTimer = 0f;
+
         public GameState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content) : base(Game, graphicsDevice, content)
         {
         }
@@ -25,14 +28,17 @@ namespace Frustration
         {
         }
 
-        public override void Update(GameTime gameTime)
+        public override bool Update(GameTime gameTime)
         {
-            KeyboardState pause = Keyboard.GetState();
-            
-            if(pause.IsKeyDown(Keys.Escape))
+            pressTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if(pause.IsKeyDown(Keys.Escape) && pressTimer >= 1f)
             {
-                game.ChangeState(new MenuState(game, graphDevice, contentManager));
+                game.ChangeState(new Pause_Menu(game, graphDevice, contentManager));
+                pressTimer = 0f;
             }
+
+            return true;
         }
 
     }

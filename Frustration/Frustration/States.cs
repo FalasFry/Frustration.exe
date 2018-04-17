@@ -20,6 +20,7 @@ namespace Frustration
 
         protected Game1 game;
 
+
         #endregion
 
         #region Methods
@@ -28,7 +29,7 @@ namespace Frustration
 
         public abstract void PostUpdate(GameTime gameTime);
 
-        public abstract void Update(GameTime gameTime);
+        public abstract bool Update(GameTime gameTime);
 
         public States(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content)
         {

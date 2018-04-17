@@ -80,11 +80,13 @@ namespace Frustration
             // Remove unused sprites.
         }
 
-        public override void Update(GameTime gameTime)
+        public override bool Update(GameTime gameTime)
         {
             foreach(var component in components)
             {
                 component.Update(gameTime);
-            }        }
+            }
+            return true;
+        }
     }
 }

@@ -25,18 +25,26 @@ namespace Frustration
         Random rnd = new Random();
         List<Bullet> bullets;
 
+        MenuState menu;
+        GameState gameState;
+        Pause_Menu pauseState;
+
         private States curState;
         private States nextState;
+
+        Stack<States> stateStack;
 
         public void ChangeState(States state)
         {
             nextState = state;
+            stateStack.Push(state);
         }
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            stateStack = new Stack<States>();
         }
 
         /// <Initialize>
@@ -56,6 +64,11 @@ namespace Frustration
             playerTexture = Content.Load<Texture2D>("ball");
             player = new Player(playerTexture);
             IsMouseVisible = true;
+            menu = new MenuState(this, GraphicsDevice, Content);
+            curState = menu;
+
+
+            stateStack.Push(menu);
         }
 
         /// <LoadContent>
@@ -69,7 +82,6 @@ namespace Frustration
             bulletTexture = Content.Load<Texture2D>("bullet");
 
             // TODO: use this.Content to load your game content here
-            curState = new MenuState(this, GraphicsDevice, Content);
         }
 
 
@@ -89,43 +101,52 @@ namespace Frustration
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            for (int i = 0; i < bullets.Count; i++)
-            {
-                bullets[i].Update();
-                //if (bullets[i].rectangle.Intersects(player.rectangle))
-                //{
-                //    player.position = new Vector2(10000, 10000);
-                //    bullets[i].color = Color.Black;
-                //}
-            }
             
-            if(nextState != null)
+
+           
+
+            if (timeScale == 1)
             {
-                curState = nextState;
-                nextState = null;
+                for (int i = 0; i < bullets.Count; i++)
+                {
+                    bullets[i].Update();
+                    //if (bullets[i].rectangle.Intersects(player.rectangle))
+                    //{
+                    //    player.position = new Vector2(10000, 10000);
+                    //    bullets[i].color = Color.Black;
+                    //}
+                }
+
+
+                player.Update();
+                //// TODO: Add your update logic here
+                MouseState mouse = Mouse.GetState();
+                //KeyboardState keyState = Keyboard.GetState();
+                //Vector2 dir = new Vector2();
+                if (mouse.LeftButton == ButtonState.Pressed)
+                {
+                    Shoot();
+
+                }
+
+                //stateStack.Peek().PostUpdate(gameTime);
+
+                if(stateStack.Peek().Update(gameTime) == false)
+                {
+                    stateStack.Pop();
+                }
+
+                //curState.PostUpdate(gameTime);
+                //curState.Update(gameTime);
+
+
+                //if (dir.X > 1f || dir.Y > 1f)
+                //{
+                //    dir.Normalize();
+                //}
+                //playerRec.Location += (dir * speed).ToPoint();
+                base.Update(gameTime);
             }
-
-            player.Update();
-            //// TODO: Add your update logic here
-            MouseState mouse = Mouse.GetState();
-            //KeyboardState keyState = Keyboard.GetState();
-            //Vector2 dir = new Vector2();
-            if (mouse.LeftButton == ButtonState.Pressed)
-            {
-                Shoot();
-
-            }
-
-            curState.PostUpdate(gameTime);
-            curState.Update(gameTime);
-
-
-            //if (dir.X > 1f || dir.Y > 1f)
-            //{
-            //    dir.Normalize();
-            //}
-            //playerRec.Location += (dir * speed).ToPoint();
-            base.Update(gameTime);
         }
 
         /// <Draw>
