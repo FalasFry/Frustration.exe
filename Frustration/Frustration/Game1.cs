@@ -64,7 +64,7 @@ namespace Frustration
             playerTexture = Content.Load<Texture2D>("ball");
             player = new Player(playerTexture);
             IsMouseVisible = true;
-            menu = new MenuState(this, GraphicsDevice, Content);
+            menu = new MenuState(this, GraphicsDevice, Content,player);
             curState = menu;
 
 
@@ -101,9 +101,10 @@ namespace Frustration
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            
 
-           
+
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
 
             if (timeScale == 1)
             {
