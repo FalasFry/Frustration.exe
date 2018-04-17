@@ -15,6 +15,8 @@ namespace Frustration
         public Vector2 dir, position, offset, scale = new Vector2(0.07f, 0.07f);
         public Texture2D texture;
         public Rectangle rectangle;
+        public bool difficulty = false;
+
         public Player(Texture2D Texture)
         {
             texture = Texture;
@@ -26,11 +28,30 @@ namespace Frustration
         public void Update()
         {
             KeyboardState keyState = Keyboard.GetState();
-            Vector2 dir = new Vector2();
 
             rectangle.Location = (position).ToPoint();
             //rectangle.Offset(-offset);
-            #region MovementNormal
+            #region Controls
+           
+            if (keyState.IsKeyDown(Keys.R))
+            {
+                ammo = 20;
+            }
+            if (difficulty)
+            {
+                MovementNormal();
+            }
+            else
+            {
+                MovementHard();
+            }
+            #endregion
+        }
+        public void MovementNormal()
+        {
+            KeyboardState keyState = Keyboard.GetState();
+            Vector2 dir = new Vector2();
+
             if (keyState.IsKeyDown(Keys.A))
             {
                 dir.X = -1;
@@ -52,14 +73,15 @@ namespace Frustration
                 dir.Normalize();
             }
             position += (dir * speed);
-            if (keyState.IsKeyDown(Keys.R))
-            {
-                ammo = 20;
-            }
-            #endregion
-            #region MovementHardcore
 
-            #endregion
+        }
+        public void MovementHard()
+        {
+            Vector2 moveDir = new Vector2();
+            MouseState mouse = Mouse.GetState();
+            moveDir = mouse.Position.ToVector2() - (position+offset);
+            moveDir.Normalize();
+            position += (moveDir * speed);
 
         }
         public void Draw(SpriteBatch spriteBatch)
