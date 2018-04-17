@@ -24,7 +24,14 @@ namespace Frustration
         Rectangle floorRect;
         Random rnd = new Random();
         List<Bullet> bullets;
-        List<Components> gameComponents;
+
+        private States curState;
+        private States nextState;
+
+        public void ChangeState(States state)
+        {
+            nextState = state;
+        }
 
         public Game1()
         {
@@ -62,27 +69,9 @@ namespace Frustration
             bulletTexture = Content.Load<Texture2D>("bullet");
 
             // TODO: use this.Content to load your game content here
-
-            // Button script.
-            Button quit = new Button(Content.Load<Texture2D>("button"), Content.Load<SpriteFont>("font"))
-            {
-                Pos = new Vector2(300, 300),
-                Text = "Quit",
-                Paint = Color.Black,
-            };
-
-            quit.Click += Quit_Click;
-
-            gameComponents = new List<Components>()
-            {
-                quit,
-            };
+            curState = new MenuState(this, GraphicsDevice, Content);
         }
 
-        private void Quit_Click(object sender, EventArgs e)
-        {
-            this.Exit();
-        }
 
         /// <Unload>
         /// UnloadContent will be called once per game and is the place to unload
@@ -121,11 +110,9 @@ namespace Frustration
 
             }
 
-            // For Buttons.
-            foreach (var components in gameComponents)
-            {
-                components.Update(gameTime);
-            }
+            curState.PostUpdate(gameTime);
+            curState.Update(gameTime);
+
 
             //if (dir.X > 1f || dir.Y > 1f)
             //{
@@ -159,19 +146,17 @@ namespace Frustration
 
             // TODO: Add your drawing code here
 
+            curState.Draw(gameTime, spriteBatch);
+
             spriteBatch.Begin();
 
+            
             player.Draw(spriteBatch);
             for (int i =0;i<bullets.Count;i++)
             {
                 bullets[i].DrawBullet(spriteBatch);
             }
 
-            // For Buttons.
-            foreach (var components in gameComponents)
-            {
-                components.Draw(gameTime, spriteBatch);
-            }
 
             spriteBatch.End();
 
