@@ -48,7 +48,7 @@ namespace Frustration
 
         private void StartButton_Click(object sender, EventArgs e)
         {
-            
+            game.ChangeState(new GameState(game, graphDevice, contentManager));
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

@@ -97,6 +97,12 @@ namespace Frustration
                 //    bullets[i].color = Color.Black;
                 //}
             }
+            
+            if(nextState != null)
+            {
+                curState = nextState;
+                nextState = null;
+            }
 
             player.Update();
             //// TODO: Add your update logic here
