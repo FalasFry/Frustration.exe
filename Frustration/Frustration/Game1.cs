@@ -15,7 +15,7 @@ namespace Frustration
     public class Game1 : Game
     {
         Bullet bullet;
-        Player player;
+        Player player; 
         Texture2D playerTexture;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -85,10 +85,11 @@ namespace Frustration
             for (int i = 0; i < bullets.Count; i++)
             {
                 bullets[i].Update();
-                if (bullets[i].rectangle.Intersects(player.rectangle))
-                {
-                    player.position = new Vector2(10000, 10000);
-                }
+                //if (bullets[i].rectangle.Intersects(player.rectangle))
+                //{
+                //    player.position = new Vector2(10000, 10000);
+                //    bullets[i].color = Color.Black;
+                //}
             }
 
             player.Update();
@@ -120,7 +121,10 @@ namespace Frustration
             MouseState mouse = Mouse.GetState();
             if (player.ammo > 0)
             {
-                bullets.Add(new Bullet(10f, GetDir(mouse.Position.ToVector2(), player.position), bulletTexture, player.position));
+                bullets.Add(new Bullet(10f, GetDir(mouse.Position.ToVector2(), (player.position)), bulletTexture, (player.position+player.offset)));
+                //bullets.Add(new Bullet(10f, GetDir(mouse.Position.ToVector2(), (player.position))*1.5f, bulletTexture, (player.position + player.offset)));
+                //bullets.Add(new Bullet(10f, GetDir(mouse.Position.ToVector2(), (player.position))*0.5f, bulletTexture, (player.position + player.offset)));
+
                 player.ammo--;
             }
             
