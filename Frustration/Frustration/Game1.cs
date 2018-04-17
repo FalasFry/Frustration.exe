@@ -14,6 +14,8 @@ namespace Frustration
     /// </summary>
     public class Game1 : Game
     {
+        const float delay = 1; // seconds
+        float remainingDelay = delay;
         Vector2 scale;
         float speed;
         Bullet bullet;
@@ -27,7 +29,8 @@ namespace Frustration
         int numBullets = 1;
         List<Bullet> bullets;
         Enemy enemy;
-        int enemycount;
+        List<Enemy> enemies;
+        int enemycount = 20;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -46,14 +49,14 @@ namespace Frustration
 
             base.Initialize();
             bullets = new List<Bullet>();
-            
+            enemies = new List<Enemy>();
 
             
             player = Content.Load<Texture2D>("ball");
             playerPos = new Vector2(1, 1);
             scale = new Vector2(0.33f, 0.33f);
             playerRec = new Rectangle(playerPos.ToPoint(),((player.Bounds.Size).ToVector2() * scale).ToPoint());
-            speed = 5;
+            speed = 2;
             IsMouseVisible = true;
         }
 
@@ -86,11 +89,27 @@ namespace Frustration
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            remainingDelay -= timer;
+
+            if (remainingDelay <= 0)
+            {
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    enemies[i].Update1Sec();
+                }
+                remainingDelay = delay;
+            }
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
-                Exit();
+                //Exit();
+                
             }
-
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                enemies[i].Update();
+            }
             for (int i = 0; i < bullets.Count; i++)
             {
                 bullets[i].Update();
@@ -101,9 +120,9 @@ namespace Frustration
             KeyboardState keyState = Keyboard.GetState();
             Vector2 dir = new Vector2();
 
-            for (int i = 0; i < enemycount; enemycount--)
+            for (int i = 0; i < enemycount; i++)
             {
-                enemy.AddEnemy(new Enemy(bulletTexture, Vector2.Zero, speed, scale, 0, Color.White));
+                enemies.Add(new Enemy(bulletTexture, new Vector2(1000, rnd.Next(-200, 500)), speed, scale, 0, Color.White));
             }
 
             if (keyState.IsKeyDown(Keys.A))
@@ -158,6 +177,10 @@ namespace Frustration
             for (int i =0;i<bullets.Count;i++)
             {
                 bullets[i].DrawBullet(spriteBatch);
+            }
+            for (int i = 0; i < enemycount; i++)
+            {
+                enemies[i].DrawEnemy(spriteBatch);
             }
 
             spriteBatch.End();

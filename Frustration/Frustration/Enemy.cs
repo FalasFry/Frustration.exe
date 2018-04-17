@@ -20,7 +20,7 @@ namespace Frustration
         float speed;
         float rotation;
         int Index = 0;
-        List<Enemy> enemyList;
+        List<Enemy> enemyList = new List<Enemy>();
 
         public void AddEnemy(Enemy enemy)
         {
@@ -32,7 +32,7 @@ namespace Frustration
             texture = enemyTexture;
             position = enemyStartPos;
             speed = enemySpeed;
-            moveDir = Vector2.Zero;
+            moveDir = new Vector2(-1,0);
             scale = enemyScale;
             offset = (enemyTexture.Bounds.Size.ToVector2() / 2) * scale;
             rectangle = new Rectangle((enemyStartPos - offset).ToPoint(), (enemyTexture.Bounds.Size.ToVector2() * enemyScale).ToPoint());
@@ -44,14 +44,20 @@ namespace Frustration
         {
             enemyList.RemoveAt(enemy.Index);
         }
-        public void Update(GameTime gameTime)
+        public void Update()
+        { 
+            position += (moveDir * speed);
+            rectangle.Location = (position - offset).ToPoint();
+            rotation = (float)Math.Atan2(moveDir.X, moveDir.Y) * -1;
+            
+        }
+        public void Update1Sec()
         {
-            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            float pixelsToMove = speed * deltaTime;
-            for (int i = 0; i < enemyList.Count; i++)
-            {
-                     
-            }
+
+        }
+        public void DrawEnemy(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(texture, position, null, Color.White, rotation, offset, scale, SpriteEffects.None, 0);
         }
     }
 }
