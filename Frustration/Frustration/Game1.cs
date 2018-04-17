@@ -156,7 +156,7 @@ namespace Frustration
             {
                 bullets[i].DrawBullet(spriteBatch);
             }
-
+            
 
             spriteBatch.End();
 

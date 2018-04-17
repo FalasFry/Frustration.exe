@@ -30,7 +30,7 @@ namespace Frustration
 
             rectangle.Location = (position).ToPoint();
             //rectangle.Offset(-offset);
-
+            #region MovementNormal
             if (keyState.IsKeyDown(Keys.A))
             {
                 dir.X = -1;
@@ -56,6 +56,11 @@ namespace Frustration
             {
                 ammo = 20;
             }
+            #endregion
+            #region MovementHardcore
+
+            #endregion
+
         }
         public void Draw(SpriteBatch spriteBatch)
         {
