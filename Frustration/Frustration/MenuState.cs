@@ -18,12 +18,19 @@ namespace Frustration
             Texture2D buttonTexture = content.Load<Texture2D>("button");
             SpriteFont buttonFont = content.Load<SpriteFont>("font");
 
-            Button startButton = new Button(buttonTexture, buttonFont)
+            Button startEzButton = new Button(buttonTexture, buttonFont)
             {
                 Pos = new Vector2(300, 250),
+                Text = "Baby Mode",
+            };
+            startEzButton.Click += StartButton_Click;
+
+            Button startHardButton = new Button(buttonTexture, buttonFont)
+            {
+                Pos = new Vector2(300, 200),
                 Text = "Start Game",
             };
-            startButton.Click += StartButton_Click;
+            startHardButton.Click += StartHardButton_Click;
 
             Button quitButton = new Button(buttonTexture, buttonFont)
             {
@@ -35,10 +42,15 @@ namespace Frustration
 
             components = new List<Components>()
             {
-                startButton,
+                startEzButton,
                 quitButton,
 
             };
+        }
+
+        private void StartHardButton_Click(object sender, EventArgs e)
+        {
+            game.ChangeState(new GameState(game, graphDevice, contentManager));
         }
 
         private void QuitButton_Click(object sender, EventArgs e)
