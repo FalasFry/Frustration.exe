@@ -22,8 +22,10 @@ namespace Frustration
         SpriteBatch spriteBatch;
         Texture2D bulletTexture,floorTexture;
         Rectangle floorRect;
+        public float attackSpeed = 0.5f,attackTimer;
         Random rnd = new Random();
         List<Bullet> bullets;
+        List<PowerUp> powerUps;
 
         MenuState menu;
         GameState gameState;
@@ -59,8 +61,6 @@ namespace Frustration
 
             base.Initialize();
             bullets = new List<Bullet>();
-
-            
             playerTexture = Content.Load<Texture2D>("ball");
             player = new Player(playerTexture);
             IsMouseVisible = true;
@@ -118,14 +118,18 @@ namespace Frustration
                 }
 
 
-                player.Update();
-                //// TODO: Add your update logic here
-                MouseState mouse = Mouse.GetState();
-                //KeyboardState keyState = Keyboard.GetState();
-                //Vector2 dir = new Vector2();
-                if (mouse.LeftButton == ButtonState.Pressed)
+            player.Update();
+            //// TODO: Add your update logic here
+            MouseState mouse = Mouse.GetState();
+            //KeyboardState keyState = Keyboard.GetState();
+            //Vector2 dir = new Vector2();
+            if (mouse.LeftButton == ButtonState.Pressed)
+            {
+                if (attackTimer <=0)
                 {
+
                     Shoot();
+                    attackTimer = attackSpeed;
 
                 }
 
@@ -136,8 +140,10 @@ namespace Frustration
                     stateStack.Pop();
                 }
 
-                //curState.PostUpdate(gameTime);
-                //curState.Update(gameTime);
+            }
+            attackTimer -= deltaTime;
+            curState.PostUpdate(gameTime);
+            curState.Update(gameTime);
 
 
                 //if (dir.X > 1f || dir.Y > 1f)
@@ -183,7 +189,12 @@ namespace Frustration
             {
                 bullets[i].DrawBullet(spriteBatch);
             }
-            
+            foreach (PowerUp powerUp in powerUps)
+            {
+                powerUp.Draw(spriteBatch);
+            }
+
+
 
             spriteBatch.End();
 
