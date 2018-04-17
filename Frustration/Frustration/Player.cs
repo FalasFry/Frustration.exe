@@ -18,9 +18,9 @@ namespace Frustration
         public Player(Texture2D Texture)
         {
             texture = Texture;
-            offset = (texture.Bounds.Size.ToVector2() * 0.5f);
+            offset = ((texture.Bounds.Size.ToVector2() * scale) / 2);
             position = new Vector2(50,50);
-            rectangle = new Rectangle((offset - position).ToPoint(), (texture.Bounds.Size.ToVector2() * scale).ToPoint());
+            rectangle = new Rectangle((position-offset).ToPoint(), (texture.Bounds.Size.ToVector2()*scale).ToPoint());
         }
 
         public void Update()
@@ -28,7 +28,8 @@ namespace Frustration
             KeyboardState keyState = Keyboard.GetState();
             Vector2 dir = new Vector2();
 
-            rectangle.Location = (position - offset).ToPoint();
+            rectangle.Location = (position).ToPoint();
+            //rectangle.Offset(-offset);
 
             if (keyState.IsKeyDown(Keys.A))
             {
@@ -58,7 +59,9 @@ namespace Frustration
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, null, Color.White, rotation, offset, scale, SpriteEffects.None, 0);
+            spriteBatch.Draw(texture, position, null, Color.White, rotation, offset, scale, SpriteEffects.None, 54);
+            spriteBatch.Draw(texture, rectangle, Color.Black);
+
         }
     }
 }
