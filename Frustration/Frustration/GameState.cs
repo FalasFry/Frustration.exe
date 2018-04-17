@@ -31,7 +31,7 @@ namespace Frustration
             
             if(pause.IsKeyDown(Keys.Escape))
             {
-                game.ChangeState(new MenuState(game, graphDevice, contentManager));
+            //    game.ChangeState(new MenuState(game, graphDevice, contentManager));
             }
         }
 

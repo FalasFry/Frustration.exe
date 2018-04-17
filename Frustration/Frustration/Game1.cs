@@ -22,8 +22,10 @@ namespace Frustration
         SpriteBatch spriteBatch;
         Texture2D bulletTexture,floorTexture;
         Rectangle floorRect;
+        public float attackSpeed = 0.5f,attackTimer;
         Random rnd = new Random();
         List<Bullet> bullets;
+        List<PowerUp> powerUps;
 
         private States curState;
         private States nextState;
@@ -51,11 +53,11 @@ namespace Frustration
 
             base.Initialize();
             bullets = new List<Bullet>();
-
-            
             playerTexture = Content.Load<Texture2D>("ball");
             player = new Player(playerTexture);
             IsMouseVisible = true;
+            curState = new MenuState(this, GraphicsDevice, Content, player);
+
         }
 
         /// <LoadContent>
@@ -69,7 +71,6 @@ namespace Frustration
             bulletTexture = Content.Load<Texture2D>("bullet");
 
             // TODO: use this.Content to load your game content here
-            curState = new MenuState(this, GraphicsDevice, Content);
         }
 
 
@@ -89,6 +90,8 @@ namespace Frustration
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             for (int i = 0; i < bullets.Count; i++)
             {
                 bullets[i].Update();
@@ -104,6 +107,7 @@ namespace Frustration
                 curState = nextState;
                 nextState = null;
             }
+            powerUps.Add(new PowerUp(10, playerTexture, new Vector2(GraphicsDevice.Viewport.Width, rnd.Next(0, GraphicsDevice.Viewport.Height)), rnd.Next(0, 3), player, this));
 
             player.Update();
             //// TODO: Add your update logic here
@@ -112,10 +116,16 @@ namespace Frustration
             //Vector2 dir = new Vector2();
             if (mouse.LeftButton == ButtonState.Pressed)
             {
-                Shoot();
+                if (attackTimer <=0)
+                {
+
+                    Shoot();
+                    attackTimer = attackSpeed;
+
+                }
 
             }
-
+            attackTimer -= deltaTime;
             curState.PostUpdate(gameTime);
             curState.Update(gameTime);
 
@@ -162,7 +172,12 @@ namespace Frustration
             {
                 bullets[i].DrawBullet(spriteBatch);
             }
-            
+            foreach (PowerUp powerUp in powerUps)
+            {
+                powerUp.Draw(spriteBatch);
+            }
+
+
 
             spriteBatch.End();
 
