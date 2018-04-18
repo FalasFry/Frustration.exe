@@ -12,7 +12,7 @@ namespace Frustration
     public class Player
     {
         public float speed = 5, rotation = 0,ammo = 20;
-        public Vector2 dir, position, offset, scale = new Vector2(0.07f, 0.07f);
+        public Vector2 dir, position, offset, scale = new Vector2(0.3f, 0.3f);
         public Texture2D texture;
         public Rectangle rectangle;
         public bool difficulty = false;

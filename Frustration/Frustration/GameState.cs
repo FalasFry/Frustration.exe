@@ -16,16 +16,19 @@ namespace Frustration
         float pressTimer = 0f;
         Player player;
         Texture2D bullet;
-
+        Texture2D backSpace;
         List<Bullet> bullets;
 
-        public GameState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content, bool ez) : base(Game, graphicsDevice, content)
+
+        // Contructor that makes a gamestate work with all variables and working funktions.
+        public GameState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content, bool easyMode) : base(Game, graphicsDevice, content)
         {
-            player = new Player(game.Content.Load<Texture2D>("ball"))
+            player = new Player(game.Content.Load<Texture2D>("spaceship"))
             {
-                difficulty = ez
+                difficulty = easyMode
             };
 
+            backSpace = content.Load<Texture2D>("stars");
             bullet = game.bulletTexture;
 
             bullets = new List<Bullet>();
@@ -33,11 +36,10 @@ namespace Frustration
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            
 
             spriteBatch.Begin();
 
-            spriteBatch.Draw(game.backGround, new Rectangle(0, 0, 800, 480), Color.White);
+            spriteBatch.Draw(backSpace, new Rectangle(0, 0, 800, 480), Color.White);
 
             player.Draw(spriteBatch);
 
@@ -48,8 +50,6 @@ namespace Frustration
 
             spriteBatch.End();
         }
-
-        public override void PostUpdate(GameTime gameTime) { }
         
 
         public override bool Update(GameTime gameTime)
@@ -58,13 +58,14 @@ namespace Frustration
             
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+            #region For Shooting Bullets
+
             for (int i = 0; i < bullets.Count; i++)
             {
                 bullets[i].Update();
             }
 
             MouseState mouse = Mouse.GetState();
-
             if (mouse.LeftButton == ButtonState.Pressed)
             {
                 if (game.attackTimer <= 0)
@@ -75,18 +76,24 @@ namespace Frustration
             }
             game.attackTimer -= deltaTime;
 
+            #endregion
+
+            #region Swap To Pause Menu
 
             pressTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            if(pause.IsKeyDown(Keys.Escape) && pressTimer > 1f)
+            if (pause.IsKeyDown(Keys.Escape) && pressTimer > 1f)
             {
-                game.ChangeState(new Pause_Menu(game, graphDevice, contentManager));
+                game.ChangeState(new PauseState(game, graphDevice, contentManager));
                 pressTimer = 0f;
             }
 
             return true;
+
+            #endregion
         }
 
+
+        // Shoots when you have ammo and press left mouse.
         public void Shoot()
         {
             MouseState mouse = Mouse.GetState();
@@ -97,6 +104,8 @@ namespace Frustration
             }
 
         }
+
+        // Gets the direction of the bullets.
         public Vector2 GetDir(Vector2 to, Vector2 from)
         {
             Vector2 dir = to - from;

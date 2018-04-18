@@ -11,10 +11,9 @@ namespace Frustration
 {
     public class MenuState : States
     {
-        private List<Components> components;
+        private List<Components> buttons;
 
-        Player player;
-
+        // Creates a menustate that have the buttons ready for you.
         public MenuState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content) : base(Game, graphicsDevice, content)
         {
             Texture2D buttonTexture = content.Load<Texture2D>("button");
@@ -41,7 +40,7 @@ namespace Frustration
             };
             quitButton.Click += QuitButton_Click;
 
-            components = new List<Components>()
+            buttons = new List<Components>()
             {
                 startEzButton,
                 quitButton,
@@ -49,10 +48,11 @@ namespace Frustration
             };
         }
 
+        #region Button clicking
+
         private void StartHardButton_Click(object sender, EventArgs e)
         {
             game.ChangeState(new GameState(game, graphDevice, contentManager, false));
-            //player.difficulty = false;
         }
 
         private void QuitButton_Click(object sender, EventArgs e)
@@ -63,14 +63,15 @@ namespace Frustration
         private void StartButton_Click(object sender, EventArgs e)
         {
             game.ChangeState(new GameState(game, graphDevice, contentManager, true));
-            //player.difficulty = true;
         }
+
+        #endregion
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
 
-            foreach (var component in components)
+            foreach (var component in buttons)
             {
                 component.Draw(gameTime, spriteBatch);
             }
@@ -78,14 +79,9 @@ namespace Frustration
             spriteBatch.End();
         }
 
-        public override void PostUpdate(GameTime gameTime)
-        {
-            // Remove unused sprites.
-        }
-
         public override bool Update(GameTime gameTime)
         {
-            foreach(var component in components)
+            foreach(var component in buttons)
             {
                 component.Update(gameTime);
             }
