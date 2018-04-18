@@ -17,19 +17,12 @@
   <Class Name="Frustration.Pause_Menu">
     <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAgAAAABAAAAAIAAAAAAAAAQAAAAAIAA=</HashCode>
+      <HashCode>AAQAAAAAAAAAAgAAAADAAAAAIAAAAAAAAAQAAAEAIAA=</HashCode>
       <FileName>Pause_Menu.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Frustration.Main_Menu">
-    <Position X="7.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Main_Menu.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Frustration.Player">
-    <Position X="9.25" Y="0.5" Width="1.5" />
+    <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AASAAABBACAAAgAAAACAIiACAAAAAwAAAAAAAAAgAAA=</HashCode>
       <FileName>Player.cs</FileName>
@@ -38,7 +31,7 @@
   <Class Name="Frustration.Game1">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIQGEEAAgIACDwCEAAAAAAgQAABAAIgBABAgAgAgAAQ=</HashCode>
+      <HashCode>AIQGEEAAgIACDwCEAAAAAAgQBABAAIgBABAgAgAgAAQ=</HashCode>
       <FileName>Game1.cs</FileName>
     </TypeIdentifier>
   </Class>

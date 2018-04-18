@@ -22,13 +22,15 @@ namespace Frustration
 
             Button resumeButton = new Button(buttonText, buttonFont)
             {
-
+                Pos = new Vector2(300, 250),
+                Text = "Resume",
             };
             resumeButton.Click += ResumeButton_Click;
 
             Button menuButton = new Button(buttonText, buttonFont)
             {
-
+                Pos = new Vector2(300, 300),
+                Text = "Main Menu",
             };
             menuButton.Click += MenuButton_Click;
 
@@ -41,10 +43,8 @@ namespace Frustration
 
         private void MenuButton_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 2; i++)
-            {
-                game.PopStack();
-            }
+            game.PopStack();
+            game.PopStack();
         }
 
         private void ResumeButton_Click(object sender, EventArgs e)
@@ -64,7 +64,6 @@ namespace Frustration
 
         public override void PostUpdate(GameTime gameTime)
         {
-            throw new NotImplementedException();
         }
 
         public override bool Update(GameTime gameTime)

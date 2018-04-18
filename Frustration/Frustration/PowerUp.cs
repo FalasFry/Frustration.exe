@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Frustration
 {
-    class PowerUp
+    public class PowerUp
     {
         public float speed, rotation = 0;
         public Vector2 dir = new Vector2(-1,0), position, offset, scale = new Vector2(0.07f, 0.07f);
