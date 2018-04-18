@@ -76,7 +76,7 @@ namespace Frustration
             game.attackTimer -= deltaTime;
 
 
-            pressTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            pressTimer += deltaTime;
 
             if(pause.IsKeyDown(Keys.Escape) && pressTimer > 1f)
             {
