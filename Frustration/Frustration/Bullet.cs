@@ -16,11 +16,12 @@ namespace Frustration
         public Rectangle rectangle;
         public float damage = 2;
         public Color color = Color.White;
-        
+        public float owner;
 
         
-        public Bullet(float Speed,Vector2 Dir,Texture2D Texture, Vector2 startPos)
+        public Bullet(float Speed,Vector2 Dir,Texture2D Texture, Vector2 startPos, float Owner)
         {
+            owner = Owner;
             speed = Speed;
             dir = Dir;
             texture = Texture;

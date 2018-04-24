@@ -20,9 +20,10 @@ namespace Frustration
         List<Bullet> bullets;
 
         bool manualSpawning = true;
-        List<int> posList = new List<int> { 9, 10, 11, 0, 8, 12, 0, 8, 12, 0, 8, 12, 0, 8, 12, 14, 6, 15, 5, 16, 4, 0, 8, 12, 7, 13, 17, 3, 9, 10, 11, 0, 16, 4, 15, 5, 14, 6, 0 };
-        List<int> order = new List<int>();
-        float delay = 1.5f;
+        List<int> posList = new List<int>();
+        List<int> form1 = new List<int> { 4, 5, 0, 3, 6, 0, 3, 6, 0, 3, 6, 0, 3, 6, 3, 2, 7, 1, 8, 1, 0, 3, 6, 4, 7, 8, 1, 4, 5, 6, 0, 8, 2, 8, 3, 7,3, 0 };
+        List <int> order = new List<int>();
+        float delay = 2f;
         float remainingDelay = 1.5f;
         List<Enemy> enemies;
         float enemyCount = 3;
@@ -39,18 +40,22 @@ namespace Frustration
         // Contructor that makes a gamestate work with all variables and working funktions.
         public GameState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content, bool easyMode) : base(Game, graphicsDevice, content)
         {
+<<<<<<< HEAD
+            posList = form1;
+            player = new Player(game.Content.Load<Texture2D>("spaceship.1"))
+=======
             player = new Player(game.Content.Load<Texture2D>("spaceship.1"),game)
+>>>>>>> 29f2d18798a399c60ead55259d03c51cd7887b31
             {
                 difficulty = easyMode
             };
-            
             enemies = new List<Enemy>();
             backSpace = content.Load<Texture2D>("stars");
             bullet = game.bulletTexture;
             
             bullets = new List<Bullet>();
             powerUps = new List<PowerUp>();
-            powerUps.Add(new PowerUp(2,game.Content.Load<Texture2D>("ball.1"),new Vector2(800,rnd.Next(0,400)),rnd.Next(0,3),player,game));
+            powerUps.Add(new PowerUp(2,game.Content.Load<Texture2D>("ball.1"),new Vector2(800,rnd.Next(0,400)),1,player,game));
 
         }
         public void ReadPosition()
@@ -77,7 +82,7 @@ namespace Frustration
         {
             for (int i = 0; i < amount; i++)
             {
-                int x = rnd.Next(0, 20);
+                int x = rnd.Next(0, 10);
                 if (!order.Contains(x))
                 {
                     order.Add(x);
@@ -88,7 +93,7 @@ namespace Frustration
 
         public float GivePosition(int num)
         {
-            return num * 22 - 20;
+            return num * 44 - 20;
         }
 
         public bool IsSmart()
@@ -116,14 +121,25 @@ namespace Frustration
             for (int i = 0; i < bullets.Count; ++i)
             {
                 bullets[i].DrawBullet(spriteBatch);
-                if (bullets[i].rectangle.Intersects(player.rectangle))
+                if (bullets[i].rectangle.Intersects(player.rectangle) && bullets[i].owner !=1)
                 {
                     player.hp -= bullets[i].damage;
+                    bullets.RemoveAt(i);
+                }
+                for (int k =0; k < enemies.Count;k++)
+                {
+                    if (bullets[i].rectangle.Intersects(enemies[k].rectangle)&& bullets[i].owner !=2)
+                    {
+                        enemies.RemoveAt(k);
+                    }
                 }
             }
             for (int j = 0; j < powerUps.Count; j++)
             {
+                if (powerUps[j].rectangle.Intersects(player.rectangle))
+                {
 
+                }
             }
             foreach (PowerUp powerUp in powerUps)
             {
@@ -138,9 +154,9 @@ namespace Frustration
                 if (enemies[i].FindIQ(i, enemies))
                 {
                     Console.WriteLine("hey");
-                    bullets.Add(new Bullet(10f,GetDir(player.position, enemies[i].FindPos(i, enemies)), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i)));
+                    bullets.Add(new Bullet(10f,GetDir(player.position, enemies[i].FindPos(i, enemies)), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i),2));
                 }
-                //bullets.Add(new Bullet(10f, new Vector2(-1, 0), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i)));
+                else bullets.Add(new Bullet(10f, new Vector2(-1, 0), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i)));
             }
         }
 
@@ -149,7 +165,7 @@ namespace Frustration
             #region enemies
             for (int i = 0; i < order.Count;)
             {
-                enemies.Add(new Enemy(game.enemyTexture, new Vector2(1000, GivePosition(order[i])), speed, new Vector2(0.1f, 0.1f), 0, Color.White, IsSmart()));
+                enemies.Add(new Enemy(game.enemyTexture, new Vector2(1000, GivePosition(order[i])), speed, new Vector2(0.2f, 0.2f), 0, Color.White, IsSmart()));
                 order.RemoveAt(i);
             }
 
@@ -171,7 +187,7 @@ namespace Frustration
             {
                 if (enemiesPerLine < 3) enemiesPerLine += 0.02f;
                 if (speed < 4) speed *= 1.02f;
-                if (delay > 0.75f) delay -= 0.02f;
+                if (delay > 1f) delay -= 0.02f;
                 if (smartPercent < 40) smartPercent += 0.4f;
 
                 if (manualSpawning) ReadPosition();
@@ -230,7 +246,7 @@ namespace Frustration
             MouseState mouse = Mouse.GetState();
             if (player.ammo > 0)
             {
-                bullets.Add(new Bullet(10f, GetDir(mouse.Position.ToVector2(), player.position+player.offset), bullet, (player.position+player.offset)));
+                bullets.Add(new Bullet(10f, GetDir(mouse.Position.ToVector2(), player.position+player.offset), bullet, (player.position+player.offset),1));
                 player.ammo--;
             }
 
