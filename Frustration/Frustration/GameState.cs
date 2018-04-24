@@ -48,7 +48,7 @@ namespace Frustration
             
             bullets = new List<Bullet>();
             powerUps.Add(new PowerUp(10,game.Content.Load<Texture2D>("ball"),new Vector2(800,rnd.Next(0,400)),rnd.Next(0,3),player,game));
-
+            
         }
         public void ReadPosition()
         {
