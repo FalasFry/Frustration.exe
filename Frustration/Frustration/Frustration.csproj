@@ -41,20 +41,20 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Bullet.cs" />
-    <Compile Include="Button.cs" />
+    <Compile Include="Controls\Bullet.cs" />
+    <Compile Include="Controls\Button.cs" />
     <Compile Include="Components.cs" />
-    <Compile Include="Enemy.cs" />
+    <Compile Include="Controls\Enemy.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="GameOverState.cs" />
-    <Compile Include="GameState.cs" />
-    <Compile Include="MenuState.cs" />
-    <Compile Include="PauseState.cs" />
-    <Compile Include="Player.cs" />
-    <Compile Include="PowerUp.cs" />
+    <Compile Include="States\GameOverState.cs" />
+    <Compile Include="States\GameState.cs" />
+    <Compile Include="States\MenuState.cs" />
+    <Compile Include="States\PauseState.cs" />
+    <Compile Include="Controls\Player.cs" />
+    <Compile Include="Controls\PowerUp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="States.cs" />
+    <Compile Include="States\States.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
