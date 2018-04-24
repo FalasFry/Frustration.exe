@@ -76,7 +76,14 @@ namespace Frustration
             {
                 dir.Normalize();
             }
-            position += (dir * speed);
+            if (dir == Vector2.Zero)
+            {
+                dir = new Vector2(1, 0);
+            }
+            if (Keyboard.GetState().GetPressedKeys().Length > 0)
+            {
+                position += (dir * speed);
+            }
 
             rotation = (float)Math.Atan2(dir.X, dir.Y) * -1;
             

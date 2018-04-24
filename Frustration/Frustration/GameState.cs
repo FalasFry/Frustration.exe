@@ -49,8 +49,9 @@ namespace Frustration
             bullet = game.bulletTexture;
             
             bullets = new List<Bullet>();
-            powerUps.Add(new PowerUp(10,game.Content.Load<Texture2D>("ball"),new Vector2(800,rnd.Next(0,400)),rnd.Next(0,3),player,game));
-            
+            powerUps = new List<PowerUp>();
+            powerUps.Add(new PowerUp(2,game.Content.Load<Texture2D>("ball.1"),new Vector2(800,rnd.Next(0,400)),rnd.Next(0,3),player,game));
+
         }
         public void ReadPosition()
         {
@@ -119,6 +120,10 @@ namespace Frustration
                    // player.position = new Vector2(1000,1000);
                 }
             }
+            for (int j = 0; j < powerUps.Count; j++)
+            {
+
+            }
             foreach (PowerUp powerUp in powerUps)
             {
                 powerUp.Draw(spriteBatch);
@@ -186,7 +191,10 @@ namespace Frustration
             {
                 bullets[i].Update();
             }
-
+            for (int j = 0; j < powerUps.Count; j++)
+            {
+                powerUps[j].Update();
+            }
             MouseState mouse = Mouse.GetState();
             if (mouse.LeftButton == ButtonState.Pressed)
             {

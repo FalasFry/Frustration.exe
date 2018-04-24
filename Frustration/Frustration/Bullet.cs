@@ -40,7 +40,7 @@ namespace Frustration
         {
             spriteBatch.Draw(texture, position, null, color, rotation, offset, 1f, SpriteEffects.None, 1);
             //spriteBatch.Draw(texture,position, rectangle,Color.Black,rotation,offset,scale,SpriteEffects.None, 2);
-            spriteBatch.Draw(texture,rectangle,Color.Cyan);
+           // spriteBatch.Draw(texture,rectangle,Color.Cyan);
         }
     }
 }
