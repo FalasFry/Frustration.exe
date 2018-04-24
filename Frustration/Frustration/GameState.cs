@@ -50,7 +50,7 @@ namespace Frustration
             
             bullets = new List<Bullet>();
             powerUps = new List<PowerUp>();
-            powerUps.Add(new PowerUp(2,game.Content.Load<Texture2D>("ball.1"),new Vector2(800,rnd.Next(0,400)),rnd.Next(0,3),player,game));
+            powerUps.Add(new PowerUp(2,game.Content.Load<Texture2D>("ball.1"),new Vector2(800,rnd.Next(0,400)),1,player,game));
 
         }
         public void ReadPosition()
@@ -115,14 +115,25 @@ namespace Frustration
             for (int i = 0; i < bullets.Count; ++i)
             {
                 bullets[i].DrawBullet(spriteBatch);
-                if (bullets[i].rectangle.Intersects(player.rectangle))
+                if (bullets[i].rectangle.Intersects(player.rectangle) && bullets[i].owner !=1)
                 {
                     player.hp -= bullets[i].damage;
+                    bullets.RemoveAt(i);
+                }
+                for (int k =0; k < enemies.Count;k++)
+                {
+                    if (bullets[i].rectangle.Intersects(enemies[k].rectangle)&& bullets[i].owner !=2)
+                    {
+                        enemies.RemoveAt(k);
+                    }
                 }
             }
             for (int j = 0; j < powerUps.Count; j++)
             {
+                if (powerUps[j].rectangle.Intersects(player.rectangle))
+                {
 
+                }
             }
             foreach (PowerUp powerUp in powerUps)
             {
@@ -137,7 +148,7 @@ namespace Frustration
                 if (enemies[i].FindIQ(i, enemies))
                 {
                     Console.WriteLine("hey");
-                    bullets.Add(new Bullet(10f,GetDir(player.position, enemies[i].FindPos(i, enemies)), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i)));
+                    bullets.Add(new Bullet(10f,GetDir(player.position, enemies[i].FindPos(i, enemies)), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i),2));
                 }
                 //bullets.Add(new Bullet(10f, new Vector2(-1, 0), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i)));
             }
@@ -229,7 +240,7 @@ namespace Frustration
             MouseState mouse = Mouse.GetState();
             if (player.ammo > 0)
             {
-                bullets.Add(new Bullet(10f, GetDir(mouse.Position.ToVector2(), player.position+player.offset), bullet, (player.position+player.offset)));
+                bullets.Add(new Bullet(10f, GetDir(mouse.Position.ToVector2(), player.position+player.offset), bullet, (player.position+player.offset),1));
                 player.ammo--;
             }
 
