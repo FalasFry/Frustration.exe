@@ -74,7 +74,8 @@ namespace Frustration
                 component.Update(gameTime);
             }
 
-            if(keys.IsKeyDown(Keys.Escape))
+            keys = Keyboard.GetState();
+            if (keys.IsKeyDown(Keys.Escape))
             {
                 return false;
             }

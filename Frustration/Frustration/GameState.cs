@@ -59,7 +59,7 @@ namespace Frustration
         public override bool Update(GameTime gameTime)
         {
             player.Update();
-            
+            pause = Keyboard.GetState();
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             #region For Shooting Bullets
