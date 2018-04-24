@@ -29,11 +29,7 @@ namespace Frustration
 
         Stack<States> stateStack;
 
-        public void ChangeState(States state)
-        {
-            curState = state;
-            stateStack.Push(state);
-        }
+
 
         public Game1()
         {
@@ -100,6 +96,12 @@ namespace Frustration
         public void PopStack()
         {
             stateStack.Pop();
+        }
+
+        public void ChangeState(States state)
+        {
+            curState = state;
+            stateStack.Push(state);
         }
     }
 }

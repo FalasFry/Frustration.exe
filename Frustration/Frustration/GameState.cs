@@ -12,7 +12,7 @@ namespace Frustration
 {
     public class GameState : States
     {
-        KeyboardState pause = Keyboard.GetState();
+
         float pressTimer = 0f;
         Player player;
         Texture2D bullet;
@@ -59,7 +59,7 @@ namespace Frustration
         public override bool Update(GameTime gameTime)
         {
             player.Update();
-            
+            KeyboardState pause = Keyboard.GetState();
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             #region For Shooting Bullets
