@@ -18,6 +18,7 @@ namespace Frustration
         SpriteBatch spriteBatch;
         public Texture2D bulletTexture;
         public float attackSpeed = 0.5f,attackTimer;
+        public Texture2D enemyTexture;
         Random rnd = new Random();
         List<PowerUp> powerUps;
 
@@ -58,6 +59,7 @@ namespace Frustration
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             bulletTexture = Content.Load<Texture2D>("bullet");
+            enemyTexture = Content.Load<Texture2D>("enemy");
         }
 
 
