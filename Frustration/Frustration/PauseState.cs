@@ -11,8 +11,8 @@ namespace Frustration
 {
     public class PauseState : States
     {
-        KeyboardState keys = Keyboard.GetState();
-        bool paused;
+        float timer = 0f;
+        bool paused = true;
         List<Components> buttons;
 
         public PauseState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content) : base(Game, graphicsDevice, content)
@@ -22,26 +22,40 @@ namespace Frustration
 
             Button resumeButton = new Button(buttonText, buttonFont)
             {
-                Pos = new Vector2(300, 250),
+                Pos = new Vector2(300, 200),
                 Text = "Resume",
             };
             resumeButton.Click += ResumeButton_Click;
 
             Button menuButton = new Button(buttonText, buttonFont)
             {
-                Pos = new Vector2(300, 300),
+                Pos = new Vector2(300, 250),
                 Text = "Main Menu",
             };
             menuButton.Click += MenuButton_Click;
+
+            Button quitButton = new Button(buttonText, buttonFont)
+            {
+                Pos = new Vector2(300, 300),
+                Text = "Quit",
+            };
+            quitButton.Click += QuitButton_Click;
 
             buttons = new List<Components>()
             {
                 resumeButton,
                 menuButton,
+                quitButton,
             };
         }
 
+
         #region Button Clicks
+
+        private void QuitButton_Click(object sender, EventArgs e)
+        {
+            game.Exit();
+        }
 
         private void MenuButton_Click(object sender, EventArgs e)
         {
@@ -69,16 +83,22 @@ namespace Frustration
 
         public override bool Update(GameTime gameTime)
         {
+            KeyboardState keys = Keyboard.GetState();
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            timer += deltaTime;
+
             foreach(var component in buttons)
             {
                 component.Update(gameTime);
             }
 
-            keys = Keyboard.GetState();
-            if (keys.IsKeyDown(Keys.Escape))
+            if(keys.IsKeyDown(Keys.Escape) && timer > 1)
             {
+                timer = 0f;
+                paused = false;
                 return false;
             }
+
             if(paused == false)
             {
                 return false;
