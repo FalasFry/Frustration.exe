@@ -20,8 +20,10 @@ namespace Frustration
         List<Bullet> bullets;
 
         bool manualSpawning = true;
-        List<int> posList = new List<int> { 9, 10, 11, 0, 8, 12, 0, 8, 12, 0, 8, 12, 0, 8, 12, 14, 6, 15, 5, 16, 4, 0, 8, 12, 7, 13, 17, 3, 9, 10, 11, 0, 16, 4, 15, 5, 14, 6, 0 };
-        List<int> order = new List<int>();
+        List<int> posList = new List<int>();
+        List<int> form1 = new List<int> { 9, 10, 11, 0, 8, 12, 0, 8, 12, 0, 8, 12, 0, 8, 12, 14, 6, 15, 5, 16, 4, 0, 8, 12, 7, 13, 17, 3, 9, 10, 11, 0, 16, 4, 15, 5, 14, 6, 0 };
+        List<int> form2 = new List<int> { 11, 12, 0, 10, 13, 0, 10, 13, 0, 10, 13, 0, 10, 13, 0, 10, 13, 0, 10, 13, 0, 10, 13, 0, 10, 13, 0, 10, 13, 15, 16, 9, 8, 0, 10, 13, 9, 14,17,7, 0, 10, 13, 17, 7, 0, 17, 7, 0, 16, 8, 10, 13, 0, 15, 9, 14, 8, 0 };
+        List <int> order = new List<int>();
         float delay = 1.5f;
         float remainingDelay = 1.5f;
         List<Enemy> enemies;
@@ -43,7 +45,7 @@ namespace Frustration
             {
                 difficulty = easyMode
             };
-            
+            posList = form2;
             enemies = new List<Enemy>();
             backSpace = content.Load<Texture2D>("stars");
             bullet = game.bulletTexture;
