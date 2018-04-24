@@ -15,7 +15,7 @@ namespace Frustration
         public Vector2 dir, position, offset, scale = new Vector2(0.3f, 0.3f);
         public Texture2D texture;
         public Rectangle rectangle;
-        public float hp = 10;
+        public float hp = 100;
         bool dead = false;
         Game1 game1;
         
@@ -68,18 +68,26 @@ namespace Frustration
             if (keyState.IsKeyDown(Keys.A))
             {
                 dir.X = -1;
+                position += (dir * speed);
+
             }
             if (keyState.IsKeyDown(Keys.D))
             {
                 dir.X = 1;
+                position += (dir * speed);
+
             }
             if (keyState.IsKeyDown(Keys.W))
             {
                 dir.Y = -1;
+                position += (dir * speed);
+
             }
             if (keyState.IsKeyDown(Keys.S))
             {
                 dir.Y = 1;
+                position += (dir * speed);
+
             }
             if (dir.X > 1f || dir.Y > 1f)
             {
@@ -91,7 +99,6 @@ namespace Frustration
             }
             if (Keyboard.GetState().GetPressedKeys().Length > 0)
             {
-                position += (dir * speed);
             }
 
             rotation = (float)Math.Atan2(dir.X, dir.Y) * -1;

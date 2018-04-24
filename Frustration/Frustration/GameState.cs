@@ -40,12 +40,9 @@ namespace Frustration
         // Contructor that makes a gamestate work with all variables and working funktions.
         public GameState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content, bool easyMode) : base(Game, graphicsDevice, content)
         {
-<<<<<<< HEAD
             posList = form1;
-            player = new Player(game.Content.Load<Texture2D>("spaceship.1"))
-=======
+            
             player = new Player(game.Content.Load<Texture2D>("spaceship.1"),game)
->>>>>>> 29f2d18798a399c60ead55259d03c51cd7887b31
             {
                 difficulty = easyMode
             };
@@ -125,10 +122,15 @@ namespace Frustration
                     player.hp -= bullets[i].damage;
                     bullets.RemoveAt(i);
                 }
-                for (int k =0; k < enemies.Count;k++)
+
+            }
+            for (int i = 0; i < bullets.Count; ++i)
+            {
+                for (int k = 0; k < enemies.Count; k++)
                 {
-                    if (bullets[i].rectangle.Intersects(enemies[k].rectangle)&& bullets[i].owner !=2)
+                    if (bullets[i].rectangle.Intersects(enemies[k].rectangle) && bullets[i].owner != 2)
                     {
+                        bullets.RemoveAt(i);
                         enemies.RemoveAt(k);
                     }
                 }
@@ -137,7 +139,7 @@ namespace Frustration
             {
                 if (powerUps[j].rectangle.Intersects(player.rectangle))
                 {
-
+                    powerUps.RemoveAt(j);
                 }
             }
             foreach (PowerUp powerUp in powerUps)
@@ -155,7 +157,7 @@ namespace Frustration
                     Console.WriteLine("hey");
                     bullets.Add(new Bullet(10f,GetDir(player.position, enemies[i].FindPos(i, enemies)), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i),2));
                 }
-                else bullets.Add(new Bullet(10f, new Vector2(-1, 0), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i)));
+                else bullets.Add(new Bullet(10f, new Vector2(-1, 0), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i),2));
             }
         }
 
