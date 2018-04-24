@@ -9,13 +9,13 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Frustration
 {
-    public class Pause_Menu : States
+    public class PauseState : States
     {
-        KeyboardState unPause = Keyboard.GetState();
+        KeyboardState keys = Keyboard.GetState();
         bool paused;
         List<Components> components;
 
-        public Pause_Menu(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content) : base(Game, graphicsDevice, content)
+        public PauseState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content) : base(Game, graphicsDevice, content)
         {
             Texture2D buttonText = content.Load<Texture2D>("button");
             SpriteFont buttonFont = content.Load<SpriteFont>("font");
@@ -41,6 +41,8 @@ namespace Frustration
             };
         }
 
+        #region Button Clicks
+
         private void MenuButton_Click(object sender, EventArgs e)
         {
             game.PopStack();
@@ -52,6 +54,8 @@ namespace Frustration
             paused = false;
         }
 
+        #endregion
+
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
@@ -62,9 +66,6 @@ namespace Frustration
             spriteBatch.End();
         }
 
-        public override void PostUpdate(GameTime gameTime)
-        {
-        }
 
         public override bool Update(GameTime gameTime)
         {
@@ -73,7 +74,7 @@ namespace Frustration
                 component.Update(gameTime);
             }
 
-            if(unPause.IsKeyDown(Keys.Escape))
+            if(keys.IsKeyDown(Keys.Escape))
             {
                 return false;
             }
@@ -81,6 +82,7 @@ namespace Frustration
             {
                 return false;
             }
+
             return true;
         }
 

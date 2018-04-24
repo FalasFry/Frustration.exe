@@ -14,20 +14,12 @@ namespace Frustration
     /// </summary>
     public class Game1 : Game
     {
-        int timeScale = 1;
-        Bullet bullet;
-        //layer player; 
-        Texture2D playerTexture;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         public Texture2D bulletTexture;
-        Texture2D floorTexture;
-        Rectangle floorRect;
         public float attackSpeed = 0.5f,attackTimer;
         Random rnd = new Random();
         List<PowerUp> powerUps;
-
-        public  Texture2D backGround;
 
         MenuState menu;
 
@@ -53,10 +45,6 @@ namespace Frustration
             // TODO: Add your initialization logic here
 
             base.Initialize();
-            //bullets = new List<Bullet>();
-            playerTexture = Content.Load<Texture2D>("ball");
-            backGround = Content.Load<Texture2D>("stars");
-            //player = new Player(playerTexture);
             IsMouseVisible = true;
 
             menu = new MenuState(this, GraphicsDevice, Content);
@@ -78,7 +66,6 @@ namespace Frustration
 
         }
 
-        // <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
 

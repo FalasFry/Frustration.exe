@@ -15,6 +15,7 @@ namespace Frustration
         public Texture2D texture;
         public Rectangle rectangle;
         public Color color = Color.White;
+        
 
         
         public Bullet(float Speed,Vector2 Dir,Texture2D Texture, Vector2 startPos)

@@ -27,8 +27,6 @@ namespace Frustration
 
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
 
-        public abstract void PostUpdate(GameTime gameTime);
-
         public abstract bool Update(GameTime gameTime);
 
         public States(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content)

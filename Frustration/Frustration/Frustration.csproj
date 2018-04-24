@@ -48,7 +48,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="MenuState.cs" />
-    <Compile Include="Pause_Menu.cs" />
+    <Compile Include="PauseState.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PowerUp.cs" />
     <Compile Include="Program.cs" />
