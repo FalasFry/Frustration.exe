@@ -105,6 +105,7 @@ namespace Frustration
             spriteBatch.Begin();
 
             spriteBatch.Draw(backSpace, new Rectangle(0, 0, 800, 480), Color.White);
+
             for (int i = 0; i < enemies.Count; i++)
             {
                 enemies[i].DrawEnemy(spriteBatch);

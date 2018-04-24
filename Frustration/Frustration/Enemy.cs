@@ -21,6 +21,7 @@ namespace Frustration
         float speed;
         float rotation;
         int Index = 0;
+
         List<Enemy> enemyList = new List<Enemy>();
 
         public void AddEnemy(Enemy enemy)
