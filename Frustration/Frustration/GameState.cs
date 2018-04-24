@@ -18,7 +18,7 @@ namespace Frustration
         Texture2D bullet;
         Texture2D backSpace;
         List<Bullet> bullets;
-
+        SpriteFont ammoText;
         bool manualSpawning = true;
         List<int> posList = new List<int>();
         List<int> form1 = new List<int> { 4, 5, 0, 3, 6, 0, 3, 6, 0, 3, 6, 0, 3, 6, 3, 2, 7, 1, 8, 1, 0, 3, 6, 4, 7, 8, 1, 4, 5, 6, 0, 8, 2, 8, 3, 7,3, 0 };
@@ -45,6 +45,8 @@ namespace Frustration
             {
                 difficulty = easyMode
             };
+
+            ammoText = content.Load<SpriteFont>("ammo");
             enemies = new List<Enemy>();
             backSpace = content.Load<Texture2D>("stars");
             bullet = game.bulletTexture;
@@ -109,6 +111,8 @@ namespace Frustration
 
             spriteBatch.Draw(backSpace, new Rectangle(0, 0, 800, 480), Color.White);
 
+            spriteBatch.DrawString(ammoText, "ammo = " + player.ammo.ToString(), new Vector2(700, 10), Color.White);
+
             for (int i = 0; i < enemies.Count; i++)
             {
                 enemies[i].DrawEnemy(spriteBatch);
@@ -151,7 +155,6 @@ namespace Frustration
             {
                 if (enemies[i].FindIQ(i, enemies))
                 {
-                    Console.WriteLine("hey");
                     bullets.Add(new Bullet(10f,GetDir(player.position, enemies[i].FindPos(i, enemies)), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i),2));
                 }
                 else bullets.Add(new Bullet(10f, new Vector2(-1, 0), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i),2));

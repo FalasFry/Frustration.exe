@@ -34,6 +34,8 @@ namespace Frustration
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             stateStack = new Stack<States>();
+            graphics.PreferredBackBufferHeight = 440;
+            graphics.PreferredBackBufferWidth = 800;
         }
 
         protected override void Initialize()
