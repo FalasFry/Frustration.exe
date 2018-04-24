@@ -26,7 +26,6 @@ namespace Frustration
             texture = Texture;
             position = startPos;
             offset = ((texture.Bounds.Size.ToVector2())/2);
-            rectangle = new Rectangle((offset - position).ToPoint(),(texture.Bounds.Size.ToVector2()).ToPoint());
             rectangle = new Rectangle((offset - position).ToPoint(),new Point(20,20));
 
         }
