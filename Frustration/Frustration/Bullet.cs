@@ -14,6 +14,7 @@ namespace Frustration
         public Vector2 dir,position,offset,scale = new Vector2(0.07f,0.07f);
         public Texture2D texture;
         public Rectangle rectangle;
+        public float damage = 2;
         public Color color = Color.White;
         
 
@@ -26,6 +27,7 @@ namespace Frustration
             position = startPos;
             offset = ((texture.Bounds.Size.ToVector2())/2);
             rectangle = new Rectangle((offset - position).ToPoint(),(texture.Bounds.Size.ToVector2()).ToPoint());
+            rectangle = new Rectangle((offset - position).ToPoint(),new Point(20,20));
 
         }
         public void Update()
