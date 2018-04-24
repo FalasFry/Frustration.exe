@@ -14,178 +14,92 @@ namespace Frustration
     /// </summary>
     public class Game1 : Game
     {
-        const float delay = 1; // seconds
-        float remainingDelay = delay;
-        Vector2 scale;
-        float speed;
-        Bullet bullet;
-        Texture2D player;
-        Rectangle playerRec;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Vector2 playerPos;
-        Texture2D bulletTexture;
+        public Texture2D bulletTexture;
+        public float attackSpeed = 0.5f,attackTimer;
         Random rnd = new Random();
-        int numBullets = 1;
-        List<Bullet> bullets;
-        Enemy enemy;
-        List<Enemy> enemies;
-        int enemycount = 20;
+        List<PowerUp> powerUps;
+
+        MenuState menu;
+
+        public States curState;
+
+        Stack<States> stateStack;
+
+        public void ChangeState(States state)
+        {
+            curState = state;
+            stateStack.Push(state);
+        }
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            stateStack = new Stack<States>();
         }
 
-        /// <Initialize>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
 
             base.Initialize();
-            bullets = new List<Bullet>();
-            enemies = new List<Enemy>();
-
-            
-            player = Content.Load<Texture2D>("ball");
-            playerPos = new Vector2(1, 1);
-            scale = new Vector2(0.33f, 0.33f);
-            playerRec = new Rectangle(playerPos.ToPoint(),((player.Bounds.Size).ToVector2() * scale).ToPoint());
-            speed = 2;
             IsMouseVisible = true;
+
+            menu = new MenuState(this, GraphicsDevice, Content);
+            curState = menu;
+
+            stateStack.Push(menu);
         }
 
-        /// <LoadContent>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             bulletTexture = Content.Load<Texture2D>("bullet");
-
-            // TODO: use this.Content to load your game content here
         }
 
-        /// <Unload>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// game-specific content.
-        /// </summary>
+
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+
         }
 
-        /// <Update>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            remainingDelay -= timer;
-
-            if (remainingDelay <= 0)
+            if (stateStack.Peek().Update(gameTime) == false)
             {
-                for (int i = 0; i < enemies.Count; i++)
-                {
-                    enemies[i].Update1Sec();
-                }
-                remainingDelay = delay;
+                stateStack.Pop();
             }
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            {
-                //Exit();
-                
-            }
-            for (int i = 0; i < enemies.Count; i++)
-            {
-                enemies[i].Update();
-            }
-            for (int i = 0; i < bullets.Count; i++)
-            {
-                bullets[i].Update();
-            }
-            
-            // TODO: Add your update logic here
-            MouseState mouse = Mouse.GetState();
-            KeyboardState keyState = Keyboard.GetState();
-            Vector2 dir = new Vector2();
-
-            for (int i = 0; i < enemycount; i++)
-            {
-                enemies.Add(new Enemy(bulletTexture, new Vector2(1000, rnd.Next(-200, 500)), speed, scale, 0, Color.White));
-            }
-
-            if (keyState.IsKeyDown(Keys.A))
-            {
-                dir.X = -1;
-            }
-            else if (keyState.IsKeyDown(Keys.D))
-            {
-                dir.X = 1;
-            }
-            else if (keyState.IsKeyDown(Keys.W))
-            {
-                dir.Y = -1;
-            }
-            else if (keyState.IsKeyDown(Keys.S))
-            {
-                dir.Y = 1;
-            }
-            if (mouse.LeftButton == ButtonState.Pressed)
-            {
-                Shoot();
-                    
-            }
-
-            if (dir.X > 1f || dir.Y > 1f)
-            {
-                dir.Normalize();
-            }
-            playerRec.Location += (dir * speed).ToPoint();
-            Console.Write(playerPos);
             base.Update(gameTime);
+            
         }
 
-        /// <Draw>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        /// 
-        public void Shoot()
-        {
-            bullets.Add(new Bullet(10f, new Vector2(1, 0), bulletTexture, playerPos));
-        }
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.White);
 
             // TODO: Add your drawing code here
 
+            stateStack.Peek().Draw(gameTime, spriteBatch);
+
             spriteBatch.Begin();
 
-            spriteBatch.Draw(player, playerRec, Color.Black);
-            for (int i =0;i<bullets.Count;i++)
+            /*foreach (PowerUp powerUp in powerUps)
             {
-                bullets[i].DrawBullet(spriteBatch);
-            }
-            for (int i = 0; i < enemycount; i++)
-            {
-                enemies[i].DrawEnemy(spriteBatch);
-            }
+                powerUp.Draw(spriteBatch);
+            }*/
 
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public void PopStack()
+        {
+            stateStack.Pop();
         }
     }
 }

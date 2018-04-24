@@ -11,6 +11,8 @@ namespace Frustration
 {
     public class Button : Components
     {
+
+        // All variables that i am using for this script.
         #region Fields
 
         Texture2D texture;
@@ -21,6 +23,7 @@ namespace Frustration
 
         #endregion
 
+        // All properties that is needed so that you can set the values of the buttn outside fo this code.
         #region Props
 
         public event EventHandler Click;
@@ -40,7 +43,8 @@ namespace Frustration
         #endregion
 
 
-
+        // The cunstrukor for the button.
+        // Gives it a texture and a font and a color, you do the rest elsewhere.
         public Button(Texture2D Texture, SpriteFont Font)
         {
             texture = Texture;
@@ -48,12 +52,12 @@ namespace Frustration
             Paint = Color.Black;
         }
 
-
+        // Way of making code more compact.
         #region Methods
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            var colour = Color.White;
+            Color colour = Color.White;
 
 
             if(isHovering)

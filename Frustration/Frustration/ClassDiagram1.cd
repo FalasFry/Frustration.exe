@@ -1,12 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Frustration.Game1">
-    <Position X="0.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAEEAAACAACwAAAAAAAAACAAAAAQgBABAAAgAIAAQ=</HashCode>
-      <FileName>Game1.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Frustration.Enemy">
     <Position X="2.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
@@ -17,29 +10,29 @@
   <Class Name="Frustration.Bullet">
     <Position X="5.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AASAAAAAACAAAAAAAACAICACAAAAAwAAAAAgAAAgAAA=</HashCode>
+      <HashCode>AASAAAAAACAAAAAAAACAICACAAAAAwCBAAAgAAAAAAA=</HashCode>
       <FileName>Bullet.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Frustration.Pause_Menu">
     <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAQAAAAAAAAAAgAAAADAAAAAIAAAAAAAAAQAAAEAIAA=</HashCode>
       <FileName>Pause_Menu.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Frustration.Main_Menu">
-    <Position X="7.5" Y="0.5" Width="1.5" />
+  <Class Name="Frustration.Player">
+    <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Main_Menu.cs</FileName>
+      <HashCode>AASAAABBACAAAgAAAACAIiACAAAAAwAAAAAAAAAgAAA=</HashCode>
+      <FileName>Player.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Frustration.Player">
-    <Position X="9.25" Y="0.5" Width="1.5" />
+  <Class Name="Frustration.Game1">
+    <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Player.cs</FileName>
+      <HashCode>AIQGEEAAgIACDwCEAAAAAAgQBABAAIgBABAgAgAgAAQ=</HashCode>
+      <FileName>Game1.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

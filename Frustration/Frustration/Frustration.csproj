@@ -46,12 +46,14 @@
     <Compile Include="Components.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Health.cs" />
-    <Compile Include="Main_Menu.cs" />
-    <Compile Include="Pause_Menu.cs" />
+    <Compile Include="GameState.cs" />
+    <Compile Include="MenuState.cs" />
+    <Compile Include="PauseState.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="PowerUp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="States.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
