@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 
 
 namespace Frustration
@@ -69,7 +70,6 @@ namespace Frustration
 
         protected override void Update(GameTime gameTime)
         {
-
             if (stateStack.Peek().Update(gameTime) == false)
             {
                 stateStack.Pop();
