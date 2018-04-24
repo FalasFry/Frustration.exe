@@ -14,6 +14,9 @@ namespace Frustration
     {
         private List<Components> buttons;
         Texture2D menu;
+        Vector2 overPos = new Vector2(325, 190);
+        Vector2 centerPos = new Vector2(325, 240);
+        Vector2 underPos = new Vector2(325, 290);
 
         // Creates a menustate that have the buttons ready for you.
         public MenuState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content) : base(Game, graphicsDevice, content)
@@ -22,23 +25,23 @@ namespace Frustration
             SpriteFont buttonFont = content.Load<SpriteFont>("font");
             menu = content.Load<Texture2D>("menu");
 
-            Button startEzButton = new Button(buttonTexture, buttonFont)
-            {
-                Pos = new Vector2(300, 250),
-                Text = "Baby Mode",
-            };
-            startEzButton.Click += StartButton_Click;
-
             Button startHardButton = new Button(buttonTexture, buttonFont)
             {
-                Pos = new Vector2(300, 200),
+                Pos = overPos,
                 Text = "Normal Mode",
             };
             startHardButton.Click += StartHardButton_Click;
 
+            Button startEzButton = new Button(buttonTexture, buttonFont)
+            {
+                Pos = centerPos,
+                Text = "Baby Mode",
+            };
+            startEzButton.Click += StartButton_Click;
+
             Button quitButton = new Button(buttonTexture, buttonFont)
             {
-                Pos = new Vector2(300, 300),
+                Pos = underPos,
                 Text = "Quit",
             };
             quitButton.Click += QuitButton_Click;

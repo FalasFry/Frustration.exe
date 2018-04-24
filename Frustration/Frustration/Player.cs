@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
 
 namespace Frustration
 {
@@ -16,7 +17,7 @@ namespace Frustration
         public Texture2D texture;
         public Rectangle rectangle;
         public float hp = 10;
-        bool dead = false;
+        public bool dead = false;
         Game1 game1;
         
         public bool difficulty = false;
@@ -36,13 +37,12 @@ namespace Frustration
             KeyboardState keyState = Keyboard.GetState();
 
             rectangle.Location = (position).ToPoint();
-            //rectangle.Offset(-offset);
+
             if (hp <= 0)
             {
                 dead = true;
-                game1.PopStack();
-
             }
+
             #region Controls
            
             if (keyState.IsKeyDown(Keys.R))
@@ -85,11 +85,12 @@ namespace Frustration
             {
                 dir.Normalize();
             }
-            if (dir == Vector2.Zero)
+
+            /*if (dir == Vector2.Zero)
             {
                 dir = new Vector2(1, 0);
             }
-            if (Keyboard.GetState().GetPressedKeys().Length > 0)
+            if (Keyboard.GetState().GetPressedKeys().Length > 0)*/
             {
                 position += (dir * speed);
             }

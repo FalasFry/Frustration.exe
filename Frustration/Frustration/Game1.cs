@@ -59,9 +59,7 @@ namespace Frustration
         }
 
 
-        protected override void UnloadContent()
-        {
-        }
+        protected override void UnloadContent() { }
 
         protected override void Update(GameTime gameTime)
         {
@@ -71,7 +69,6 @@ namespace Frustration
             }
 
             base.Update(gameTime);
-            
         }
 
         protected override void Draw(GameTime gameTime)
@@ -79,12 +76,6 @@ namespace Frustration
             GraphicsDevice.Clear(Color.White);
 
             stateStack.Peek().Draw(gameTime, spriteBatch);
-
-            spriteBatch.Begin();
-
-
-
-            spriteBatch.End();
 
             base.Draw(gameTime);
         }

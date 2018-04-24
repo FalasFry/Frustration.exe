@@ -32,7 +32,7 @@ namespace Frustration
         float smartPercent;
         Enemy enemy;
         Random rnd = new Random();
-        int score;
+        public float score;
         
         List<PowerUp> powerUps;
 
@@ -167,16 +167,17 @@ namespace Frustration
                     player.hp -= bullets[i].damage;
                     bullets.RemoveAt(i);
                 }
+
                 for (int k = 0; k < enemies.Count;k++)
                 {
-                    if (bullets[i].rectangle.Intersects(enemies[k].rectangle)&& bullets[i].owner !=2)
+                    if (bullets[i].rectangle.Intersects(enemies[k].rectangle) && bullets[i].owner !=2)
                     {
                         enemies.RemoveAt(k);
                         ++score;
                     }
                 }
             }
-            spriteBatch.DrawString(font, "score = " + score.ToString(), new Vector2(10, 10), Color.White);
+
 
             #endregion
 
@@ -196,6 +197,8 @@ namespace Frustration
 
             #endregion
 
+            spriteBatch.DrawString(font, "score = " + score.ToString(), new Vector2(10, 10), Color.White);
+
             spriteBatch.End();
         }
 
@@ -205,6 +208,12 @@ namespace Frustration
             KeyboardState pause = Keyboard.GetState();
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             MouseState mouse = Mouse.GetState();
+
+
+            if(player.dead == true)
+            {
+                game.ChangeState(new GameOverState(game, graphDevice, contentManager, score, deltaTime));
+            }
 
             #region enemies
 
