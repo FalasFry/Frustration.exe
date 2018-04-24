@@ -106,8 +106,6 @@ namespace Frustration
             moveDir.Normalize();
             position += (moveDir * speed);
             rotation = (float)Math.Atan2(moveDir.X, moveDir.Y)*-1;
-
-
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -116,7 +114,6 @@ namespace Frustration
                 spriteBatch.Draw(texture, position + offset, null, Color.White, rotation, offset, 1f, SpriteEffects.None, 0);
             }
             //spriteBatch.Draw(texture, rectangle, Color.Cyan);
-            
         }
     }
 }

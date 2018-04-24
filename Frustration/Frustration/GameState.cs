@@ -57,8 +57,10 @@ namespace Frustration
             {
                 new PowerUp(2, game.Content.Load<Texture2D>("ball.1"), new Vector2(800, rnd.Next(0, 400)), 1, player, game)
             };
-
         }
+
+        #region Methods
+
         public void ReadPosition()
         {
             if (posList.Count == 0)
@@ -79,6 +81,7 @@ namespace Frustration
                 }
             }
         }
+
         public void GiveValues(int amount)
         {
             for (int i = 0; i < amount; i++)
@@ -105,8 +108,6 @@ namespace Frustration
             }
             else return false;
         }
-
-
 
         // Shoots when you have ammo and press left mouse.
         public void Shoot()
@@ -150,14 +151,14 @@ namespace Frustration
 
             spriteBatch.DrawString(font, "ammo = " + player.ammo.ToString(), new Vector2(700, 10), Color.White);
 
+            player.Draw(spriteBatch);
+
             #region Enemy
 
             for (int i = 0; i < enemies.Count; ++i)
             {
                 enemies[i].DrawEnemy(spriteBatch);
             }
-
-            player.Draw(spriteBatch);
 
             for (int i = 0; i < bullets.Count; ++i)
             {
@@ -209,11 +210,14 @@ namespace Frustration
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             MouseState mouse = Mouse.GetState();
 
+            #region Game Over Screen
 
-            if(player.dead == true)
+            if (player.dead == true)
             {
                 game.ChangeState(new GameOverState(game, graphDevice, contentManager, score, deltaTime));
             }
+
+            #endregion
 
             #region enemies
 
@@ -291,5 +295,7 @@ namespace Frustration
             #endregion
 
         }
+
+        #endregion
     }
 }
