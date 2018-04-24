@@ -113,7 +113,8 @@ namespace Frustration
             {
                 spriteBatch.Draw(texture, position + offset, null, Color.White, rotation, offset, 1f, SpriteEffects.None, 0);
             }
-            //spriteBatch.Draw(texture, rectangle, Color.Cyan);
+
+            spriteBatch.Draw(texture, rectangle, Color.Cyan);
         }
     }
 }
