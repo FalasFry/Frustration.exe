@@ -15,11 +15,15 @@ namespace Frustration
         public Vector2 dir, position, offset, scale = new Vector2(0.3f, 0.3f);
         public Texture2D texture;
         public Rectangle rectangle;
+        public float hp = 10;
+        bool dead = false;
+        Game1 game1;
         
         public bool difficulty = false;
 
-        public Player(Texture2D Texture)
+        public Player(Texture2D Texture, Game1 game)
         {
+            game1 = game;
             texture = Texture;
             offset = ((texture.Bounds.Size.ToVector2() * 0.5f));
             //offset = new Vector2(texture.Width/2,texture.Height/2)*scale;
@@ -33,7 +37,12 @@ namespace Frustration
 
             rectangle.Location = (position).ToPoint();
             //rectangle.Offset(-offset);
-            
+            if (hp <= 0)
+            {
+                dead = true;
+                game1.PopStack();
+
+            }
             #region Controls
            
             if (keyState.IsKeyDown(Keys.R))
@@ -76,7 +85,14 @@ namespace Frustration
             {
                 dir.Normalize();
             }
-            position += (dir * speed);
+            if (dir == Vector2.Zero)
+            {
+                dir = new Vector2(1, 0);
+            }
+            if (Keyboard.GetState().GetPressedKeys().Length > 0)
+            {
+                position += (dir * speed);
+            }
 
             rotation = (float)Math.Atan2(dir.X, dir.Y) * -1;
             
@@ -94,8 +110,10 @@ namespace Frustration
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-
-            spriteBatch.Draw(texture, position+offset, null, Color.White, rotation, offset, 1f, SpriteEffects.None, 0);
+            if (!dead)
+            {
+                spriteBatch.Draw(texture, position + offset, null, Color.White, rotation, offset, 1f, SpriteEffects.None, 0);
+            }
             //spriteBatch.Draw(texture, rectangle, Color.Cyan);
             
         }

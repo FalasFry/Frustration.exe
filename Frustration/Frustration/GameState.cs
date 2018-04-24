@@ -18,6 +18,7 @@ namespace Frustration
         Texture2D bullet;
         Texture2D backSpace;
         List<Bullet> bullets;
+
         bool manualSpawning = true;
         List<int> posList = new List<int> { 9, 10, 11, 0, 8, 12, 0, 8, 12, 0, 8, 12, 0, 8, 12, 14, 6, 15, 5, 16, 4, 0, 8, 12, 7, 13, 17, 3, 9, 10, 11, 0, 16, 4, 15, 5, 14, 6, 0 };
         List<int> order = new List<int>();
@@ -27,6 +28,8 @@ namespace Frustration
         float enemyCount = 3;
         float enemiesPerLine = 1;
         float speed = 1;
+        float smartPercent;
+        Enemy enemy;
         Random rnd = new Random();
         
         List<PowerUp> powerUps;
@@ -36,7 +39,7 @@ namespace Frustration
         // Contructor that makes a gamestate work with all variables and working funktions.
         public GameState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content, bool easyMode) : base(Game, graphicsDevice, content)
         {
-            player = new Player(game.Content.Load<Texture2D>("spaceship.1"))
+            player = new Player(game.Content.Load<Texture2D>("spaceship.1"),game)
             {
                 difficulty = easyMode
             };
@@ -47,8 +50,8 @@ namespace Frustration
             
             bullets = new List<Bullet>();
             powerUps = new List<PowerUp>();
-            powerUps.Add(new PowerUp(10,game.Content.Load<Texture2D>("ball"),new Vector2(800,rnd.Next(0,400)),rnd.Next(0,3),player,game));
-            
+            powerUps.Add(new PowerUp(2,game.Content.Load<Texture2D>("ball.1"),new Vector2(800,rnd.Next(0,400)),rnd.Next(0,3),player,game));
+
         }
         public void ReadPosition()
         {
@@ -88,14 +91,20 @@ namespace Frustration
             return num * 22 - 20;
         }
 
-
+        public bool IsSmart()
+        {
+            if (rnd.Next(0, (int)smartPercent) > rnd.Next(0, 100))
+            {
+                return true;
+            }
+            else return false;
+        }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
 
             spriteBatch.Begin();
 
             spriteBatch.Draw(backSpace, new Rectangle(0, 0, 800, 480), Color.White);
-
             for (int i = 0; i < enemies.Count; i++)
             {
                 enemies[i].DrawEnemy(spriteBatch);
@@ -108,8 +117,12 @@ namespace Frustration
                 bullets[i].DrawBullet(spriteBatch);
                 if (bullets[i].rectangle.Intersects(player.rectangle))
                 {
-                   // player.position = new Vector2(1000,1000);
+                    player.hp -= bullets[i].damage;
                 }
+            }
+            for (int j = 0; j < powerUps.Count; j++)
+            {
+
             }
             foreach (PowerUp powerUp in powerUps)
             {
@@ -123,6 +136,7 @@ namespace Frustration
             {
                 if (enemies[i].FindIQ(i, enemies))
                 {
+                    Console.WriteLine("hey");
                     bullets.Add(new Bullet(10f,GetDir(player.position, enemies[i].FindPos(i, enemies)), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i)));
                 }
                 //bullets.Add(new Bullet(10f, new Vector2(-1, 0), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i)));
@@ -131,17 +145,14 @@ namespace Frustration
 
         public override bool Update(GameTime gameTime)
         {
-            player.Update();
-            KeyboardState pause = Keyboard.GetState();
-            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
             #region enemies
-
             for (int i = 0; i < order.Count;)
             {
-                enemies.Add(new Enemy(game.enemyTexture, new Vector2(1000, GivePosition(order[i])), speed, new Vector2(0.5f, 0.5f), 0, Color.White, true));
+                enemies.Add(new Enemy(game.enemyTexture, new Vector2(1000, GivePosition(order[i])), speed, new Vector2(0.1f, 0.1f), 0, Color.White, IsSmart()));
                 order.RemoveAt(i);
             }
+
+            player.Update();
 
             for (int i = 0; i < enemies.Count; i++)
             {
@@ -151,13 +162,16 @@ namespace Frustration
                 }
                 enemies[i].Update();
             }
-
-            remainingDelay -= deltaTime;
+            KeyboardState pause = Keyboard.GetState();
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            remainingDelay -= timer;
             if (remainingDelay <= 0)
             {
                 if (enemiesPerLine < 3) enemiesPerLine += 0.02f;
                 if (speed < 4) speed *= 1.02f;
                 if (delay > 0.75f) delay -= 0.02f;
+                if (smartPercent < 40) smartPercent += 0.4f;
 
                 if (manualSpawning) ReadPosition();
                 else GiveValues((int)enemyCount);
@@ -169,7 +183,6 @@ namespace Frustration
                 }
                 remainingDelay = delay;
             }
-
             #endregion
             
             #region For Shooting Bullets
@@ -178,7 +191,10 @@ namespace Frustration
             {
                 bullets[i].Update();
             }
-
+            for (int j = 0; j < powerUps.Count; j++)
+            {
+                powerUps[j].Update();
+            }
             MouseState mouse = Mouse.GetState();
             if (mouse.LeftButton == ButtonState.Pressed)
             {
