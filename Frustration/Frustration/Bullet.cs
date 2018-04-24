@@ -30,6 +30,7 @@ namespace Frustration
         }
         public void Update()
         {
+
             position += (dir * speed);
             rectangle.Location = (position).ToPoint();
             rotation = (float)Math.Atan2(dir.X,dir.Y)*-1;

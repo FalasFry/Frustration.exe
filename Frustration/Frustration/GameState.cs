@@ -18,8 +18,19 @@ namespace Frustration
         Texture2D bullet;
         Texture2D backSpace;
         List<Bullet> bullets;
-        List<PowerUp> powerUps;
+        bool manualSpawning = true;
+        List<int> posList = new List<int> { 9, 10, 11, 0, 8, 12, 0, 8, 12, 0, 8, 12, 0, 8, 12, 14, 6, 15, 5, 16, 4, 0, 8, 12, 7, 13, 17, 3, 9, 10, 11, 0, 16, 4, 15, 5, 14, 6, 0 };
+        List<int> order = new List<int>();
+        float delay = 1.5f;
+        float remainingDelay = 1.5f;
+        List<Enemy> enemies;
+        float enemyCount = 3;
+        float enemiesPerLine = 1;
+        float speed = 1;
+        Enemy enemy;
         Random rnd = new Random();
+        
+        List<PowerUp> powerUps;
 
 
 
@@ -30,7 +41,8 @@ namespace Frustration
             {
                 difficulty = easyMode
             };
-
+            
+            enemies = new List<Enemy>();
             backSpace = content.Load<Texture2D>("stars");
             bullet = game.bulletTexture;
             
@@ -39,6 +51,44 @@ namespace Frustration
             powerUps.Add(new PowerUp(2,game.Content.Load<Texture2D>("ball.1"),new Vector2(800,rnd.Next(0,400)),rnd.Next(0,3),player,game));
 
         }
+        public void ReadPosition()
+        {
+            if (posList.Count == 0)
+            {
+                manualSpawning = false;
+            }
+            for (int i = 0; i < posList.Count;)
+            {
+                if (posList[i] == 0)
+                {
+                    posList.RemoveAt(i);
+                    break;
+                }
+                else
+                {
+                    order.Add(posList[i]);
+                    posList.RemoveAt(i);
+                }
+            }
+        }
+        public void GiveValues(int amount)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                int x = rnd.Next(0, 20);
+                if (!order.Contains(x))
+                {
+                    order.Add(x);
+                }
+                else i--;
+            }
+        }
+
+        public float GivePosition(int num)
+        {
+            return num * 22 - 20;
+        }
+
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
@@ -46,6 +96,10 @@ namespace Frustration
             spriteBatch.Begin();
 
             spriteBatch.Draw(backSpace, new Rectangle(0, 0, 800, 480), Color.White);
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                enemies[i].DrawEnemy(spriteBatch);
+            }
 
             player.Draw(spriteBatch);
 
@@ -67,14 +121,60 @@ namespace Frustration
             }
             spriteBatch.End();
         }
-        
+        public void EnemyShoot()
+        {
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                if (enemies[i].FindIQ(i, enemies))
+                {
+                    Console.WriteLine("hey");
+                    bullets.Add(new Bullet(10f,GetDir(player.position, enemies[i].FindPos(i, enemies)), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i)));
+                }
+                //bullets.Add(new Bullet(10f, new Vector2(-1, 0), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i)));
+            }
+        }
 
         public override bool Update(GameTime gameTime)
         {
+            #region enemies
+            for (int i = 0; i < order.Count;)
+            {
+                enemies.Add(new Enemy(game.enemyTexture, new Vector2(1000, GivePosition(order[i])), speed, new Vector2(0.1f, 0.1f), 0, Color.White, true));
+                order.RemoveAt(i);
+            }
+
             player.Update();
+
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                if (enemies[i].FindPos(i,enemies).X < 0)
+                {
+                    enemies.RemoveAt(i);
+                }
+                enemies[i].Update();
+            }
             KeyboardState pause = Keyboard.GetState();
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            remainingDelay -= timer;
+            if (remainingDelay <= 0)
+            {
+                if (enemiesPerLine < 3) enemiesPerLine += 0.02f;
+                if (speed < 4) speed *= 1.02f;
+                if (delay > 0.75f) delay -= 0.02f;
 
+                if (manualSpawning) ReadPosition();
+                else GiveValues((int)enemyCount);
+
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    enemyCount = enemiesPerLine;
+                    EnemyShoot();
+                }
+                remainingDelay = delay;
+            }
+            #endregion
+            
             #region For Shooting Bullets
 
             for (int i = 0; i < bullets.Count; i++)

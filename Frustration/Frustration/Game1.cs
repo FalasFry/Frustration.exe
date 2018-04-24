@@ -29,7 +29,6 @@ namespace Frustration
         Stack<States> stateStack;
 
 
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -92,7 +91,7 @@ namespace Frustration
         {
             stateStack.Pop();
         }
-
+        
         public void ChangeState(States state)
         {
             curState = state;
