@@ -14,11 +14,15 @@ namespace Frustration
         float timer = 0f;
         bool paused = true;
         List<Components> buttons;
+        Texture2D screen;
+        Color white = Color.White;
 
         public PauseState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content) : base(Game, graphicsDevice, content)
         {
             Texture2D buttonText = content.Load<Texture2D>("button");
             SpriteFont buttonFont = content.Load<SpriteFont>("font");
+
+            screen = content.Load<Texture2D>("paused");
 
             Button resumeButton = new Button(buttonText, buttonFont)
             {
@@ -73,6 +77,7 @@ namespace Frustration
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
+            spriteBatch.Draw(screen, new Rectangle(0,0, 800, 440), white);
             foreach(var component in buttons)
             {
                 component.Draw(gameTime, spriteBatch);

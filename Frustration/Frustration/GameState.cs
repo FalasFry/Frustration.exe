@@ -40,12 +40,8 @@ namespace Frustration
         // Contructor that makes a gamestate work with all variables and working funktions.
         public GameState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content, bool easyMode) : base(Game, graphicsDevice, content)
         {
-<<<<<<< HEAD
             posList = form1;
-            player = new Player(game.Content.Load<Texture2D>("spaceship.1"))
-=======
-            player = new Player(game.Content.Load<Texture2D>("spaceship.1"),game)
->>>>>>> 29f2d18798a399c60ead55259d03c51cd7887b31
+            player = new Player(game.Content.Load<Texture2D>("spaceship.1"), game)
             {
                 difficulty = easyMode
             };
@@ -54,8 +50,10 @@ namespace Frustration
             bullet = game.bulletTexture;
             
             bullets = new List<Bullet>();
-            powerUps = new List<PowerUp>();
-            powerUps.Add(new PowerUp(2,game.Content.Load<Texture2D>("ball.1"),new Vector2(800,rnd.Next(0,400)),1,player,game));
+            powerUps = new List<PowerUp>
+            {
+                new PowerUp(2, game.Content.Load<Texture2D>("ball.1"), new Vector2(800, rnd.Next(0, 400)), 1, player, game)
+            };
 
         }
         public void ReadPosition()
@@ -156,7 +154,7 @@ namespace Frustration
                     Console.WriteLine("hey");
                     bullets.Add(new Bullet(10f,GetDir(player.position, enemies[i].FindPos(i, enemies)), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i),2));
                 }
-                else bullets.Add(new Bullet(10f, new Vector2(-1, 0), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i)));
+                else bullets.Add(new Bullet(10f, new Vector2(-1, 0), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i),2));
             }
         }
 
