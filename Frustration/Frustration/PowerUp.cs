@@ -52,6 +52,7 @@ namespace Frustration
                     color = Color.Red;
                 }
             }
+
             if (powerType == 1)
             {
                 color = Color.Green;
