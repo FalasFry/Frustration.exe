@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 
 
 namespace Frustration
@@ -20,14 +21,13 @@ namespace Frustration
         public float attackSpeed = 0.5f,attackTimer;
         public Texture2D enemyTexture;
         Random rnd = new Random();
-        List<PowerUp> powerUps;
 
         MenuState menu;
 
         public States curState;
 
         Stack<States> stateStack;
-
+        
         public void ChangeState(States state)
         {
             curState = state;
@@ -50,7 +50,6 @@ namespace Frustration
 
             menu = new MenuState(this, GraphicsDevice, Content);
             curState = menu;
-
             stateStack.Push(menu);
         }
 
@@ -58,23 +57,22 @@ namespace Frustration
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            bulletTexture = Content.Load<Texture2D>("bullet");
-            enemyTexture = Content.Load<Texture2D>("enemy");
+            bulletTexture = Content.Load<Texture2D>("bullet.2");
+            //enemyTexture = Content.Load<Texture2D>("enemy");
         }
 
 
         protected override void UnloadContent()
         {
-
         }
 
         protected override void Update(GameTime gameTime)
         {
-
             if (stateStack.Peek().Update(gameTime) == false)
             {
                 stateStack.Pop();
             }
+
             base.Update(gameTime);
             
         }
@@ -83,16 +81,11 @@ namespace Frustration
         {
             GraphicsDevice.Clear(Color.White);
 
-            // TODO: Add your drawing code here
-
             stateStack.Peek().Draw(gameTime, spriteBatch);
 
             spriteBatch.Begin();
 
-            /*foreach (PowerUp powerUp in powerUps)
-            {
-                powerUp.Draw(spriteBatch);
-            }*/
+
 
             spriteBatch.End();
 
@@ -103,5 +96,6 @@ namespace Frustration
         {
             stateStack.Pop();
         }
+
     }
 }
