@@ -23,14 +23,14 @@ namespace Frustration
         // Contructor that makes a gamestate work with all variables and working funktions.
         public GameState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content, bool easyMode) : base(Game, graphicsDevice, content)
         {
-            player = new Player(game.Content.Load<Texture2D>("spaceship"))
+            player = new Player(game.Content.Load<Texture2D>("spaceship.1"))
             {
                 difficulty = easyMode
             };
 
             backSpace = content.Load<Texture2D>("stars");
             bullet = game.bulletTexture;
-
+            
             bullets = new List<Bullet>();
         }
 
@@ -46,6 +46,10 @@ namespace Frustration
             for (int i = 0; i < bullets.Count; ++i)
             {
                 bullets[i].DrawBullet(spriteBatch);
+                if (bullets[i].rectangle.Intersects(player.rectangle))
+                {
+                   // player.position = new Vector2(1000,1000);
+                }
             }
 
             spriteBatch.End();
@@ -99,7 +103,7 @@ namespace Frustration
             MouseState mouse = Mouse.GetState();
             if (player.ammo > 0)
             {
-                bullets.Add(new Bullet(10f, GetDir(mouse.Position.ToVector2(), (player.position)), bullet, (player.position+player.offset)));
+                bullets.Add(new Bullet(10f, GetDir(mouse.Position.ToVector2(), player.position), bullet, (player.position+player.offset)));
                 player.ammo--;
             }
 
