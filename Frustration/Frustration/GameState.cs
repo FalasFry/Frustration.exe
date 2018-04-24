@@ -37,7 +37,7 @@ namespace Frustration
         // Contructor that makes a gamestate work with all variables and working funktions.
         public GameState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content, bool easyMode) : base(Game, graphicsDevice, content)
         {
-            player = new Player(game.Content.Load<Texture2D>("spaceship.1"))
+            player = new Player(game.Content.Load<Texture2D>("spaceship.1"),game)
             {
                 difficulty = easyMode
             };
@@ -108,7 +108,7 @@ namespace Frustration
                 bullets[i].DrawBullet(spriteBatch);
                 if (bullets[i].rectangle.Intersects(player.rectangle))
                 {
-                   // player.position = new Vector2(1000,1000);
+                    player.hp -= bullets[i].damage;
                 }
             }
             for (int j = 0; j < powerUps.Count; j++)
