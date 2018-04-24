@@ -27,7 +27,6 @@ namespace Frustration
         float enemyCount = 3;
         float enemiesPerLine = 1;
         float speed = 1;
-        Enemy enemy;
         Random rnd = new Random();
         
         List<PowerUp> powerUps;
@@ -47,6 +46,7 @@ namespace Frustration
             bullet = game.bulletTexture;
             
             bullets = new List<Bullet>();
+            powerUps = new List<PowerUp>();
             powerUps.Add(new PowerUp(10,game.Content.Load<Texture2D>("ball"),new Vector2(800,rnd.Next(0,400)),rnd.Next(0,3),player,game));
             
         }
@@ -95,6 +95,7 @@ namespace Frustration
             spriteBatch.Begin();
 
             spriteBatch.Draw(backSpace, new Rectangle(0, 0, 800, 480), Color.White);
+
             for (int i = 0; i < enemies.Count; i++)
             {
                 enemies[i].DrawEnemy(spriteBatch);
@@ -122,7 +123,6 @@ namespace Frustration
             {
                 if (enemies[i].FindIQ(i, enemies))
                 {
-                    Console.WriteLine("hey");
                     bullets.Add(new Bullet(10f,GetDir(player.position, enemies[i].FindPos(i, enemies)), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i)));
                 }
                 //bullets.Add(new Bullet(10f, new Vector2(-1, 0), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i)));
@@ -131,14 +131,17 @@ namespace Frustration
 
         public override bool Update(GameTime gameTime)
         {
+            player.Update();
+            KeyboardState pause = Keyboard.GetState();
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             #region enemies
+
             for (int i = 0; i < order.Count;)
             {
-                enemies.Add(new Enemy(game.enemyTexture, new Vector2(1000, GivePosition(order[i])), speed, new Vector2(0.1f, 0.1f), 0, Color.White, true));
+                enemies.Add(new Enemy(game.enemyTexture, new Vector2(1000, GivePosition(order[i])), speed, new Vector2(0.5f, 0.5f), 0, Color.White, true));
                 order.RemoveAt(i);
             }
-
-            player.Update();
 
             for (int i = 0; i < enemies.Count; i++)
             {
@@ -148,10 +151,8 @@ namespace Frustration
                 }
                 enemies[i].Update();
             }
-            KeyboardState pause = Keyboard.GetState();
-            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            remainingDelay -= timer;
+
+            remainingDelay -= deltaTime;
             if (remainingDelay <= 0)
             {
                 if (enemiesPerLine < 3) enemiesPerLine += 0.02f;
@@ -168,6 +169,7 @@ namespace Frustration
                 }
                 remainingDelay = delay;
             }
+
             #endregion
             
             #region For Shooting Bullets

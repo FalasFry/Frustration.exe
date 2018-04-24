@@ -53,7 +53,7 @@ namespace Frustration
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             bulletTexture = Content.Load<Texture2D>("bullet.2");
-            //enemyTexture = Content.Load<Texture2D>("enemy");
+            enemyTexture = Content.Load<Texture2D>("enemy");
         }
 
 

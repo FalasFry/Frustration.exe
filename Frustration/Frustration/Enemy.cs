@@ -16,13 +16,11 @@ namespace Frustration
         Vector2 position;
         Vector2 scale;
         Vector2 offset;
-        Game1 game;
         bool enemySmart;
         Color color;
         float speed;
         float rotation;
         int Index = 0;
-        Player player;
         List<Enemy> enemyList = new List<Enemy>();
 
         public void AddEnemy(Enemy enemy)
