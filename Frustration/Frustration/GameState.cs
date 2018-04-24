@@ -84,7 +84,7 @@ namespace Frustration
 
             #region Swap To Pause Menu
 
-            pressTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            pressTimer += deltaTime;
             if (pause.IsKeyDown(Keys.Escape) && pressTimer > 1f)
             {
                 game.ChangeState(new PauseState(game, graphDevice, contentManager));

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 
 
 namespace Frustration
@@ -65,16 +66,15 @@ namespace Frustration
 
         protected override void UnloadContent()
         {
-
         }
 
         protected override void Update(GameTime gameTime)
         {
-
             if (stateStack.Peek().Update(gameTime) == false)
             {
                 stateStack.Pop();
             }
+
             base.Update(gameTime);
             
         }
@@ -82,8 +82,6 @@ namespace Frustration
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.White);
-
-            // TODO: Add your drawing code here
 
             stateStack.Peek().Draw(gameTime, spriteBatch);
 

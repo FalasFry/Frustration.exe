@@ -13,7 +13,7 @@ namespace Frustration
     {
         KeyboardState keys = Keyboard.GetState();
         bool paused;
-        List<Components> components;
+        List<Components> buttons;
 
         public PauseState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content) : base(Game, graphicsDevice, content)
         {
@@ -34,7 +34,7 @@ namespace Frustration
             };
             menuButton.Click += MenuButton_Click;
 
-            components = new List<Components>()
+            buttons = new List<Components>()
             {
                 resumeButton,
                 menuButton,
@@ -59,7 +59,7 @@ namespace Frustration
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            foreach(var component in components)
+            foreach(var component in buttons)
             {
                 component.Draw(gameTime, spriteBatch);
             }
@@ -69,7 +69,7 @@ namespace Frustration
 
         public override bool Update(GameTime gameTime)
         {
-            foreach(var component in components)
+            foreach(var component in buttons)
             {
                 component.Update(gameTime);
             }
