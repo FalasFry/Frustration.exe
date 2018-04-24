@@ -25,7 +25,7 @@ namespace Frustration
             texture = Texture;
             position = startPos;
             offset = ((texture.Bounds.Size.ToVector2())/2);
-            rectangle = new Rectangle((offset - position).ToPoint(),(texture.Bounds.Size.ToVector2() * scale).ToPoint());
+            rectangle = new Rectangle((offset - position).ToPoint(),(texture.Bounds.Size.ToVector2()).ToPoint());
 
         }
         public void Update()
@@ -37,9 +37,9 @@ namespace Frustration
         }
         public void DrawBullet(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, null, color, rotation, offset, scale, SpriteEffects.None, 1);
-           // spriteBatch.Draw(texture,null, rectangle,null,offset,rotation,new Vector2(1,1), Color.Black,SpriteEffects.None,0);
-
+            spriteBatch.Draw(texture, position, null, color, rotation, offset, 1f, SpriteEffects.None, 1);
+            //spriteBatch.Draw(texture,position, rectangle,Color.Black,rotation,offset,scale,SpriteEffects.None, 2);
+            spriteBatch.Draw(texture,rectangle,Color.Cyan);
         }
     }
 }

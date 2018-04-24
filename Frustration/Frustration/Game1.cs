@@ -50,7 +50,7 @@ namespace Frustration
 
             menu = new MenuState(this, GraphicsDevice, Content);
             curState = menu;
-
+          //  powerUps.Add(new PowerUp(10,Content.Load<Texture2D>("ball"),new Vector2(800,rnd.Next(0,400)),rnd.Next(0,3),));
             stateStack.Push(menu);
         }
 
@@ -87,7 +87,7 @@ namespace Frustration
 
             spriteBatch.Begin();
 
-            /*foreach (PowerUp powerUp in powerUps)
+           /* foreach (PowerUp powerUp in powerUps)
             {
                 powerUp.Draw(spriteBatch);
             }*/

@@ -15,14 +15,16 @@ namespace Frustration
         public Vector2 dir, position, offset, scale = new Vector2(0.3f, 0.3f);
         public Texture2D texture;
         public Rectangle rectangle;
+        
         public bool difficulty = false;
 
         public Player(Texture2D Texture)
         {
             texture = Texture;
-            offset = ((texture.Bounds.Size.ToVector2() * scale) / 2);
+            offset = ((texture.Bounds.Size.ToVector2() * 0.5f));
+            //offset = new Vector2(texture.Width/2,texture.Height/2)*scale;
             position = new Vector2(50,300);
-            rectangle = new Rectangle((position-offset).ToPoint(), (texture.Bounds.Size.ToVector2()*scale).ToPoint());
+            rectangle = new Rectangle((offset).ToPoint(), (texture.Bounds.Size.ToVector2()).ToPoint());
         }
 
         public void Update()
@@ -31,6 +33,7 @@ namespace Frustration
 
             rectangle.Location = (position).ToPoint();
             //rectangle.Offset(-offset);
+            
             #region Controls
            
             if (keyState.IsKeyDown(Keys.R))
@@ -75,6 +78,8 @@ namespace Frustration
             }
             position += (dir * speed);
 
+            rotation = (float)Math.Atan2(dir.X, dir.Y) * -1;
+            
         }
         public void MovementHard()
         {
@@ -83,13 +88,15 @@ namespace Frustration
             moveDir = mouse.Position.ToVector2() - (position+offset);
             moveDir.Normalize();
             position += (moveDir * speed);
+            rotation = (float)Math.Atan2(moveDir.X, moveDir.Y)*-1;
+
 
         }
         public void Draw(SpriteBatch spriteBatch)
         {
 
-            spriteBatch.Draw(texture, position, null, Color.White, rotation, offset, scale, SpriteEffects.None, 54);
-            spriteBatch.Draw(texture, rectangle, Color.White);
+            spriteBatch.Draw(texture, position+offset, null, Color.White, rotation, offset, 1f, SpriteEffects.None, 0);
+            spriteBatch.Draw(texture, rectangle, Color.Cyan);
             
         }
     }
