@@ -11,7 +11,7 @@ namespace Frustration
 {
     public class PauseState : States
     {
-
+        float timer = 0f;
         bool paused = true;
         List<Components> buttons;
 
@@ -49,12 +49,13 @@ namespace Frustration
             };
         }
 
+
+        #region Button Clicks
+
         private void QuitButton_Click(object sender, EventArgs e)
         {
             game.Exit();
         }
-
-        #region Button Clicks
 
         private void MenuButton_Click(object sender, EventArgs e)
         {
@@ -84,7 +85,6 @@ namespace Frustration
         {
             KeyboardState keys = Keyboard.GetState();
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            float timer = 0f;
             timer += deltaTime;
 
             foreach(var component in buttons)
@@ -95,6 +95,7 @@ namespace Frustration
             if(keys.IsKeyDown(Keys.Escape) && timer > 1)
             {
                 timer = 0f;
+                paused = false;
                 return false;
             }
 
