@@ -21,7 +21,6 @@ namespace Frustration
         public float attackSpeed = 0.5f,attackTimer;
         public Texture2D enemyTexture;
         Random rnd = new Random();
-        List<PowerUp> powerUps;
 
         MenuState menu;
 
@@ -51,7 +50,6 @@ namespace Frustration
 
             menu = new MenuState(this, GraphicsDevice, Content);
             curState = menu;
-          //  powerUps.Add(new PowerUp(10,Content.Load<Texture2D>("ball"),new Vector2(800,rnd.Next(0,400)),rnd.Next(0,3),));
             stateStack.Push(menu);
         }
 
@@ -87,10 +85,7 @@ namespace Frustration
 
             spriteBatch.Begin();
 
-           /* foreach (PowerUp powerUp in powerUps)
-            {
-                powerUp.Draw(spriteBatch);
-            }*/
+
 
             spriteBatch.End();
 

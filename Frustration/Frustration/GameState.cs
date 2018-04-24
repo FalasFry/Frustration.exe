@@ -18,6 +18,9 @@ namespace Frustration
         Texture2D bullet;
         Texture2D backSpace;
         List<Bullet> bullets;
+        List<PowerUp> powerUps;
+        Random rnd = new Random();
+
 
 
         // Contructor that makes a gamestate work with all variables and working funktions.
@@ -32,6 +35,8 @@ namespace Frustration
             bullet = game.bulletTexture;
             
             bullets = new List<Bullet>();
+            powerUps.Add(new PowerUp(10,game.Content.Load<Texture2D>("ball"),new Vector2(800,rnd.Next(0,400)),rnd.Next(0,3),player,game));
+
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -51,7 +56,10 @@ namespace Frustration
                    // player.position = new Vector2(1000,1000);
                 }
             }
-
+            foreach (PowerUp powerUp in powerUps)
+            {
+                powerUp.Draw(spriteBatch);
+            }
             spriteBatch.End();
         }
         
@@ -103,7 +111,7 @@ namespace Frustration
             MouseState mouse = Mouse.GetState();
             if (player.ammo > 0)
             {
-                bullets.Add(new Bullet(10f, GetDir(mouse.Position.ToVector2(), player.position), bullet, (player.position+player.offset)));
+                bullets.Add(new Bullet(10f, GetDir(mouse.Position.ToVector2(), player.position+player.offset), bullet, (player.position+player.offset)));
                 player.ammo--;
             }
 
