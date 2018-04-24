@@ -18,6 +18,7 @@ namespace Frustration
         Texture2D bullet;
         Texture2D backSpace;
         List<Bullet> bullets;
+
         bool manualSpawning = true;
         List<int> posList = new List<int> { 9, 10, 11, 0, 8, 12, 0, 8, 12, 0, 8, 12, 0, 8, 12, 14, 6, 15, 5, 16, 4, 0, 8, 12, 7, 13, 17, 3, 9, 10, 11, 0, 16, 4, 15, 5, 14, 6, 0 };
         List<int> order = new List<int>();
@@ -27,6 +28,7 @@ namespace Frustration
         float enemyCount = 3;
         float enemiesPerLine = 1;
         float speed = 1;
+        float smartPercent;
         Enemy enemy;
         Random rnd = new Random();
         
@@ -88,7 +90,14 @@ namespace Frustration
             return num * 22 - 20;
         }
 
-
+        public bool IsSmart()
+        {
+            if (rnd.Next(0, (int)smartPercent) > rnd.Next(0, 100))
+            {
+                return true;
+            }
+            else return false;
+        }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
 
@@ -134,7 +143,7 @@ namespace Frustration
             #region enemies
             for (int i = 0; i < order.Count;)
             {
-                enemies.Add(new Enemy(game.enemyTexture, new Vector2(1000, GivePosition(order[i])), speed, new Vector2(0.1f, 0.1f), 0, Color.White, true));
+                enemies.Add(new Enemy(game.enemyTexture, new Vector2(1000, GivePosition(order[i])), speed, new Vector2(0.1f, 0.1f), 0, Color.White, IsSmart()));
                 order.RemoveAt(i);
             }
 
@@ -157,6 +166,7 @@ namespace Frustration
                 if (enemiesPerLine < 3) enemiesPerLine += 0.02f;
                 if (speed < 4) speed *= 1.02f;
                 if (delay > 0.75f) delay -= 0.02f;
+                if (smartPercent < 40) smartPercent += 0.4f;
 
                 if (manualSpawning) ReadPosition();
                 else GiveValues((int)enemyCount);
