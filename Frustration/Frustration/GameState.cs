@@ -21,10 +21,9 @@ namespace Frustration
 
         bool manualSpawning = true;
         List<int> posList = new List<int>();
-        List<int> form1 = new List<int> { 9, 10, 11, 0, 8, 12, 0, 8, 12, 0, 8, 12, 0, 8, 12, 14, 6, 15, 5, 16, 4, 0, 8, 12, 7, 13, 17, 3, 9, 10, 11, 0, 16, 4, 15, 5, 14, 6, 0 };
-        List<int> form2 = new List<int> { 11, 12, 0, 10, 13, 0, 10, 13, 0, 10, 13, 0, 10, 13, 0, 10, 13, 0, 10, 13, 0, 10, 13, 0, 10, 13, 0, 10, 13, 15, 16, 9, 8, 0, 10, 13, 9, 14,17,7, 0, 10, 13, 17, 7, 0, 17, 7, 0, 16, 8, 10, 13, 0, 15, 9, 14, 8, 0 };
+        List<int> form1 = new List<int> { 4, 5, 0, 3, 6, 0, 3, 6, 0, 3, 6, 0, 3, 6, 3, 2, 7, 1, 8, 1, 0, 3, 6, 4, 7, 8, 1, 4, 5, 6, 0, 8, 2, 8, 3, 7,3, 0 };
         List <int> order = new List<int>();
-        float delay = 1.5f;
+        float delay = 2f;
         float remainingDelay = 1.5f;
         List<Enemy> enemies;
         float enemyCount = 3;
@@ -41,11 +40,11 @@ namespace Frustration
         // Contructor that makes a gamestate work with all variables and working funktions.
         public GameState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content, bool easyMode) : base(Game, graphicsDevice, content)
         {
+            posList = form1;
             player = new Player(game.Content.Load<Texture2D>("spaceship.1"))
             {
                 difficulty = easyMode
             };
-            posList = form2;
             enemies = new List<Enemy>();
             backSpace = content.Load<Texture2D>("stars");
             bullet = game.bulletTexture;
@@ -79,7 +78,7 @@ namespace Frustration
         {
             for (int i = 0; i < amount; i++)
             {
-                int x = rnd.Next(0, 20);
+                int x = rnd.Next(0, 10);
                 if (!order.Contains(x))
                 {
                     order.Add(x);
@@ -90,7 +89,7 @@ namespace Frustration
 
         public float GivePosition(int num)
         {
-            return num * 22 - 20;
+            return num * 44 - 20;
         }
 
         public bool IsSmart()
@@ -150,7 +149,7 @@ namespace Frustration
             #region enemies
             for (int i = 0; i < order.Count;)
             {
-                enemies.Add(new Enemy(game.enemyTexture, new Vector2(1000, GivePosition(order[i])), speed, new Vector2(0.1f, 0.1f), 0, Color.White, IsSmart()));
+                enemies.Add(new Enemy(game.enemyTexture, new Vector2(1000, GivePosition(order[i])), speed, new Vector2(0.2f, 0.2f), 0, Color.White, IsSmart()));
                 order.RemoveAt(i);
             }
 
@@ -172,7 +171,7 @@ namespace Frustration
             {
                 if (enemiesPerLine < 3) enemiesPerLine += 0.02f;
                 if (speed < 4) speed *= 1.02f;
-                if (delay > 0.75f) delay -= 0.02f;
+                if (delay > 1f) delay -= 0.02f;
                 if (smartPercent < 40) smartPercent += 0.4f;
 
                 if (manualSpawning) ReadPosition();
