@@ -11,7 +11,7 @@ namespace Frustration
     public class Enemy
     {
         Texture2D texture;
-       public Rectangle rectangle;
+        public Rectangle rectangle;
         Vector2 moveDir;
         Vector2 position;
         Vector2 scale;

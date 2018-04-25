@@ -115,7 +115,7 @@ namespace Frustration
             MouseState mouse = Mouse.GetState();
             if (player.ammo > 0)
             {
-                bullets.Add(new Bullet(10f, GetDir(mouse.Position.ToVector2(), player.position+player.offset), bullet, (player.position+player.offset),1));
+                bullets.Add(new Bullet(10f, GetDir(mouse.Position.ToVector2(), player.position+player.offset), bullet, (player.position+player.offset),1, Color.White));
                 player.ammo--;
             }
 
@@ -136,9 +136,9 @@ namespace Frustration
             {
                 if (enemies[i].FindIQ(i, enemies))
                 {
-                    bullets.Add(new Bullet(10f,GetDir(player.position, enemies[i].FindPos(i, enemies)), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i),2));
+                    bullets.Add(new Bullet(10f,GetDir(player.position, enemies[i].FindPos(i, enemies)), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i),2, Color.Cyan));
                 }
-                else bullets.Add(new Bullet(10f, new Vector2(-1, 0), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i),2));
+                else bullets.Add(new Bullet(10f, new Vector2(-1, 0), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i),2, Color.Cyan));
             }
         }
 

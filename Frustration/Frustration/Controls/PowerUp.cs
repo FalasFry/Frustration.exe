@@ -12,9 +12,6 @@ namespace Frustration
     public class PowerUp
     {
         public float speed, rotation;
-        const float timer = 10;
-        float remainingTime = timer;
-
         public Vector2 dir = new Vector2(-1, 0), position, offset;
         public Texture2D texture;
         public Rectangle rectangle;
@@ -40,7 +37,6 @@ namespace Frustration
             position += (dir * speed);
             rectangle.Location = (position).ToPoint();
             rotation = (float)Math.Atan2(dir.X, dir.Y) * -1;
-            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
 
             if (rectangle.Intersects(player.rectangle))

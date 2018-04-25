@@ -15,11 +15,11 @@ namespace Frustration
         public Texture2D texture;
         public Rectangle rectangle;
         public float damage = 2;
-        public Color color = Color.White;
+        public Color color;
         public float owner;
 
         
-        public Bullet(float Speed,Vector2 Dir,Texture2D Texture, Vector2 startPos, float Owner)
+        public Bullet(float Speed,Vector2 Dir,Texture2D Texture, Vector2 startPos, float Owner, Color paint)
         {
             owner = Owner;
             speed = Speed;
@@ -28,7 +28,7 @@ namespace Frustration
             position = startPos;
             offset = ((texture.Bounds.Size.ToVector2())/2);
             rectangle = new Rectangle((offset - position).ToPoint(),new Point(20,20));
-
+            color = paint;
         }
 
         public void Update()
