@@ -55,7 +55,7 @@ namespace Frustration
             bullets = new List<Bullet>();
             powerUps = new List<PowerUp>
             {
-                new PowerUp(2, game.Content.Load<Texture2D>("1-ball.svg"), new Vector2(800, rnd.Next(0, 400)), 1, player, game)
+                new PowerUp(2, game.Content.Load<Texture2D>("1-ball"), new Vector2(800, rnd.Next(0, 400)), 1, player, game)
             };
         }
 
