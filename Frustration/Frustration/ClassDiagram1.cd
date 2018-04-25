@@ -14,25 +14,18 @@
       <FileName>Controls\Bullet.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Frustration.Pause_Menu">
-    <Position X="7.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAgAAAADAAAAAIAAAAAAAAAQAAAEAIAA=</HashCode>
-      <FileName>Pause_Menu.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Frustration.Game1">
-    <Position X="0.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQGEEAAAAACBwAEAAAAAAgABABAAAgAAAAAAgAIAAQ=</HashCode>
-      <FileName>Game1.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Frustration.Player">
     <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AASAAABBACAAAgAAAACAIiACAQAAAwAIAABAAAAgAAA=</HashCode>
       <FileName>Controls\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Frustration.Player">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQGEEAAAAACBwAEAAAAAAgABABAAAgAAAAAAgAIAAQ=</HashCode>
+      <FileName>Game1.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

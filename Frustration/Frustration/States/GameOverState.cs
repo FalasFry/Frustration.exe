@@ -19,7 +19,7 @@ namespace Frustration
         List<Components> buttons;
         SpriteFont font;
 
-        public GameOverState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content, float points, float time) : base(Game, graphicsDevice, content)
+        public GameOverState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content, float points, int time) : base(Game, graphicsDevice, content)
         {
             gameOver = content.Load<Texture2D>("gameover");
             score = points;

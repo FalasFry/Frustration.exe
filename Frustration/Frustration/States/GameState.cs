@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
 
 namespace Frustration
 {
@@ -14,6 +15,7 @@ namespace Frustration
     {
 
         float pressTimer = 0f;
+        float timeElapsed;
         Player player;
         Texture2D bullet;
         Texture2D backSpace;
@@ -30,7 +32,6 @@ namespace Frustration
         float enemiesPerLine = 1;
         float speed = 1;
         float smartPercent;
-        Enemy enemy;
         Random rnd = new Random();
         public float score;
         
@@ -215,15 +216,17 @@ namespace Frustration
 
         public override bool Update(GameTime gameTime)
         {
+            
             KeyboardState pause = Keyboard.GetState();
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             MouseState mouse = Mouse.GetState();
+            timeElapsed += deltaTime;
 
             #region Game Over Screen
 
             if (player.dead == true)
             {
-                game.ChangeState(new GameOverState(game, graphDevice, contentManager, score, deltaTime));
+                game.ChangeState(new GameOverState(game, graphDevice, contentManager, score, (int)timeElapsed));
             }
 
             #endregion

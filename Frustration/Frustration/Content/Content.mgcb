@@ -183,7 +183,7 @@
 /processorParam:TextureFormat=Color
 /build:gameover.png
 
-#begin 1-ball.svg.png
+#begin powerup.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -193,5 +193,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:1-ball.svg.png
+/build:powerup.png
 
