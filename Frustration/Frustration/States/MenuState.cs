@@ -76,7 +76,7 @@ namespace Frustration
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            spriteBatch.Draw(menu, new Rectangle(0, 0, 800, 440), Color.White);
+            spriteBatch.Draw(menu, new Rectangle(0, 0, 800, 480), Color.White);
             foreach (var component in buttons)
             {
                 component.Draw(gameTime, spriteBatch);

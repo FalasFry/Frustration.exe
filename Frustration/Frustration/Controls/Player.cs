@@ -45,7 +45,7 @@ namespace Frustration
 
             #region Controls
            
-            if (keyState.IsKeyDown(Keys.R))
+            if (keyState.IsKeyDown(Keys.R) && ammo < 20)
             {
                 ammo = 20;
             }

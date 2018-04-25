@@ -57,7 +57,7 @@ namespace Frustration
         {
             spriteBatch.Begin();
 
-            spriteBatch.Draw(gameOver, new Rectangle(0, 0, 800, 440), Color.White);
+            spriteBatch.Draw(gameOver, new Rectangle(0, 0, 800, 480), Color.White);
             spriteBatch.DrawString(font, "You Got A Score Of " + score + " points", scorePos, Color.White);
             spriteBatch.DrawString(font, "You survived " + timeElapsed + " seconds", timePos, Color.White);
 

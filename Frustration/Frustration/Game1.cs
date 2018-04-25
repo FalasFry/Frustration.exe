@@ -34,7 +34,7 @@ namespace Frustration
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             stateStack = new Stack<States>();
-            graphics.PreferredBackBufferHeight = 440;
+            graphics.PreferredBackBufferHeight = 480;
             graphics.PreferredBackBufferWidth = 800;
         }
 
@@ -63,6 +63,7 @@ namespace Frustration
 
         protected override void Update(GameTime gameTime)
         {
+
             if (stateStack.Peek().Update(gameTime) == false)
             {
                 stateStack.Pop();
