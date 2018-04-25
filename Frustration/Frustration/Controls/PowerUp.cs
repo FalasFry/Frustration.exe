@@ -46,7 +46,7 @@ namespace Frustration
                 }
                 if (powerType == 2)
                 {
-                    //color = Color.Blue;
+                    player.speed = player.speed * 2;
                 }
                 if (powerType == 3)
                 {

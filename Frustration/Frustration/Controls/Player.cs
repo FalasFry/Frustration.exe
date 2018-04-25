@@ -90,7 +90,7 @@ namespace Frustration
                 dir.Normalize();
             }
 
-            /*if (dir == Vector2.Zero)
+            if (dir == Vector2.Zero)
             {
                 dir = new Vector2(1, 0);
             }
@@ -119,7 +119,7 @@ namespace Frustration
                 spriteBatch.Draw(texture, position + offset, null, Color.White, rotation, offset, 1f, SpriteEffects.None, 0);
             }
 
-            spriteBatch.Draw(texture, rectangle, Color.Cyan);
+           // spriteBatch.Draw(texture, rectangle, Color.Cyan);
         }
     }
 }

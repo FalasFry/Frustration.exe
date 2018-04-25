@@ -56,7 +56,7 @@ namespace Frustration
             bullets = new List<Bullet>();
             powerUps = new List<PowerUp>
             {
-                new PowerUp(2, game.Content.Load<Texture2D>("ball.1"), new Vector2(800, rnd.Next(0, 400)), 1, player, game)
+                new PowerUp(2, game.Content.Load<Texture2D>("1-ball.svg"), new Vector2(800, rnd.Next(0, 400)), 1, player, game)
             };
         }
 
@@ -178,7 +178,10 @@ namespace Frustration
                     if (bullets[i].rectangle.Intersects(enemies[k].rectangle) && bullets[i].owner != 2)
                     {
                         bullets.RemoveAt(i);
-                        --i;
+                        if (i == bullets.Count)
+                        {
+                            --i;
+                        }
                         enemies.RemoveAt(k);
                         ++score;
                     }
