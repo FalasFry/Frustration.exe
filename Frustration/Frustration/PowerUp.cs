@@ -42,6 +42,7 @@ namespace Frustration
                 if (powerType == 1)
                 {
                     game.attackSpeed = 0.1f;
+                    player.ammo += 60;
                 }
                 if (powerType == 2)
                 {
@@ -55,7 +56,7 @@ namespace Frustration
 
             if (powerType == 1)
             {
-                //color = Color.Green;
+                color = Color.Green;
             }
             if (powerType == 2)
             {

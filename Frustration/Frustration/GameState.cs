@@ -129,11 +129,12 @@ namespace Frustration
             }
             for (int i = 0; i < bullets.Count; ++i)
             {
-                for (int k = 0; k < enemies.Count; k++)
+                for (int k = 0; k < enemies.Count; ++k)
                 {
                     if (bullets[i].rectangle.Intersects(enemies[k].rectangle) && bullets[i].owner != 2)
                     {
                         bullets.RemoveAt(i);
+                        --i;
                         enemies.RemoveAt(k);
                     }
                 }

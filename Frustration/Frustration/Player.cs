@@ -68,25 +68,21 @@ namespace Frustration
             if (keyState.IsKeyDown(Keys.A))
             {
                 dir.X = -1;
-                position += (dir * speed);
 
             }
             if (keyState.IsKeyDown(Keys.D))
             {
                 dir.X = 1;
-                position += (dir * speed);
 
             }
             if (keyState.IsKeyDown(Keys.W))
             {
                 dir.Y = -1;
-                position += (dir * speed);
 
             }
             if (keyState.IsKeyDown(Keys.S))
             {
                 dir.Y = 1;
-                position += (dir * speed);
 
             }
             if (dir.X > 1f || dir.Y > 1f)
@@ -97,8 +93,10 @@ namespace Frustration
             {
                 dir = new Vector2(1, 0);
             }
-            if (Keyboard.GetState().GetPressedKeys().Length > 0)
+            if (keyState.IsKeyDown(Keys.S) || keyState.IsKeyDown(Keys.W) || keyState.IsKeyDown(Keys.D) || keyState.IsKeyDown(Keys.A))
             {
+                position += (dir * speed);
+
             }
 
             rotation = (float)Math.Atan2(dir.X, dir.Y) * -1;
