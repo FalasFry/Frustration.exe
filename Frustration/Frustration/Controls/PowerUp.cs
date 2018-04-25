@@ -11,8 +11,11 @@ namespace Frustration
 {
     public class PowerUp
     {
-        public float speed, rotation = 0;
-        public Vector2 dir = new Vector2(-1,0), position, offset, scale = new Vector2(0.07f, 0.07f);
+        public float speed, rotation;
+        const float timer = 10;
+        float remainingTime = timer;
+
+        public Vector2 dir = new Vector2(-1, 0), position, offset;
         public Texture2D texture;
         public Rectangle rectangle;
         public Color color = Color.White;
@@ -32,11 +35,14 @@ namespace Frustration
             rectangle = new Rectangle((offset - position).ToPoint(), (texture.Bounds.Size.ToVector2()).ToPoint());
 
         }
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             position += (dir * speed);
             rectangle.Location = (position).ToPoint();
             rotation = (float)Math.Atan2(dir.X, dir.Y) * -1;
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+
             if (rectangle.Intersects(player.rectangle))
             {
                 if (powerType == 1)
