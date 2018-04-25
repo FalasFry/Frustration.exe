@@ -43,7 +43,7 @@ namespace Frustration
         #endregion
 
 
-        // The cunstrukor for the button.
+        // The cunstructor for the button.
         // Gives it a texture and a font and a color, you do the rest elsewhere.
         public Button(Texture2D Texture, SpriteFont Font)
         {
@@ -52,7 +52,6 @@ namespace Frustration
             Paint = Color.Black;
         }
 
-        // Way of making code more compact.
         #region Methods
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -69,8 +68,8 @@ namespace Frustration
 
             if(!string.IsNullOrEmpty(Text))
             {
-                var x = (Rect.X + (Rect.Width / 2) - (font.MeasureString(Text).X / 2));
-                var y = (Rect.Y + (Rect.Height / 2) - font.MeasureString(Text).Y / 2);
+                float x = (Rect.X + (Rect.Width / 2) - (font.MeasureString(Text).X / 2));
+                float y = (Rect.Y + (Rect.Height / 2) - font.MeasureString(Text).Y / 2);
 
                 spriteBatch.DrawString(font, Text, new Vector2(x,y), Paint);
             }
@@ -84,7 +83,7 @@ namespace Frustration
             prevMouse = curMouse;
             curMouse = Mouse.GetState();
 
-            var mouseRect = new Rectangle(curMouse.X, curMouse.Y, 1, 1);
+            Rectangle mouseRect = new Rectangle(curMouse.X, curMouse.Y, 1, 1);
 
             if(mouseRect.Intersects(Rect))
             {

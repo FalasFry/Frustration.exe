@@ -34,6 +34,8 @@ namespace Frustration
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             stateStack = new Stack<States>();
+            graphics.PreferredBackBufferHeight = 440;
+            graphics.PreferredBackBufferWidth = 800;
         }
 
         protected override void Initialize()
@@ -57,9 +59,7 @@ namespace Frustration
         }
 
 
-        protected override void UnloadContent()
-        {
-        }
+        protected override void UnloadContent() { }
 
         protected override void Update(GameTime gameTime)
         {
@@ -69,7 +69,6 @@ namespace Frustration
             }
 
             base.Update(gameTime);
-            
         }
 
         protected override void Draw(GameTime gameTime)
@@ -77,12 +76,6 @@ namespace Frustration
             GraphicsDevice.Clear(Color.White);
 
             stateStack.Peek().Draw(gameTime, spriteBatch);
-
-            spriteBatch.Begin();
-
-
-
-            spriteBatch.End();
 
             base.Draw(gameTime);
         }

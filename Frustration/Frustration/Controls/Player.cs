@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
 
 namespace Frustration
 {
@@ -15,8 +16,8 @@ namespace Frustration
         public Vector2 dir, position, offset, scale = new Vector2(0.3f, 0.3f);
         public Texture2D texture;
         public Rectangle rectangle;
-        public float hp = 100;
-        bool dead = false;
+        public float hp = 10;
+        public bool dead = false;
         Game1 game1;
         
         public bool difficulty = false;
@@ -36,13 +37,12 @@ namespace Frustration
             KeyboardState keyState = Keyboard.GetState();
 
             rectangle.Location = (position).ToPoint();
-            //rectangle.Offset(-offset);
+
             if (hp <= 0)
             {
                 dead = true;
-                game1.PopStack();
-
             }
+
             #region Controls
            
             if (keyState.IsKeyDown(Keys.R))
@@ -89,7 +89,8 @@ namespace Frustration
             {
                 dir.Normalize();
             }
-            if (dir == Vector2.Zero)
+
+            /*if (dir == Vector2.Zero)
             {
                 dir = new Vector2(1, 0);
             }
@@ -110,8 +111,6 @@ namespace Frustration
             moveDir.Normalize();
             position += (moveDir * speed);
             rotation = (float)Math.Atan2(moveDir.X, moveDir.Y)*-1;
-
-
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -119,8 +118,8 @@ namespace Frustration
             {
                 spriteBatch.Draw(texture, position + offset, null, Color.White, rotation, offset, 1f, SpriteEffects.None, 0);
             }
-            //spriteBatch.Draw(texture, rectangle, Color.Cyan);
-            
+
+            spriteBatch.Draw(texture, rectangle, Color.Cyan);
         }
     }
 }

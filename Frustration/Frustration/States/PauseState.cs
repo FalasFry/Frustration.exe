@@ -16,6 +16,9 @@ namespace Frustration
         List<Components> buttons;
         Texture2D screen;
         Color white = Color.White;
+        Vector2 overPos = new Vector2(325, 190);
+        Vector2 centerPos = new Vector2(325, 240);
+        Vector2 underPos = new Vector2(325, 290);
 
         public PauseState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content) : base(Game, graphicsDevice, content)
         {
@@ -26,21 +29,21 @@ namespace Frustration
 
             Button resumeButton = new Button(buttonText, buttonFont)
             {
-                Pos = new Vector2(300, 200),
+                Pos = overPos,
                 Text = "Resume",
             };
             resumeButton.Click += ResumeButton_Click;
 
             Button menuButton = new Button(buttonText, buttonFont)
             {
-                Pos = new Vector2(300, 250),
+                Pos = centerPos,
                 Text = "Main Menu",
             };
             menuButton.Click += MenuButton_Click;
 
             Button quitButton = new Button(buttonText, buttonFont)
             {
-                Pos = new Vector2(300, 300),
+                Pos = underPos,
                 Text = "Quit",
             };
             quitButton.Click += QuitButton_Click;
@@ -63,8 +66,10 @@ namespace Frustration
 
         private void MenuButton_Click(object sender, EventArgs e)
         {
-            game.PopStack();
-            game.PopStack();
+            for (int i = 0; i < 2; i++)
+            {
+                game.PopStack();
+            }
         }
 
         private void ResumeButton_Click(object sender, EventArgs e)

@@ -30,6 +30,7 @@ namespace Frustration
             rectangle = new Rectangle((offset - position).ToPoint(),new Point(20,20));
 
         }
+
         public void Update()
         {
 
@@ -38,6 +39,7 @@ namespace Frustration
             rotation = (float)Math.Atan2(dir.X,dir.Y)*-1;
 
         }
+
         public void DrawBullet(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position, null, color, rotation, offset, 1f, SpriteEffects.None, 1);

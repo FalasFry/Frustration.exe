@@ -18,7 +18,7 @@ namespace Frustration
         Texture2D bullet;
         Texture2D backSpace;
         List<Bullet> bullets;
-
+        SpriteFont font;
         bool manualSpawning = true;
         List<int> posList = new List<int>();
         List<int> form1 = new List<int> { 4, 5, 0, 3, 6, 0, 3, 6, 0, 3, 6, 0, 3, 6, 3, 2, 7, 1, 8, 1, 0, 3, 6, 4, 7, 8, 1, 4, 5, 6, 0, 8, 2, 8, 3, 7,3, 0 };
@@ -32,6 +32,7 @@ namespace Frustration
         float smartPercent;
         Enemy enemy;
         Random rnd = new Random();
+        public float score;
         
         List<PowerUp> powerUps;
 
@@ -46,6 +47,8 @@ namespace Frustration
             {
                 difficulty = easyMode
             };
+
+            font = content.Load<SpriteFont>("ammo");
             enemies = new List<Enemy>();
             backSpace = content.Load<Texture2D>("stars");
             bullet = game.bulletTexture;
@@ -55,8 +58,10 @@ namespace Frustration
             {
                 new PowerUp(2, game.Content.Load<Texture2D>("ball.1"), new Vector2(800, rnd.Next(0, 400)), 1, player, game)
             };
-
         }
+
+        #region Methods
+
         public void ReadPosition()
         {
             if (posList.Count == 0)
@@ -77,6 +82,7 @@ namespace Frustration
                 }
             }
         }
+
         public void GiveValues(int amount)
         {
             for (int i = 0; i < amount; i++)
@@ -103,6 +109,40 @@ namespace Frustration
             }
             else return false;
         }
+
+        // Shoots when you have ammo and press left mouse.
+        public void Shoot()
+        {
+            MouseState mouse = Mouse.GetState();
+            if (player.ammo > 0)
+            {
+                bullets.Add(new Bullet(10f, GetDir(mouse.Position.ToVector2(), player.position+player.offset), bullet, (player.position+player.offset),1));
+                player.ammo--;
+            }
+
+        }
+
+        // Gets the direction of the bullets.
+        public Vector2 GetDir(Vector2 to, Vector2 from)
+        {
+            Vector2 dir = to - from;
+            dir.Normalize();
+
+            return dir;
+        }
+
+        public void EnemyShoot()
+        {
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                if (enemies[i].FindIQ(i, enemies))
+                {
+                    bullets.Add(new Bullet(10f,GetDir(player.position, enemies[i].FindPos(i, enemies)), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i),2));
+                }
+                else bullets.Add(new Bullet(10f, new Vector2(-1, 0), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i),2));
+            }
+        }
+
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
 
@@ -110,12 +150,16 @@ namespace Frustration
 
             spriteBatch.Draw(backSpace, new Rectangle(0, 0, 800, 480), Color.White);
 
-            for (int i = 0; i < enemies.Count; i++)
+            spriteBatch.DrawString(font, "ammo = " + player.ammo.ToString(), new Vector2(700, 10), Color.White);
+
+            player.Draw(spriteBatch);
+
+            #region Enemy
+
+            for (int i = 0; i < enemies.Count; ++i)
             {
                 enemies[i].DrawEnemy(spriteBatch);
             }
-
-            player.Draw(spriteBatch);
 
             for (int i = 0; i < bullets.Count; ++i)
             {
@@ -136,9 +180,16 @@ namespace Frustration
                         bullets.RemoveAt(i);
                         --i;
                         enemies.RemoveAt(k);
+                        ++score;
                     }
                 }
             }
+
+
+            #endregion
+
+            #region PowerUps
+
             for (int j = 0; j < powerUps.Count; j++)
             {
                 if (powerUps[j].rectangle.Intersects(player.rectangle))
@@ -150,24 +201,32 @@ namespace Frustration
             {
                 powerUp.Draw(spriteBatch);
             }
+
+            #endregion
+
+            spriteBatch.DrawString(font, "score = " + score.ToString(), new Vector2(10, 10), Color.White);
+
             spriteBatch.End();
         }
-        public void EnemyShoot()
-        {
-            for (int i = 0; i < enemies.Count; i++)
-            {
-                if (enemies[i].FindIQ(i, enemies))
-                {
-                    Console.WriteLine("hey");
-                    bullets.Add(new Bullet(10f,GetDir(player.position, enemies[i].FindPos(i, enemies)), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i),2));
-                }
-                else bullets.Add(new Bullet(10f, new Vector2(-1, 0), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i),2));
-            }
-        }
+
 
         public override bool Update(GameTime gameTime)
         {
+            KeyboardState pause = Keyboard.GetState();
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            MouseState mouse = Mouse.GetState();
+
+            #region Game Over Screen
+
+            if (player.dead == true)
+            {
+                game.ChangeState(new GameOverState(game, graphDevice, contentManager, score, deltaTime));
+            }
+
+            #endregion
+
             #region enemies
+
             for (int i = 0; i < order.Count;)
             {
                 enemies.Add(new Enemy(game.enemyTexture, new Vector2(1000, GivePosition(order[i])), speed, new Vector2(0.2f, 0.2f), 0, Color.White, IsSmart()));
@@ -184,10 +243,8 @@ namespace Frustration
                 }
                 enemies[i].Update();
             }
-            KeyboardState pause = Keyboard.GetState();
-            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            remainingDelay -= timer;
+
+            remainingDelay -= deltaTime;
             if (remainingDelay <= 0)
             {
                 if (enemiesPerLine < 3) enemiesPerLine += 0.02f;
@@ -217,7 +274,7 @@ namespace Frustration
             {
                 powerUps[j].Update();
             }
-            MouseState mouse = Mouse.GetState();
+
             if (mouse.LeftButton == ButtonState.Pressed)
             {
                 if (game.attackTimer <= 0)
@@ -242,29 +299,9 @@ namespace Frustration
             return true;
 
             #endregion
-        }
-
-
-        // Shoots when you have ammo and press left mouse.
-        public void Shoot()
-        {
-            MouseState mouse = Mouse.GetState();
-            if (player.ammo > 0)
-            {
-                bullets.Add(new Bullet(10f, GetDir(mouse.Position.ToVector2(), player.position+player.offset), bullet, (player.position+player.offset),1));
-                player.ammo--;
-            }
 
         }
 
-        // Gets the direction of the bullets.
-        public Vector2 GetDir(Vector2 to, Vector2 from)
-        {
-            Vector2 dir = to - from;
-            dir.Normalize();
-
-            return dir;
-        }
-
+        #endregion
     }
 }
