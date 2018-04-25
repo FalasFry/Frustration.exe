@@ -51,8 +51,10 @@ namespace Frustration
             bullet = game.bulletTexture;
             
             bullets = new List<Bullet>();
-            powerUps = new List<PowerUp>();
-            powerUps.Add(new PowerUp(2,game.Content.Load<Texture2D>("ball.1"),new Vector2(800,rnd.Next(0,400)),1,player,game));
+            powerUps = new List<PowerUp>
+            {
+                new PowerUp(2, game.Content.Load<Texture2D>("ball.1"), new Vector2(800, rnd.Next(0, 400)), 1, player, game)
+            };
 
         }
         public void ReadPosition()
@@ -107,6 +109,7 @@ namespace Frustration
             spriteBatch.Begin();
 
             spriteBatch.Draw(backSpace, new Rectangle(0, 0, 800, 480), Color.White);
+
             for (int i = 0; i < enemies.Count; i++)
             {
                 enemies[i].DrawEnemy(spriteBatch);
