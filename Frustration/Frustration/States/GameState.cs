@@ -14,8 +14,7 @@ namespace Frustration
     public class GameState : States
     {
 
-        float pressTimer = 0f;
-        float timeElapsed;
+        float pressTimer = 0f, timeElapsed, smartPercent;
         Player player;
         Texture2D bullet;
         Texture2D backSpace;
@@ -31,7 +30,6 @@ namespace Frustration
         float enemyCount = 3;
         float enemiesPerLine = 1;
         float speed = 1;
-        float smartPercent;
         Random rnd = new Random();
         public float score;
         
@@ -143,6 +141,8 @@ namespace Frustration
                 else bullets.Add(new Bullet(10f, new Vector2(-1, 0), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i),2));
             }
         }
+
+        #endregion
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
@@ -308,6 +308,6 @@ namespace Frustration
 
         }
 
-        #endregion
+
     }
 }
