@@ -174,6 +174,8 @@ namespace Frustration
             spriteBatch.Draw(backSpace, new Rectangle(0, 0, 800, 480), Color.White);
 
             spriteBatch.DrawString(font, "ammo = " + player.ammo.ToString(), new Vector2(700, 10), Color.White);
+            spriteBatch.DrawString(font, "HP = " + player.hp.ToString(), new Vector2(10, 10), Color.White);
+
 
             player.Draw(spriteBatch);
 
@@ -196,17 +198,38 @@ namespace Frustration
             }
             for (int i = 0; i < bullets.Count; ++i)
             {
+                //if (bullets[i].position.X < 0)
+                //{
+                //    bullets.RemoveAt(i);
+                //}
+                //else if (bullets[i].position.X + bullets[i].offset.X > 800)
+                //{
+                //    bullets.RemoveAt(i);
+                //}
+                //else if (bullets[i].position.Y < 0)
+                //{
+                //    bullets.RemoveAt(i);
+                //}
+                //else if (bullets[i].position.Y + bullets[i].offset.Y > 480)
+                //{
+                //    bullets.RemoveAt(i);
+                //}
+                //if (i == bullets.Count)
+                //{
+                //    --i;
+                //}
                 for (int k = 0; k < enemies.Count; ++k)
                 {
                     if (bullets[i].rectangle.Intersects(enemies[k].rectangle) && bullets[i].owner != 2)
                     {
                         bullets.RemoveAt(i);
-                        if (i == bullets.Count)
-                        {
-                            --i;
-                        }
+                        //if (i == bullets.Count)
+                        //{
+                        //    --i;
+                        //}
                         enemies.RemoveAt(k);
                         ++score;
+                        
                     }
                 }
             }
@@ -230,7 +253,7 @@ namespace Frustration
 
             #endregion
 
-            spriteBatch.DrawString(font, "score = " + score.ToString(), new Vector2(10, 10), Color.White);
+            spriteBatch.DrawString(font, "score = " + score.ToString(), new Vector2(10, 30), Color.White);
 
             spriteBatch.End();
         }
@@ -244,6 +267,7 @@ namespace Frustration
             MouseState mouse = Mouse.GetState();
             timeElapsed += deltaTime;
             PowerUpSpawn(gameTime);
+
 
             #region Game Over Screen
 
