@@ -152,6 +152,8 @@ namespace Frustration
             spriteBatch.Draw(backSpace, new Rectangle(0, 0, 800, 480), Color.White);
 
             spriteBatch.DrawString(font, "ammo = " + player.ammo.ToString(), new Vector2(700, 10), Color.White);
+            spriteBatch.DrawString(font, "HP = " + player.hp.ToString(), new Vector2(10, 10), Color.White);
+
 
             player.Draw(spriteBatch);
 
@@ -229,7 +231,7 @@ namespace Frustration
 
             #endregion
 
-            spriteBatch.DrawString(font, "score = " + score.ToString(), new Vector2(10, 10), Color.White);
+            spriteBatch.DrawString(font, "score = " + score.ToString(), new Vector2(10, 30), Color.White);
 
             spriteBatch.End();
         }
