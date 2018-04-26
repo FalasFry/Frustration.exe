@@ -20,6 +20,7 @@ namespace Frustration
         Player player;
         Game1 game;
         float countDown = 10;
+        bool wait = false;
 
         public PowerUp(float Speed, Texture2D Texture, Vector2 startPos,int PowerType,Player aPlayer,Game1 aGame)
         {
@@ -40,9 +41,10 @@ namespace Frustration
             rotation = (float)Math.Atan2(dir.X, dir.Y) * -1;
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-
             if (rectangle.Intersects(player.rectangle))
             {
+
+
                 if (powerType == 1)
                 {
                     game.attackSpeed = 0.1f;

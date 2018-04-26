@@ -58,10 +58,7 @@ namespace Frustration
             
             bullets = new List<Bullet>();
 
-            powerUps = new List<PowerUp>
-            {
-                //new PowerUp(2, PowerupsTexture, new Vector2(800, rnd.Next(0, 480)), rnd.Next(1,3), player, game)
-            };
+            powerUps = new List<PowerUp>();
         }
 
         #region Methods
@@ -223,10 +220,10 @@ namespace Frustration
                     if (bullets[i].rectangle.Intersects(enemies[k].rectangle) && bullets[i].owner != 2)
                     {
                         bullets.RemoveAt(i);
-                        //if (i == bullets.Count)
-                        //{
-                        //    --i;
-                        //}
+                        if (i == bullets.Count)
+                        {
+                            --i;
+                        }
                         enemies.RemoveAt(k);
                         ++score;
                         
@@ -311,7 +308,7 @@ namespace Frustration
                 for (int i = 0; i < enemies.Count; i++)
                 {
                     enemyCount = enemiesPerLine;
-                    //EnemyShoot();
+                    EnemyShoot();
                 }
                 remainingDelay = delay;
             }
