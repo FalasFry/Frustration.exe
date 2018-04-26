@@ -14,7 +14,7 @@ namespace Frustration
     public class GameState : States
     {
 
-        float pressTimer = 0f, timeElapsed, smartPercent;
+        float pressTimer, timeElapsed, smartPercent;
         Player player;
         Texture2D bullet;
         Texture2D backSpace;
@@ -22,7 +22,7 @@ namespace Frustration
         SpriteFont font;
         bool manualSpawning = true;
         List<int> posList = new List<int>();
-        List<int> form1 = new List<int> { 4, 5, 0, 3, 6, 0, 3, 6, 0, 3, 6, 0, 3, 6, 3, 2, 7, 1, 8, 1, 0, 3, 6, 4, 7, 8, 1, 4, 5, 6, 0, 8, 2, 8, 3, 7,3, 0 };
+        List<int> form1 = new List<int> { 1, 9, 0, 3, 6, 0, 3, 6, 0, 3, 6, 0, 3, 6, 3, 2, 7, 1, 8, 1, 0, 3, 6, 4, 7, 8, 1, 4, 5, 6, 0, 8, 2, 8, 3, 7,3, 0 };
         List <int> order = new List<int>();
         float delay = 2f;
         float remainingDelay = 1.5f;
@@ -32,8 +32,10 @@ namespace Frustration
         float speed = 1;
         Random rnd = new Random();
         public float score;
-        
+        float powerUpsTime;
+        Texture2D PowerupsTexture;
         List<PowerUp> powerUps;
+        float timer;
 
 
 
@@ -46,23 +48,26 @@ namespace Frustration
             {
                 difficulty = easyMode
             };
-
+            
+            powerUpsTime = rnd.Next(10, 30);
+            PowerupsTexture = content.Load<Texture2D>("powerup");
             font = content.Load<SpriteFont>("ammo");
             enemies = new List<Enemy>();
             backSpace = content.Load<Texture2D>("stars");
             bullet = game.bulletTexture;
             
             bullets = new List<Bullet>();
+
             powerUps = new List<PowerUp>
             {
-                new PowerUp(2, game.Content.Load<Texture2D>("powerup"), new Vector2(800, rnd.Next(0, 400)), 1, player, game)
+                //new PowerUp(2, PowerupsTexture, new Vector2(800, rnd.Next(0, 480)), rnd.Next(1,3), player, game)
             };
         }
 
         #region Methods
 
         public void ReadPosition()
-        {
+        { 
             if (posList.Count == 0)
             {
                 manualSpawning = false;
@@ -86,7 +91,7 @@ namespace Frustration
         {
             for (int i = 0; i < amount; i++)
             {
-                int x = rnd.Next(0, 10);
+                int x = rnd.Next(1, 10);
                 if (!order.Contains(x))
                 {
                     order.Add(x);
@@ -97,7 +102,7 @@ namespace Frustration
 
         public float GivePosition(int num)
         {
-            return num * 44 - 20;
+            return num * 48 - 20;
         }
 
         public bool IsSmart()
@@ -140,6 +145,23 @@ namespace Frustration
                 }
                 else bullets.Add(new Bullet(10f, new Vector2(-1, 0), bullet, enemies[i].FindPos(i, enemies) + enemies[i].FindOffset(i),2, Color.Cyan));
             }
+        }
+
+        public void PowerUpSpawn(GameTime gameTime)
+        {
+
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (timer > 0)
+            {
+                timer -= deltaTime;
+            }
+            if(timer <= 0)
+            {
+                powerUps.Add(new PowerUp(2, PowerupsTexture, new Vector2(800, rnd.Next(0, 480)), rnd.Next(1, 3), player, game));
+                timer = rnd.Next(10, 30);
+            }
+
         }
 
         #endregion
@@ -221,6 +243,7 @@ namespace Frustration
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             MouseState mouse = Mouse.GetState();
             timeElapsed += deltaTime;
+            PowerUpSpawn(gameTime);
 
             #region Game Over Screen
 
@@ -264,7 +287,7 @@ namespace Frustration
                 for (int i = 0; i < enemies.Count; i++)
                 {
                     enemyCount = enemiesPerLine;
-                    EnemyShoot();
+                    //EnemyShoot();
                 }
                 remainingDelay = delay;
             }
