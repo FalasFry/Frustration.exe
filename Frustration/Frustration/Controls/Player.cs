@@ -42,13 +42,27 @@ namespace Frustration
             {
                 dead = true;
             }
+            #region WorldWalls
+            if (position.X < 0)
+            {
+                position.X += speed;
+            }
+            if (position.X + offset.X > 800)
+            {
+                position.X -= speed;
+            }
+            if (position.Y < 0)
+            {
+                position.Y += speed;
+            }
+            if (position.Y + offset.Y > 480)
+            {
+                position.Y -= speed;
+            }
+            #endregion
 
             #region Controls
-           
-            if (keyState.IsKeyDown(Keys.R) && ammo < 20)
-            {
-                ammo = 20;
-            }
+
             if (difficulty)
             {
                 MovementNormal();

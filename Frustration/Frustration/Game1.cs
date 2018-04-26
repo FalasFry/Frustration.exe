@@ -68,7 +68,7 @@ namespace Frustration
             {
                 stateStack.Pop();
             }
-
+            
             base.Update(gameTime);
         }
 
