@@ -43,8 +43,6 @@ namespace Frustration
 
             if (rectangle.Intersects(player.rectangle))
             {
-
-
                 if (powerType == 1)
                 {
                     game.attackSpeed = 0.1f;
@@ -66,7 +64,7 @@ namespace Frustration
             }
             if (powerType == 2)
             {
-                //color = Color.Blue;
+                color = Color.CornflowerBlue;
             }
             if (powerType == 3)
             {

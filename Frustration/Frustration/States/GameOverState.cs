@@ -61,7 +61,7 @@ namespace Frustration
             spriteBatch.DrawString(font, "You Got A Score Of " + score + " points", scorePos, Color.White);
             spriteBatch.DrawString(font, "You survived " + timeElapsed + " seconds", timePos, Color.White);
 
-            foreach(var components in buttons )
+            foreach(Button components in buttons )
             {
                 components.Draw(gameTime, spriteBatch);
             }
@@ -71,7 +71,7 @@ namespace Frustration
 
         public override bool Update(GameTime gameTime)
         {
-            foreach(var components in buttons)
+            foreach(Button components in buttons)
             {
                 components.Update(gameTime);
             }

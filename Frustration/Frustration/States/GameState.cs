@@ -215,6 +215,7 @@ namespace Frustration
                 //{
                 //    --i;
                 //}
+
                 for (int k = 0; k < enemies.Count; ++k)
                 {
                     if (bullets[i].rectangle.Intersects(enemies[k].rectangle) && bullets[i].owner != 2)
@@ -263,8 +264,17 @@ namespace Frustration
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             MouseState mouse = Mouse.GetState();
             timeElapsed += deltaTime;
+
+            #region PowerUps
+
             PowerUpSpawn(gameTime);
 
+            for (int j = 0; j < powerUps.Count; j++)
+            {
+                powerUps[j].Update(gameTime);
+            }
+
+            #endregion
 
             #region Game Over Screen
 
@@ -319,10 +329,6 @@ namespace Frustration
             for (int i = 0; i < bullets.Count; i++)
             {
                 bullets[i].Update();
-            }
-            for (int j = 0; j < powerUps.Count; j++)
-            {
-                powerUps[j].Update(gameTime);
             }
 
             if (mouse.LeftButton == ButtonState.Pressed)
