@@ -19,6 +19,8 @@ namespace Frustration
         public int powerType;
         Player player;
         Game1 game;
+        float countDown = 10;
+        bool wait = false;
 
         public PowerUp(float Speed, Texture2D Texture, Vector2 startPos,int PowerType,Player aPlayer,Game1 aGame)
         {
@@ -37,7 +39,7 @@ namespace Frustration
             position += (dir * speed);
             rectangle.Location = (position).ToPoint();
             rotation = (float)Math.Atan2(dir.X, dir.Y) * -1;
-
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (rectangle.Intersects(player.rectangle))
             {
@@ -62,7 +64,7 @@ namespace Frustration
             }
             if (powerType == 2)
             {
-                //color = Color.Blue;
+                color = Color.CornflowerBlue;
             }
             if (powerType == 3)
             {

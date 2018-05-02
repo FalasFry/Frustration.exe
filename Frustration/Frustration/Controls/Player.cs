@@ -13,7 +13,7 @@ namespace Frustration
     public class Player
     {
         public float speed = 5, rotation = 0,ammo = 20;
-        public Vector2 dir, position, offset, scale = new Vector2(0.3f, 0.3f);
+        public Vector2 dir, position, offset;
         public Texture2D texture;
         public Rectangle rectangle;
         public float hp = 10;
@@ -27,7 +27,6 @@ namespace Frustration
             game1 = game;
             texture = Texture;
             offset = ((texture.Bounds.Size.ToVector2() * 0.5f));
-            //offset = new Vector2(texture.Width/2,texture.Height/2)*scale;
             position = new Vector2(50,300);
             rectangle = new Rectangle((offset).ToPoint(), (texture.Bounds.Size.ToVector2()).ToPoint());
 
@@ -112,7 +111,6 @@ namespace Frustration
             if (keyState.IsKeyDown(Keys.S) || keyState.IsKeyDown(Keys.W) || keyState.IsKeyDown(Keys.D) || keyState.IsKeyDown(Keys.A))
             {
                 position += (dir * speed);
-
             }
 
             rotation = (float)Math.Atan2(dir.X, dir.Y) * -1;
