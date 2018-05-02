@@ -19,10 +19,8 @@ namespace Frustration
         public int powerType;
         Player player;
         Game1 game;
-        float countDown = 10;
-        bool wait = false;
 
-        public PowerUp(float Speed, Texture2D Texture, Vector2 startPos,int PowerType,Player aPlayer,Game1 aGame)
+        public PowerUp(float Speed, Texture2D Texture, Vector2 startPos, int PowerType, Player aPlayer, Game1 aGame)
         {
             speed = Speed;
             texture = Texture;
@@ -43,6 +41,8 @@ namespace Frustration
 
             if (rectangle.Intersects(player.rectangle))
             {
+                CuntDown(powerType, gameTime);
+
                 if (powerType == 1)
                 {
                     game.attackSpeed = 0.1f;
@@ -73,9 +73,36 @@ namespace Frustration
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position+offset, null, color, rotation, offset, 1f, SpriteEffects.None, 1);
+            spriteBatch.Draw(texture, position + offset, null, color, rotation, offset, 1f, SpriteEffects.None, 1);
             // spriteBatch.Draw(texture,null, rectangle,null,offset,rotation,new Vector2(1,1), Color.Black,SpriteEffects.None,0);
             // spriteBatch.Draw(texture,rectangle,Color.Cyan);
         }
+
+        /*public bool CuntDown(float type, GameTime gameTime)
+        {
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float attackTimer = 10;
+            float moveTimer = 15;
+
+            // Get it, cause its true!
+            while(!false)
+            {
+                if (type == 1)
+                {
+                    attackTimer -= deltaTime;
+                }
+                if (type == 2)
+                {
+                    moveTimer -= deltaTime;
+                }
+
+                if (attackTimer == 0 || moveTimer == 0)
+                {
+                    return false;
+                }
+            }
+
+
+        }*/
     }
 }

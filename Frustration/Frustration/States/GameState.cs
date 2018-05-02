@@ -242,6 +242,7 @@ namespace Frustration
                 if (powerUps[j].rectangle.Intersects(player.rectangle))
                 {
                     powerUps.RemoveAt(j);
+
                 }
             }
             foreach (PowerUp powerUp in powerUps)
