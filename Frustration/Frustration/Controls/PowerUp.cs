@@ -41,7 +41,7 @@ namespace Frustration
 
             if (rectangle.Intersects(player.rectangle))
             {
-                CuntDown(powerType, gameTime);
+                //CuntDown(powerType, gameTime);
 
                 if (powerType == 1)
                 {
