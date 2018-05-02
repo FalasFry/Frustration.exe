@@ -44,7 +44,7 @@ namespace Frustration
         {
             posList = form1;
             
-            player = new Player(game.Content.Load<Texture2D>("spaceship.1"),game)
+            player = new Player(game.Content.Load<Texture2D>("squareship"),game)
             {
                 difficulty = easyMode
             };
@@ -183,53 +183,9 @@ namespace Frustration
                 enemies[i].DrawEnemy(spriteBatch);
             }
 
-            for (int i = 0; i < bullets.Count; ++i)
+            for (int i = 0; i < bullets.Count; i++)
             {
                 bullets[i].DrawBullet(spriteBatch);
-                if (bullets[i].rectangle.Intersects(player.rectangle) && bullets[i].owner !=1)
-                {
-                    player.hp -= bullets[i].damage;
-                    bullets.RemoveAt(i);
-                }
-
-            }
-            for (int i = 0; i < bullets.Count; ++i)
-            {
-                //if (bullets[i].position.X < 0)
-                //{
-                //    bullets.RemoveAt(i);
-                //}
-                //else if (bullets[i].position.X + bullets[i].offset.X > 800)
-                //{
-                //    bullets.RemoveAt(i);
-                //}
-                //else if (bullets[i].position.Y < 0)
-                //{
-                //    bullets.RemoveAt(i);
-                //}
-                //else if (bullets[i].position.Y + bullets[i].offset.Y > 480)
-                //{
-                //    bullets.RemoveAt(i);
-                //}
-                //if (i == bullets.Count)
-                //{
-                //    --i;
-                //}
-
-                for (int k = 0; k < enemies.Count; ++k)
-                {
-                    if (bullets[i].rectangle.Intersects(enemies[k].rectangle) && bullets[i].owner != 2)
-                    {
-                        bullets.RemoveAt(i);
-                        if (i == bullets.Count)
-                        {
-                            --i;
-                        }
-                        enemies.RemoveAt(k);
-                        ++score;
-                        
-                    }
-                }
             }
 
 
@@ -264,6 +220,38 @@ namespace Frustration
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             MouseState mouse = Mouse.GetState();
             timeElapsed += deltaTime;
+
+            #region Damage
+
+            for (int i = 0; i < bullets.Count; ++i)
+            {
+                if (bullets[i].rectangle.Intersects(player.rectangle) && bullets[i].owner != 1)
+                {
+                    player.hp -= bullets[i].damage;
+                    bullets.RemoveAt(i);
+                }
+
+             }
+            for (int i = 0; i < bullets.Count; ++i)
+            {
+                for (int k = 0; k < enemies.Count; ++k)
+                {
+                    if (bullets[i].rectangle.Intersects(enemies[k].rectangle) && bullets[i].owner != 2)
+                    {
+                        bullets.RemoveAt(i);
+                        if (i == bullets.Count)
+                        {
+                            --i;
+                        }
+                        enemies.RemoveAt(k);
+                        ++score;
+
+                    }
+                }
+            }
+
+
+            #endregion
 
             #region PowerUps
 
@@ -355,6 +343,7 @@ namespace Frustration
             return true;
 
             #endregion
+
 
         }
 

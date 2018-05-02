@@ -42,12 +42,13 @@ namespace Frustration
             {
                 dead = true;
             }
+
             #region WorldWalls
             if (position.X < 0)
             {
                 position.X += speed;
             }
-            if (position.X + offset.X > 800)
+            if (position.X + texture.Width > 800)
             {
                 position.X -= speed;
             }
@@ -55,7 +56,7 @@ namespace Frustration
             {
                 position.Y += speed;
             }
-            if (position.Y + offset.Y > 480)
+            if (position.Y + texture.Height > 480)
             {
                 position.Y -= speed;
             }
@@ -130,7 +131,7 @@ namespace Frustration
             if (!dead)
             {
                 spriteBatch.Draw(texture, position + offset, null, Color.White, rotation, offset, 1f, SpriteEffects.None, 0);
-               // spriteBatch.Draw(texture,rectangle,Color.Cyan);
+                //.Draw(texture,rectangle,Color.Cyan);
             }
         }
     }
