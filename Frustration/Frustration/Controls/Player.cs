@@ -29,6 +29,7 @@ namespace Frustration
             offset = ((texture.Bounds.Size.ToVector2() * 0.5f));
             position = new Vector2(50,300);
             rectangle = new Rectangle((offset).ToPoint(), (texture.Bounds.Size.ToVector2()).ToPoint());
+
         }
 
         public void Update()
@@ -128,6 +129,7 @@ namespace Frustration
             if (!dead)
             {
                 spriteBatch.Draw(texture, position + offset, null, Color.White, rotation, offset, 1f, SpriteEffects.None, 0);
+               // spriteBatch.Draw(texture,rectangle,Color.Cyan);
             }
         }
     }
