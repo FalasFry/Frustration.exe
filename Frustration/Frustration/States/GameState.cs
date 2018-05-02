@@ -46,7 +46,7 @@ namespace Frustration
             
             player = new Player(game.Content.Load<Texture2D>("spaceship.1"),game)
             {
-                difficulty = easyMode
+                difficulty = easyMode,
             };
             
             powerUpsTime = rnd.Next(10, 30);
@@ -55,8 +55,9 @@ namespace Frustration
             enemies = new List<Enemy>();
             backSpace = content.Load<Texture2D>("stars");
             bullet = game.bulletTexture;
-            
+            game.attackSpeed = 0.5f;
             bullets = new List<Bullet>();
+            
 
             powerUps = new List<PowerUp>
             {
@@ -223,10 +224,10 @@ namespace Frustration
                     if (bullets[i].rectangle.Intersects(enemies[k].rectangle) && bullets[i].owner != 2)
                     {
                         bullets.RemoveAt(i);
-                        //if (i == bullets.Count)
-                        //{
-                        //    --i;
-                        //}
+                        if (i == bullets.Count)
+                        {
+                            --i;
+                        }
                         enemies.RemoveAt(k);
                         ++score;
                         
@@ -267,7 +268,6 @@ namespace Frustration
             MouseState mouse = Mouse.GetState();
             timeElapsed += deltaTime;
             PowerUpSpawn(gameTime);
-
 
             #region Game Over Screen
 
@@ -311,7 +311,7 @@ namespace Frustration
                 for (int i = 0; i < enemies.Count; i++)
                 {
                     enemyCount = enemiesPerLine;
-                    //EnemyShoot();
+                    EnemyShoot();
                 }
                 remainingDelay = delay;
             }

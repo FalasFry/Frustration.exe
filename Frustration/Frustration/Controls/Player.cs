@@ -34,7 +34,6 @@ namespace Frustration
         public void Update()
         {
             KeyboardState keyState = Keyboard.GetState();
-
             rectangle.Location = (position).ToPoint();
 
             if (hp <= 0)

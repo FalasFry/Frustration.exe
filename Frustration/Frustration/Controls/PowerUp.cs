@@ -19,7 +19,7 @@ namespace Frustration
         public int powerType;
         Player player;
         Game1 game;
-        float countDown = 10;
+        float countDown;
 
         public PowerUp(float Speed, Texture2D Texture, Vector2 startPos,int PowerType,Player aPlayer,Game1 aGame)
         {
@@ -64,7 +64,7 @@ namespace Frustration
             }
             if (powerType == 2)
             {
-                //color = Color.Blue;
+                color = Color.Blue;
             }
             if (powerType == 3)
             {
