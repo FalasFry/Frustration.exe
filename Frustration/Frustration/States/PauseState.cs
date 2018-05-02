@@ -56,7 +56,6 @@ namespace Frustration
             };
         }
 
-
         #region Button Clicks
 
         private void QuitButton_Click(object sender, EventArgs e)
@@ -83,13 +82,12 @@ namespace Frustration
         {
             spriteBatch.Begin();
             spriteBatch.Draw(screen, new Rectangle(0,0, 800, 480), white);
-            foreach(var component in buttons)
+            foreach(Button component in buttons)
             {
                 component.Draw(gameTime, spriteBatch);
             }
             spriteBatch.End();
         }
-
 
         public override bool Update(GameTime gameTime)
         {
@@ -97,7 +95,7 @@ namespace Frustration
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             timer += deltaTime;
 
-            foreach(var component in buttons)
+            foreach(Button component in buttons)
             {
                 component.Update(gameTime);
             }

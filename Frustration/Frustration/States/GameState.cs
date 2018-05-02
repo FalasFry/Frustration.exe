@@ -46,7 +46,7 @@ namespace Frustration
             
             player = new Player(game.Content.Load<Texture2D>("spaceship.1"),game)
             {
-                difficulty = easyMode,
+                difficulty = easyMode
             };
             
             powerUpsTime = rnd.Next(10, 30);
@@ -55,14 +55,10 @@ namespace Frustration
             enemies = new List<Enemy>();
             backSpace = content.Load<Texture2D>("stars");
             bullet = game.bulletTexture;
-            game.attackSpeed = 0.5f;
-            bullets = new List<Bullet>();
             
+            bullets = new List<Bullet>();
 
-            powerUps = new List<PowerUp>
-            {
-                //new PowerUp(2, PowerupsTexture, new Vector2(800, rnd.Next(0, 480)), rnd.Next(1,3), player, game)
-            };
+            powerUps = new List<PowerUp>();
         }
 
         #region Methods
@@ -219,6 +215,7 @@ namespace Frustration
                 //{
                 //    --i;
                 //}
+
                 for (int k = 0; k < enemies.Count; ++k)
                 {
                     if (bullets[i].rectangle.Intersects(enemies[k].rectangle) && bullets[i].owner != 2)
@@ -267,7 +264,17 @@ namespace Frustration
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             MouseState mouse = Mouse.GetState();
             timeElapsed += deltaTime;
+
+            #region PowerUps
+
             PowerUpSpawn(gameTime);
+
+            for (int j = 0; j < powerUps.Count; j++)
+            {
+                powerUps[j].Update(gameTime);
+            }
+
+            #endregion
 
             #region Game Over Screen
 
@@ -322,10 +329,6 @@ namespace Frustration
             for (int i = 0; i < bullets.Count; i++)
             {
                 bullets[i].Update();
-            }
-            for (int j = 0; j < powerUps.Count; j++)
-            {
-                powerUps[j].Update(gameTime);
             }
 
             if (mouse.LeftButton == ButtonState.Pressed)
