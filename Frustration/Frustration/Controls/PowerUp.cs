@@ -11,6 +11,8 @@ namespace Frustration
 {
     public class PowerUp
     {
+
+
         public float speed, rotation;
         public Vector2 dir = new Vector2(-1, 0), position, offset;
         public Texture2D texture;
@@ -41,8 +43,6 @@ namespace Frustration
 
             if (rectangle.Intersects(player.rectangle))
             {
-                //CuntDown(powerType, gameTime);
-
                 if (powerType == 1)
                 {
                     game.attackSpeed = 0.1f;
@@ -51,6 +51,8 @@ namespace Frustration
                 if (powerType == 2)
                 {
                     player.speed = player.speed * 2;
+                    
+                    player.ammo += 60;
                 }
                 if (powerType == 3)
                 {
@@ -75,34 +77,8 @@ namespace Frustration
         {
             spriteBatch.Draw(texture, position + offset, null, color, rotation, offset, 1f, SpriteEffects.None, 1);
             // spriteBatch.Draw(texture,null, rectangle,null,offset,rotation,new Vector2(1,1), Color.Black,SpriteEffects.None,0);
-            // spriteBatch.Draw(texture,rectangle,Color.Cyan);
         }
 
-        /*public bool CuntDown(float type, GameTime gameTime)
-        {
-            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            float attackTimer = 10;
-            float moveTimer = 15;
 
-            // Get it, cause its true!
-            while(!false)
-            {
-                if (type == 1)
-                {
-                    attackTimer -= deltaTime;
-                }
-                if (type == 2)
-                {
-                    moveTimer -= deltaTime;
-                }
-
-                if (attackTimer == 0 || moveTimer == 0)
-                {
-                    return false;
-                }
-            }
-
-
-        }*/
     }
 }

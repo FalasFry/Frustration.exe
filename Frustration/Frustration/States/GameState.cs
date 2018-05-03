@@ -13,6 +13,8 @@ namespace Frustration
 {
     public class GameState : States
     {
+        float attackTimer = 10;
+        float moveTimer = 15;
 
         float pressTimer, timeElapsed, smartPercent;
         Player player;
@@ -161,6 +163,26 @@ namespace Frustration
 
         }
 
+        public bool CuntDown(GameTime gameTime, bool speed, float deltaTime)
+        {
+            
+            if (speed && moveTimer > 0)
+            {
+                moveTimer -= deltaTime;
+            }
+            if (!speed && attackTimer > 0)
+            {
+                attackTimer -= deltaTime;
+            }
+
+            if (attackTimer <= 0 || moveTimer <= 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         #endregion
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -193,14 +215,6 @@ namespace Frustration
 
             #region PowerUps
 
-            for (int j = 0; j < powerUps.Count; j++)
-            {
-                if (powerUps[j].rectangle.Intersects(player.rectangle))
-                {
-                    powerUps.RemoveAt(j);
-
-                }
-            }
             foreach (PowerUp powerUp in powerUps)
             {
                 powerUp.Draw(spriteBatch);
@@ -261,6 +275,20 @@ namespace Frustration
             for (int j = 0; j < powerUps.Count; j++)
             {
                 powerUps[j].Update(gameTime);
+
+                if (powerUps[j].rectangle.Intersects(player.rectangle))
+                {
+                    if(powerUps[j].powerType == 1)
+                    {
+                        CuntDown(gameTime, false, deltaTime);
+                    }
+                    if(powerUps[j].powerType == 2)
+                    {
+                        CuntDown(gameTime, true, deltaTime);
+                    }
+
+                    powerUps.RemoveAt(j);
+                }
             }
 
             #endregion
@@ -307,7 +335,7 @@ namespace Frustration
                 for (int i = 0; i < enemies.Count; i++)
                 {
                     enemyCount = enemiesPerLine;
-                    EnemyShoot();
+                    //EnemyShoot();
                 }
                 remainingDelay = delay;
             }
