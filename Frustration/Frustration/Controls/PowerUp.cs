@@ -45,13 +45,10 @@ namespace Frustration
             {
                 if (powerType == 1)
                 {
-                    game.attackSpeed = 0.1f;
                     player.ammo += 60;
                 }
                 if (powerType == 2)
                 {
-                    player.speed = player.speed * 2;
-                    
                     player.ammo += 60;
                 }
                 if (powerType == 3)
