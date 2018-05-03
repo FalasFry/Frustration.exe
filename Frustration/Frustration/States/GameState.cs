@@ -39,7 +39,7 @@ namespace Frustration
         List<PowerUp> powerUps;
         float timer;
         int wait = 0;
-        string powerupTimer = "";
+        string powerupTimer = "0";
 
 
 
@@ -222,7 +222,7 @@ namespace Frustration
                 powerUp.Draw(spriteBatch);
             }
 
-            spriteBatch.DrawString(font, powerupTimer, new Vector2(390, 10), Color.White);
+            spriteBatch.DrawString(font, "Powerup Timer: " + powerupTimer, new Vector2(350, 10), Color.White);
 
             #endregion
 
@@ -325,14 +325,14 @@ namespace Frustration
                     if(powerUps[j].powerType == 1)
                     {
                         wait = 1;
-                        attackTimer = 15;
-                        moveTimer = 10;
+                        attackTimer = 10;
+                        moveTimer = 15;
                     }
                     if (powerUps[j].powerType == 2)
                     {
                         wait = 2;
-                        moveTimer = 10;
-                        attackTimer = 15;
+                        moveTimer = 15;
+                        attackTimer = 10;
                     }
                     powerUps.RemoveAt(j);
                 }
