@@ -53,7 +53,8 @@ namespace Frustration
                 }
                 if (powerType == 3)
                 {
-                    //color = Color.Red;
+                    player.hp += 5;
+                    player.ammo += 60;
                 }
             }
 
@@ -67,7 +68,7 @@ namespace Frustration
             }
             if (powerType == 3)
             {
-                //color = Color.Red;
+                color = Color.Red;
             }
         }
         public void Draw(SpriteBatch spriteBatch)
