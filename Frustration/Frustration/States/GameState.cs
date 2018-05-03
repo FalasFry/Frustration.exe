@@ -13,18 +13,35 @@ namespace Frustration
 {
     public class GameState : States
     {
+        #region Floats
+
         float attackTimer = 10;
         float moveTimer = 15;
-
         float pressTimer, timeElapsed, smartPercent;
+        float delay = 2f;
+        float remainingDelay = 1.5f;
+        float enemyCount = 3;
+        float enemiesPerLine = 1;
+        float speed = 1;
+        float timer;
+        public float score;
+
+        #endregion
+
+        #region Classes
+
         Player player;
         Texture2D bullet;
         Texture2D backSpace;
-        List<Bullet> bullets;
+        Random rnd = new Random();
         SpriteFont font;
-        bool manualSpawning = true;
-        List<int> posList = new List<int>();
+        Texture2D PowerupsTexture;
 
+        #endregion
+
+        #region Lists
+
+        List<int> posList = new List<int>();
         List<int> form1 = new List<int> { 5, 0, 6, 4, 0, 7, 3, 0, 8, 2, 0, 9, 1, 0 };
         List<int> form2 = new List<int> { 1, 2, 3, 4, 8, 9, 0, 0, 0, 0, 0, 1, 5, 6, 7, 8, 9, 0, 0 };
         List<int> form3 = new List<int> { 1, 9, 0, 2, 8, 0, 3, 7, 0, 4, 6, 0, 5, 0 };
@@ -34,23 +51,16 @@ namespace Frustration
         List<int> form7 = new List<int> { 5, 0, 4, 5, 6, 0, 4, 5, 6, 0, 3, 4, 5, 6, 7, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 4, 5, 6, 0, 3, 4, 6, 7, 0, 7, 3, 0 };
         List<int> form8 = new List<int> { 2, 3, 5, 6, 0, 1, 4, 7, 0, 2, 6, 0, 3, 5, 0, 4, 0, 0, 0, 0, 3, 4, 6, 7, 0, 2, 5, 8, 0, 3, 7, 0, 4, 6, 0, 5, 0 };
         List<List<int>> forms = new List<List<int>>();
-
         List<int> order = new List<int>();
-        float delay = 2f;
-        float remainingDelay = 1.5f;
         List<Enemy> enemies;
-        float enemyCount = 3;
-        float enemiesPerLine = 1;
-        float speed = 1;
-        Random rnd = new Random();
-        public float score;
-        Texture2D PowerupsTexture;
         List<PowerUp> powerUps;
-        float timer;
+        List<Bullet> bullets;
+
+        #endregion
+
+        bool manualSpawning = true;
         int wait = 0;
         string powerupTimer = "0";
-
-
 
 
         // Contructor that makes a gamestate work with all variables and working funktions.
@@ -66,23 +76,22 @@ namespace Frustration
             forms.Add(form8);
 
             manualSpawning = true;
+            
+            PowerupsTexture = content.Load<Texture2D>("powerup");
+            font = content.Load<SpriteFont>("ammo");
+            backSpace = content.Load<Texture2D>("stars");
+            bullet = game.bulletTexture;
 
             player = new Player(game.Content.Load<Texture2D>("squareship"),game)
             {
                 difficulty = easyMode
             };
-            
-            PowerupsTexture = content.Load<Texture2D>("powerup");
-            font = content.Load<SpriteFont>("ammo");
-            enemies = new List<Enemy>();
-            backSpace = content.Load<Texture2D>("stars");
-            bullet = game.bulletTexture;
 
             bullets = new List<Bullet>
             {
                 new Bullet(2, new Vector2(1, -1), bullet, new Vector2(3000, 3000), 1, Color.Black)
             };
-
+            enemies = new List<Enemy>();
             powerUps = new List<PowerUp>();
         }
 
@@ -124,7 +133,7 @@ namespace Frustration
 
         public float GivePosition(int num)
         {
-            return num * 48 - 20;
+            return num * 47 - 20;
         }
 
         public bool IsSmart()
@@ -171,7 +180,6 @@ namespace Frustration
 
         public void PowerUpSpawn(GameTime gameTime)
         {
-
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (timer > 0)
@@ -216,7 +224,6 @@ namespace Frustration
 
             spriteBatch.DrawString(font, "ammo = " + player.ammo.ToString(), new Vector2(700, 10), Color.White);
             spriteBatch.DrawString(font, "HP = " + player.hp.ToString(), new Vector2(10, 10), Color.White);
-
 
             player.Draw(spriteBatch);
 
@@ -293,6 +300,7 @@ namespace Frustration
             #endregion
 
             #region PowerUps
+
             if(wait == 1)
             {
                 if (CuntDown(gameTime, false))

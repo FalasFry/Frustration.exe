@@ -42,8 +42,6 @@ namespace Frustration
                 dead = true;
             }
 
-
-
             #region WorldWalls
             if (position.X < 0)
             {
