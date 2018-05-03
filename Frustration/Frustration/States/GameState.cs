@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -13,7 +14,7 @@ namespace Frustration
 {
     public class GameState : States
     {
-
+        #region Variables
         float pressTimer, timeElapsed, smartPercent;
         Player player;
         Texture2D bullet;
@@ -36,19 +37,30 @@ namespace Frustration
         Texture2D PowerupsTexture;
         List<PowerUp> powerUps;
         float timer;
+        #endregion
 
-
+            
 
         // Contructor that makes a gamestate work with all variables and working funktions.
         public GameState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content, bool easyMode) : base(Game, graphicsDevice, content)
         {
             posList = form1;
-            
-            player = new Player(game.Content.Load<Texture2D>("squareship"),game)
+
+            player = new Player(game.Content.Load<Texture2D>("squareship"), game)
             {
+
                 difficulty = easyMode
+
+        
             };
-            
+            if (!player.difficulty)
+            {
+                player.hp = 1;
+            }
+            else if (player.difficulty)
+            {
+                player.hp = 10;
+            }
             powerUpsTime = rnd.Next(10, 30);
             PowerupsTexture = content.Load<Texture2D>("powerup");
             font = content.Load<SpriteFont>("ammo");
@@ -155,7 +167,7 @@ namespace Frustration
             }
             if(timer <= 0)
             {
-                powerUps.Add(new PowerUp(2, PowerupsTexture, new Vector2(800, rnd.Next(0, 480)), rnd.Next(1, 3), player, game));
+                powerUps.Add(new PowerUp(2, PowerupsTexture, new Vector2(800, rnd.Next(0, 480)), rnd.Next(1, 4), player, game));
                 timer = rnd.Next(10, 30);
             }
 
@@ -212,7 +224,6 @@ namespace Frustration
 
             spriteBatch.End();
         }
-
 
         public override bool Update(GameTime gameTime)
         {
@@ -347,7 +358,6 @@ namespace Frustration
 
 
         }
-
 
     }
 }
