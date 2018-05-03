@@ -14,7 +14,9 @@ namespace Frustration
 {
     public class GameState : States
     {
-        #region Variables
+        float attackTimer = 10;
+        float moveTimer = 15;
+
         float pressTimer, timeElapsed, smartPercent;
         Player player;
         Texture2D bullet;
@@ -37,9 +39,11 @@ namespace Frustration
         Texture2D PowerupsTexture;
         List<PowerUp> powerUps;
         float timer;
-        #endregion
+        int wait = 0;
+        string powerupTimer = "0";
 
             
+
 
         // Contructor that makes a gamestate work with all variables and working funktions.
         public GameState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content, bool easyMode) : base(Game, graphicsDevice, content)
@@ -53,15 +57,8 @@ namespace Frustration
 
         
             };
-            if (!player.difficulty)
-            {
-                player.hp = 1;
-            }
-            else if (player.difficulty)
-            {
-                player.hp = 10;
-            }
-            powerUpsTime = rnd.Next(10, 30);
+            
+            powerUpsTime = rnd.Next(15, 30);
             PowerupsTexture = content.Load<Texture2D>("powerup");
             font = content.Load<SpriteFont>("ammo");
             enemies = new List<Enemy>();
@@ -69,7 +66,7 @@ namespace Frustration
             bullet = game.bulletTexture;
             
             bullets = new List<Bullet>();
-
+            bullets.Add(new Bullet(2,new Vector2(1,-1),bullet,new Vector2(3000,3000),1,Color.Black));
             powerUps = new List<PowerUp>();
         }
 
@@ -167,17 +164,36 @@ namespace Frustration
             }
             if(timer <= 0)
             {
-                powerUps.Add(new PowerUp(2, PowerupsTexture, new Vector2(800, rnd.Next(0, 480)), rnd.Next(1, 4), player, game));
-                timer = rnd.Next(10, 30);
+                powerUps.Add(new PowerUp(2, PowerupsTexture, new Vector2(800, rnd.Next(0, 480)), rnd.Next(1, 3), player, game));
+                timer = rnd.Next(15, 30);
             }
 
+        }
+
+        public bool CuntDown(GameTime gameTime, bool speed)
+        {
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (speed && moveTimer > 0)
+            {
+                moveTimer -= deltaTime;
+            }
+            if (!speed && attackTimer > 0)
+            {
+                attackTimer -= deltaTime;
+            }
+
+            if (attackTimer <= 0 || moveTimer <= 0)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         #endregion
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-
             spriteBatch.Begin();
 
             spriteBatch.Draw(backSpace, new Rectangle(0, 0, 800, 480), Color.White);
@@ -205,18 +221,12 @@ namespace Frustration
 
             #region PowerUps
 
-            for (int j = 0; j < powerUps.Count; j++)
-            {
-                if (powerUps[j].rectangle.Intersects(player.rectangle))
-                {
-                    powerUps.RemoveAt(j);
-
-                }
-            }
             foreach (PowerUp powerUp in powerUps)
             {
                 powerUp.Draw(spriteBatch);
             }
+
+            spriteBatch.DrawString(font, "Powerup Timer: " + powerupTimer, new Vector2(350, 10), Color.White);
 
             #endregion
 
@@ -227,7 +237,7 @@ namespace Frustration
 
         public override bool Update(GameTime gameTime)
         {
-            
+
             KeyboardState pause = Keyboard.GetState();
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             MouseState mouse = Mouse.GetState();
@@ -251,7 +261,7 @@ namespace Frustration
                     if (bullets[i].rectangle.Intersects(enemies[k].rectangle) && bullets[i].owner != 2)
                     {
                         bullets.RemoveAt(i);
-                        if (i == bullets.Count)
+                        if (i == bullets.Count && bullets.Count != 0)
                         {
                             --i;
                         }
@@ -266,14 +276,70 @@ namespace Frustration
             #endregion
 
             #region PowerUps
+            if(wait == 1)
+            {
+                if (CuntDown(gameTime, false))
+                {
+                    game.attackSpeed = 0.1f;
+                }
+                if (!CuntDown(gameTime, false))
+                {
+                    game.attackSpeed = 0.5f;
+                }
+                if (attackTimer >= 0)
+                {
+                    powerupTimer = ((int)attackTimer).ToString();
+                }
+                if (attackTimer < 0)
+                {
+                    powerupTimer = "0";
+                }
+            }
+            if(wait == 2)
+            {
+                if (CuntDown(gameTime, true))
+                {
+                    player.speed = 10;
+
+                }
+                if (!CuntDown(gameTime, true))
+                {
+                    player.speed = 5;
+                }
+                if (moveTimer >= 0)
+                {
+                    powerupTimer = ((int)moveTimer).ToString();
+                }
+                if (moveTimer <0)
+                {
+                    powerupTimer = "0";
+                }
+            }
 
             PowerUpSpawn(gameTime);
 
             for (int j = 0; j < powerUps.Count; j++)
             {
                 powerUps[j].Update(gameTime);
-            }
 
+                if (powerUps[j].rectangle.Intersects(player.rectangle))
+                {
+                    
+                    if(powerUps[j].powerType == 1)
+                    {
+                        wait = 1;
+                        attackTimer = 10;
+                        moveTimer = 15;
+                    }
+                    if (powerUps[j].powerType == 2)
+                    {
+                        wait = 2;
+                        moveTimer = 15;
+                        attackTimer = 10;
+                    }
+                    powerUps.RemoveAt(j);
+                }
+            }
             #endregion
 
             #region Game Over Screen
@@ -318,7 +384,7 @@ namespace Frustration
                 for (int i = 0; i < enemies.Count; i++)
                 {
                     enemyCount = enemiesPerLine;
-                    EnemyShoot();
+                    //EnemyShoot();
                 }
                 remainingDelay = delay;
             }
