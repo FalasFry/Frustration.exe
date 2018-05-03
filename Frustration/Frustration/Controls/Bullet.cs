@@ -35,7 +35,7 @@ namespace Frustration
         {
 
             position += (dir * speed);
-            rectangle.Location = (position).ToPoint();
+            rectangle.Location = (position-(rectangle.Size.ToVector2()*0.5f)).ToPoint();
             rotation = (float)Math.Atan2(dir.X,dir.Y)*-1;
 
         }
