@@ -59,6 +59,8 @@ namespace Frustration
         #endregion
 
         bool manualSpawning = true;
+        bool inv;
+        float invTimer = 1;
         int wait = 0;
         string powerupTimer = "0";
 
@@ -258,10 +260,25 @@ namespace Frustration
             spriteBatch.End();
         }
 
+        public void Timer(GameTime gameTime)
+        {
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if(inv == true)
+            {
+                invTimer -= deltaTime;
+            }
+
+            if(invTimer <= 0)
+            {
+                inv = false;
+            }
+
+        }
 
         public override bool Update(GameTime gameTime)
         {
-
+            Timer(gameTime);
             KeyboardState pause = Keyboard.GetState();
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             MouseState mouse = Mouse.GetState();
@@ -273,7 +290,12 @@ namespace Frustration
             {
                 if (bullets[i].rectangle.Intersects(player.rectangle) && bullets[i].owner != 1)
                 {
-                    player.hp -= bullets[i].damage;
+                    if (inv == false)
+                    {
+                        player.hp -= bullets[i].damage;
+                        invTimer = 1;
+                        inv = true;
+                    }
                     bullets.RemoveAt(i);
                 }
 
