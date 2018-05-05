@@ -25,6 +25,7 @@ namespace Frustration
         float speed = 1;
         float timer;
         public float score;
+        float invTimer = 1;
 
         #endregion
 
@@ -60,7 +61,6 @@ namespace Frustration
 
         bool manualSpawning = true;
         bool inv;
-        float invTimer = 1;
         int wait = 0;
         string powerupTimer = "0";
 
@@ -190,7 +190,7 @@ namespace Frustration
             }
             if(timer <= 0)
             {
-                powerUps.Add(new PowerUp(2, PowerupsTexture, new Vector2(800, rnd.Next(0, 480)), rnd.Next(1, 3), player, game));
+                powerUps.Add(new PowerUp(2, PowerupsTexture, new Vector2(800, rnd.Next(0, 480)), rnd.Next(1, 4), player, game));
                 timer = rnd.Next(15, 30);
             }
 
@@ -214,6 +214,22 @@ namespace Frustration
             }
 
             return true;
+        }
+
+        public void Timer(GameTime gameTime)
+        {
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (inv == true)
+            {
+                invTimer -= deltaTime;
+            }
+
+            if (invTimer <= 0)
+            {
+                inv = false;
+            }
+
         }
 
         #endregion
@@ -258,22 +274,6 @@ namespace Frustration
             spriteBatch.DrawString(font, "score = " + score.ToString(), new Vector2(10, 30), Color.White);
 
             spriteBatch.End();
-        }
-
-        public void Timer(GameTime gameTime)
-        {
-            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            if(inv == true)
-            {
-                invTimer -= deltaTime;
-            }
-
-            if(invTimer <= 0)
-            {
-                inv = false;
-            }
-
         }
 
         public override bool Update(GameTime gameTime)
@@ -362,7 +362,6 @@ namespace Frustration
                     powerupTimer = "0";
                 }
             }
-
             PowerUpSpawn(gameTime);
 
             for (int j = 0; j < powerUps.Count; j++)

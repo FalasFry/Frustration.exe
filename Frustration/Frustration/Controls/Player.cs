@@ -16,7 +16,7 @@ namespace Frustration
         public Vector2 dir, position, offset;
         public Texture2D texture;
         public Rectangle rectangle;
-        public float hp = 10;
+        public float hp = 5;
         public bool dead = false;
         Game1 game1;
         
