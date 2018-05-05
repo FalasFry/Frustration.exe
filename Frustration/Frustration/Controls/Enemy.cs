@@ -43,33 +43,42 @@ namespace Frustration
             rotation = enemyRotation;
             Index = enemyList.Count + 1;
         }
+
+        // Detsroys enemy when dead.
         public void Destroy(Enemy enemy)
         {
             enemyList.RemoveAt(enemy.Index);
         }
+
+        // Gets if it is smart or nah.
+        public bool FindIQ(int indexx, List<Enemy> list)
+        {
+            return list[indexx].enemySmart;
+        }
+
+        // Gets position.
+        public Vector2 FindPos(int indexx, List<Enemy> list)
+        {
+            enemyList = list;
+            return enemyList[indexx].position;
+        }
+
+        // Gets offet.
+        public Vector2 FindOffset(int indexx)
+        {
+            return enemyList[indexx].offset;
+        }
+
+        public void DrawEnemy(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(texture, position, null, Color.White, rotation, offset, scale, SpriteEffects.None, 0);
+        }
+
         public void Update()
         {
             position += (moveDir * speed);
             rectangle.Location = (position - offset).ToPoint();
             rotation = (float)Math.Atan2(moveDir.X, moveDir.Y) * -1;
         }
-        public bool FindIQ(int indexx, List<Enemy> list)
-        {
-            return list[indexx].enemySmart;
-        }
-        public Vector2 FindPos(int indexx, List<Enemy> list)
-        {
-            enemyList = list;
-            return enemyList[indexx].position;
-        }
-        public Vector2 FindOffset(int indexx)
-        {
-            return enemyList[indexx].offset;
-        }
-        public void DrawEnemy(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(texture, position, null, Color.White, rotation, offset, scale, SpriteEffects.None, 0);
-        }
-
     }
 }

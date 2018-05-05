@@ -12,15 +12,21 @@ namespace Frustration
 
     public class Player
     {
-        public float speed = 5, rotation = 0,ammo = 20;
+        #region Structs
+
+        public float speed = 5, rotation = 0, ammo = 20, hp = 5;
+        public bool dead = false, normalDiff = false;
+
+        #endregion
+
+        #region Classes
+
         public Vector2 dir, position, offset;
         public Texture2D texture;
         public Rectangle rectangle;
-        public float hp = 5;
-        public bool dead = false;
         Game1 game1;
-        
-        public bool difficulty = false;
+
+        #endregion
 
         public Player(Texture2D Texture, Game1 game)
         {
@@ -29,7 +35,6 @@ namespace Frustration
             offset = ((texture.Bounds.Size.ToVector2() * 0.5f));
             position = new Vector2(50,300);
             rectangle = new Rectangle((offset).ToPoint(), (texture.Bounds.Size.ToVector2()).ToPoint());
-
         }
 
         public void Update()
@@ -63,7 +68,7 @@ namespace Frustration
 
             #region Controls
 
-            if (difficulty)
+            if (normalDiff)
             {
                 MovementNormal();
             }
@@ -74,6 +79,8 @@ namespace Frustration
 
             #endregion
         }
+
+        // Makes it so you move with wasd.
         public void MovementNormal()
         {
             KeyboardState keyState = Keyboard.GetState();
@@ -116,6 +123,8 @@ namespace Frustration
             rotation = (float)Math.Atan2(dir.X, dir.Y) * -1;
             
         }
+
+        // Player follows mouse to move.
         public void MovementHard()
         {
             Vector2 moveDir = new Vector2();
@@ -125,12 +134,12 @@ namespace Frustration
             position += (moveDir * speed);
             rotation = (float)Math.Atan2(moveDir.X, moveDir.Y)*-1;
         }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             if (!dead)
             {
                 spriteBatch.Draw(texture, position + offset, null, Color.White, rotation, offset, 1f, SpriteEffects.None, 0);
-                //.Draw(texture,rectangle,Color.Cyan);
             }
         }
     }

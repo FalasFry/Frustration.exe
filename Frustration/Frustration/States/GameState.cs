@@ -13,7 +13,7 @@ namespace Frustration
 {
     public class GameState : States
     {
-        #region Floats
+        #region Structs
 
         float attackTimer = 10;
         float moveTimer = 15;
@@ -24,8 +24,13 @@ namespace Frustration
         float enemiesPerLine = 1;
         float speed = 1;
         float timer;
+        float health;
         public float score;
         float invTimer = 1;
+        bool manualSpawning = true;
+        bool inv;
+        int wait = 0;
+        string powerupTimer = "0";
 
         #endregion
 
@@ -59,12 +64,6 @@ namespace Frustration
 
         #endregion
 
-        bool manualSpawning = true;
-        bool inv;
-        int wait = 0;
-        string powerupTimer = "0";
-
-
         // Contructor that makes a gamestate work with all variables and working funktions.
         public GameState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content, bool easyMode) : base(Game, graphicsDevice, content)
         {
@@ -84,9 +83,19 @@ namespace Frustration
             backSpace = content.Load<Texture2D>("stars");
             bullet = game.bulletTexture;
 
-            player = new Player(game.Content.Load<Texture2D>("squareship"),game)
+            if(easyMode)
             {
-                difficulty = easyMode
+                health = 5;
+            }
+            if(!easyMode)
+            {
+                health = 1;
+            }
+
+            player = new Player(game.Content.Load<Texture2D>("squareship"), game)
+            {
+                normalDiff = easyMode,
+                hp = health,
             };
 
             bullets = new List<Bullet>
@@ -133,11 +142,13 @@ namespace Frustration
             }
         }
 
+        // Enemies cant spawn outside of the sceeen.
         public float GivePosition(int num)
         {
             return num * 47 - 20;
         }
 
+        // Makes enemies smarf randomly.
         public bool IsSmart()
         {
             if (rnd.Next(0, (int)smartPercent) > rnd.Next(0, 100))
@@ -168,6 +179,7 @@ namespace Frustration
             return dir;
         }
 
+        // Enemies will shoot straight unless they are smart, then they shoot as the player.
         public void EnemyShoot()
         {
             for (int i = 0; i < enemies.Count; i++)
@@ -180,10 +192,12 @@ namespace Frustration
             }
         }
 
+        // Makes Powerups spawn between 15 and 29 seconds.
         public void PowerUpSpawn(GameTime gameTime)
         {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+            // Timer start as 0, thats why you always get a powerup at start.
             if (timer > 0)
             {
                 timer -= deltaTime;
@@ -196,9 +210,11 @@ namespace Frustration
 
         }
 
+        // Sets it so that powerps only work for a specific amount of time.
         public bool CuntDown(GameTime gameTime, bool speed)
         {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             if (speed && moveTimer > 0)
             {
                 moveTimer -= deltaTime;
@@ -216,7 +232,8 @@ namespace Frustration
             return true;
         }
 
-        public void Timer(GameTime gameTime)
+        // Once you take damage you can not take damage again in a second.
+        public void InvTimer(GameTime gameTime)
         {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -278,7 +295,7 @@ namespace Frustration
 
         public override bool Update(GameTime gameTime)
         {
-            Timer(gameTime);
+            InvTimer(gameTime);
             KeyboardState pause = Keyboard.GetState();
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             MouseState mouse = Mouse.GetState();
