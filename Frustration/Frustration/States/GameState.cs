@@ -223,7 +223,7 @@ namespace Frustration
             }
             if(timer <= 0)
             {
-                powerUps.Add(new PowerUp(2, PowerupsTexture, new Vector2(800, rnd.Next(0, 480)), rnd.Next(1, 4), player, game));
+                powerUps.Add(new PowerUp(2, PowerupsTexture, new Vector2(800, rnd.Next(3, 475)), rnd.Next(1, 4), player, game));
                 timer = rnd.Next(15, 30);
             }
 
