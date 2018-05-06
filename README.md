@@ -8,7 +8,7 @@ This game is a space shooter. You will be set in space and in need to fight of a
 Click the .exe file and it should be up and running.
 ```
 
-### Instruktions
+### Instructions
 
 every bullet does 1 damage to you
 You get ammo from powerups
