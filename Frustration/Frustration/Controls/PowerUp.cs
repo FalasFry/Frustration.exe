@@ -11,8 +11,6 @@ namespace Frustration
 {
     public class PowerUp
     {
-
-
         public float speed, rotation;
         public Vector2 dir = new Vector2(-1, 0), position, offset;
         public Texture2D texture;

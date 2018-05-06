@@ -58,7 +58,6 @@ namespace Frustration
         {
             Color colour = Color.White;
 
-
             if(isHovering)
             {
                 colour = Color.Gray;
@@ -73,7 +72,6 @@ namespace Frustration
 
                 spriteBatch.DrawString(font, Text, new Vector2(x,y), Paint);
             }
-
         }
 
         public override void Update(GameTime gameTime)
@@ -91,7 +89,7 @@ namespace Frustration
 
                 if(curMouse.LeftButton == ButtonState.Released && prevMouse.LeftButton == ButtonState.Pressed)
                 {
-                    Click?.Invoke(this,new EventArgs());
+                    Click?.Invoke(this, new EventArgs());
                 }
             }
         }

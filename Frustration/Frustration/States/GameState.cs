@@ -42,6 +42,7 @@ namespace Frustration
         Random rnd = new Random();
         SpriteFont font;
         Texture2D PowerupsTexture;
+        Texture2D enemyTexture;
 
         #endregion
 
@@ -67,6 +68,8 @@ namespace Frustration
         // Contructor that makes a gamestate work with all variables and working funktions.
         public GameState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content, bool easyMode) : base(Game, graphicsDevice, content)
         {
+            #region Adding enemyspawns
+
             forms.Add(form1);
             forms.Add(form2);
             forms.Add(form3);
@@ -76,14 +79,23 @@ namespace Frustration
             forms.Add(form7);
             forms.Add(form8);
 
+            #endregion
+
             manualSpawning = true;
-            
+
+            #region Load content
+
             PowerupsTexture = content.Load<Texture2D>("powerup");
             font = content.Load<SpriteFont>("ammo");
             backSpace = content.Load<Texture2D>("stars");
-            bullet = game.bulletTexture;
+            bullet = content.Load<Texture2D>("bullet.2");
+            enemyTexture = content.Load<Texture2D>("enemy");
 
-            if(easyMode)
+            #endregion
+
+            #region SetHP
+
+            if (easyMode)
             {
                 health = 5;
             }
@@ -91,6 +103,10 @@ namespace Frustration
             {
                 health = 1;
             }
+
+            #endregion
+
+            #region Making lists
 
             player = new Player(game.Content.Load<Texture2D>("squareship"), game)
             {
@@ -102,8 +118,11 @@ namespace Frustration
             {
                 new Bullet(2, new Vector2(1, -1), bullet, new Vector2(3000, 3000), 1, Color.Black)
             };
+
             enemies = new List<Enemy>();
             powerUps = new List<PowerUp>();
+
+            #endregion
         }
 
         #region Methods
@@ -145,7 +164,7 @@ namespace Frustration
         // Enemies cant spawn outside of the sceeen.
         public float GivePosition(int num)
         {
-            return num * 47 - 20;
+            return num * 47.5f - 20;
         }
 
         // Makes enemies smarf randomly.
@@ -273,7 +292,6 @@ namespace Frustration
             {
                 bullets[i].DrawBullet(spriteBatch);
             }
-
 
             #endregion
 
@@ -418,7 +436,7 @@ namespace Frustration
 
             for (int i = 0; i < order.Count;)
             {
-                enemies.Add(new Enemy(game.enemyTexture, new Vector2(1000, GivePosition(order[i])), speed, new Vector2(0.2f, 0.2f), 0, Color.White, IsSmart()));
+                enemies.Add(new Enemy(enemyTexture, new Vector2(1000, GivePosition(order[i])), speed, new Vector2(0.2f, 0.2f), 0, Color.White, IsSmart()));
                 order.RemoveAt(i);
             }
 
@@ -489,9 +507,7 @@ namespace Frustration
 
             #endregion
 
-
         }
-
 
     }
 }
