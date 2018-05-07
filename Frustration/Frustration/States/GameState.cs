@@ -386,7 +386,7 @@ namespace Frustration
             {
                 if (CuntDown(gameTime, true))
                 {
-                    player.speed = 10;
+                    player.speed = 7;
 
                 }
                 if (!CuntDown(gameTime, true))
@@ -426,6 +426,7 @@ namespace Frustration
                     powerUps.RemoveAt(j);
                 }
             }
+
             #endregion
 
             #region Game Over Screen
