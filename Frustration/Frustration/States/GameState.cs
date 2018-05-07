@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System.Diagnostics;
 
 namespace Frustration
@@ -41,8 +42,10 @@ namespace Frustration
         Texture2D backSpace;
         Random rnd = new Random();
         SpriteFont font;
-        Texture2D PowerupsTexture;
+        Texture2D powerupsTexture;
         Texture2D enemyTexture;
+        Song song;
+        
 
         #endregion
 
@@ -85,11 +88,12 @@ namespace Frustration
 
             #region Load content
 
-            PowerupsTexture = content.Load<Texture2D>("powerup");
+            powerupsTexture = content.Load<Texture2D>("powerup");
             font = content.Load<SpriteFont>("ammo");
             backSpace = content.Load<Texture2D>("stars");
             bullet = content.Load<Texture2D>("bullet.2");
             enemyTexture = content.Load<Texture2D>("enemy");
+            song = content.Load<Song>("inGameMusic");
 
             #endregion
 
@@ -105,7 +109,8 @@ namespace Frustration
             }
 
             #endregion
-
+            MediaPlayer.Play(song);
+            MediaPlayer.IsRepeating = true;
             #region Making lists
 
             player = new Player(game.Content.Load<Texture2D>("squareship"), game)
@@ -223,7 +228,7 @@ namespace Frustration
             }
             if(timer <= 0)
             {
-                powerUps.Add(new PowerUp(2, PowerupsTexture, new Vector2(800, rnd.Next(3, 475)), rnd.Next(1, 4), player, game));
+                powerUps.Add(new PowerUp(2, powerupsTexture, new Vector2(800, rnd.Next(3, 475)), rnd.Next(1, 4), player, game));
                 timer = rnd.Next(15, 30);
             }
 
@@ -501,6 +506,7 @@ namespace Frustration
             {
                 game.ChangeState(new PauseState(game, graphDevice, contentManager));
                 pressTimer = 0f;
+                MediaPlayer.Stop();
             }
 
             return true;

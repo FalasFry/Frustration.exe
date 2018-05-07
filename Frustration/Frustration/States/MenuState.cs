@@ -7,6 +7,7 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace Frustration
 {
@@ -17,6 +18,7 @@ namespace Frustration
         Vector2 overPos = new Vector2(325, 190);
         Vector2 centerPos = new Vector2(325, 240);
         Vector2 underPos = new Vector2(325, 290);
+        Song song;
 
         // Creates a menustate that have the buttons ready for you.
         public MenuState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content) : base(Game, graphicsDevice, content)
@@ -24,6 +26,9 @@ namespace Frustration
             Texture2D buttonTexture = content.Load<Texture2D>("button");
             SpriteFont buttonFont = content.Load<SpriteFont>("font");
             menu = content.Load<Texture2D>("menu");
+            song = content.Load<Song>("menuMusic");
+            MediaPlayer.Play(song);
+            MediaPlayer.IsRepeating = true;
 
             Button startHardButton = new Button(buttonTexture, buttonFont)
             {

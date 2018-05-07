@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace Frustration
 {
@@ -18,6 +19,7 @@ namespace Frustration
         Vector2 timePos = new Vector2(320, 290);
         List<Components> buttons;
         SpriteFont font;
+        Song song1,song2;
 
         public GameOverState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content, float points, int time) : base(Game, graphicsDevice, content)
         {
@@ -25,17 +27,20 @@ namespace Frustration
             score = points;
             timeElapsed = time;
             font = content.Load<SpriteFont>("font");
+            song1 = content.Load<Song>("dead");
+            song2 = content.Load<Song>("menuMusic");
 
             Texture2D buttonTexture = content.Load<Texture2D>("button");
             SpriteFont buttonFont = content.Load<SpriteFont>("font");
-
+            
             Button menu = new Button(buttonTexture, buttonFont)
             {
                 Pos = new Vector2(325, 340),
                 Text = "Main Menu"
             };
             menu.Click += Menu_Click;
-
+            MediaPlayer.Play(song1);
+            MediaPlayer.IsRepeating = true;
             buttons = new List<Components>()
             {
                 menu,
@@ -49,7 +54,7 @@ namespace Frustration
             {
                 game.PopStack();
             }
-            
+            MediaPlayer.Play(song2);
         }
         #endregion
 

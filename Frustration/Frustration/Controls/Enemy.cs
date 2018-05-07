@@ -20,7 +20,7 @@ namespace Frustration
         Color color;
         float speed;
         float rotation;
-        int Index = 0;
+        int index = 0;
 
         List<Enemy> enemyList = new List<Enemy>();
 
@@ -41,13 +41,13 @@ namespace Frustration
             rectangle = new Rectangle((enemyStartPos - offset).ToPoint(), (enemyTexture.Bounds.Size.ToVector2() * enemyScale).ToPoint());
             color = enemyColor;
             rotation = enemyRotation;
-            Index = enemyList.Count + 1;
+            index = enemyList.Count + 1;
         }
 
         // Detsroys enemy when dead.
         public void Destroy(Enemy enemy)
         {
-            enemyList.RemoveAt(enemy.Index);
+            enemyList.RemoveAt(enemy.index);
         }
 
         // Gets if it is smart or nah.

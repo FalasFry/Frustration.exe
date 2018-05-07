@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace Frustration
 {
@@ -19,6 +20,7 @@ namespace Frustration
         Vector2 overPos = new Vector2(320, 190);
         Vector2 centerPos = new Vector2(320, 240);
         Vector2 underPos = new Vector2(320, 290);
+        Song song1,song2;
 
         public PauseState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content) : base(Game, graphicsDevice, content)
         {
@@ -26,6 +28,9 @@ namespace Frustration
             SpriteFont buttonFont = content.Load<SpriteFont>("font");
 
             screen = content.Load<Texture2D>("paused");
+            song1 = content.Load<Song>("inGameMusic");
+            song2 = content.Load<Song>("menuMusic");
+            MediaPlayer.IsRepeating = true;
 
             Button resumeButton = new Button(buttonText, buttonFont)
             {
@@ -69,11 +74,13 @@ namespace Frustration
             {
                 game.PopStack();
             }
+            MediaPlayer.Play(song2);
         }
 
         private void ResumeButton_Click(object sender, EventArgs e)
         {
             paused = false;
+            MediaPlayer.Play(song1);
         }
 
         #endregion
@@ -104,6 +111,7 @@ namespace Frustration
             {
                 timer = 0f;
                 paused = false;
+                MediaPlayer.Play(song1);
                 return false;
             }
 

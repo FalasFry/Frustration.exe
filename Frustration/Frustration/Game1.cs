@@ -20,8 +20,6 @@ namespace Frustration
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         public float attackSpeed = 0.5f,attackTimer;
-
-
         MenuState menu;
         public States curState;
         Stack<States> stateStack;
