@@ -8,6 +8,7 @@ using System.Xml.Serialization;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System.Diagnostics;
 
 namespace Frustration
@@ -41,8 +42,9 @@ namespace Frustration
         float timer;
         int wait = 0;
         string powerupTimer = "0";
+        Song song;
 
-            
+
 
 
         // Contructor that makes a gamestate work with all variables and working funktions.
@@ -237,6 +239,7 @@ namespace Frustration
 
         public override bool Update(GameTime gameTime)
         {
+            MediaPlayer.Play(song);
 
             KeyboardState pause = Keyboard.GetState();
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
