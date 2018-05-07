@@ -16,9 +16,9 @@ namespace Frustration
         List<Components> buttons;
         Texture2D screen;
         Color white = Color.White;
-        Vector2 overPos = new Vector2(325, 190);
-        Vector2 centerPos = new Vector2(325, 240);
-        Vector2 underPos = new Vector2(325, 290);
+        Vector2 overPos = new Vector2(320, 190);
+        Vector2 centerPos = new Vector2(320, 240);
+        Vector2 underPos = new Vector2(320, 290);
 
         public PauseState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content) : base(Game, graphicsDevice, content)
         {

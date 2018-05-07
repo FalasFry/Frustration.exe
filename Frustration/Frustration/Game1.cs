@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,16 +17,12 @@ namespace Frustration
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        public Texture2D bulletTexture;
         public float attackSpeed = 0.5f,attackTimer;
-        public Texture2D enemyTexture;
-        Random rnd = new Random();
+
+
         MenuState menu;
-
         public States curState;
-
         Stack<States> stateStack;
-
 
         public Game1()
         {
@@ -45,7 +39,6 @@ namespace Frustration
 
             base.Initialize();
             IsMouseVisible = true;
-
             menu = new MenuState(this, GraphicsDevice, Content);
             curState = menu;
             stateStack.Push(menu);
@@ -53,13 +46,8 @@ namespace Frustration
 
         protected override void LoadContent()
         {
-            
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            bulletTexture = Content.Load<Texture2D>("bullet.2");
-            enemyTexture = Content.Load<Texture2D>("enemy");
         }
-
 
         protected override void UnloadContent() { }
 
@@ -82,11 +70,13 @@ namespace Frustration
             base.Draw(gameTime);
         }
 
+        // Used to remove a state that is unused.
         public void PopStack()
         {
             stateStack.Pop();
         }
         
+        // Used to change a state.
         public void ChangeState(States state)
         {
             curState = state;

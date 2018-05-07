@@ -14,8 +14,8 @@ namespace Frustration
         Texture2D gameOver;
         float score;
         float timeElapsed;
-        Vector2 scorePos = new Vector2(325, 240);
-        Vector2 timePos = new Vector2(325, 290);
+        Vector2 scorePos = new Vector2(310, 240);
+        Vector2 timePos = new Vector2(320, 290);
         List<Components> buttons;
         SpriteFont font;
 

@@ -11,8 +11,6 @@ namespace Frustration
 {
     public class PowerUp
     {
-
-
         public float speed, rotation;
         public Vector2 dir = new Vector2(-1, 0), position, offset;
         public Texture2D texture;
@@ -74,7 +72,6 @@ namespace Frustration
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position + offset, null, color, rotation, offset, 1f, SpriteEffects.None, 1);
-            // spriteBatch.Draw(texture,null, rectangle,null,offset,rotation,new Vector2(1,1), Color.Black,SpriteEffects.None,0);
         }
 
 

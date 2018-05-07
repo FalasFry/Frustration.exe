@@ -14,7 +14,7 @@ namespace Frustration
         public Vector2 dir,position,offset,scale = new Vector2(0.07f,0.07f);
         public Texture2D texture;
         public Rectangle rectangle;
-        public float damage = 2;
+        public float damage = 1;
         public Color color;
         public float owner;
 
@@ -43,8 +43,6 @@ namespace Frustration
         public void DrawBullet(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position, null, color, rotation, offset, 1f, SpriteEffects.None, 1);
-            //spriteBatch.Draw(texture,position, rectangle,Color.Black,rotation,offset,scale,SpriteEffects.None, 2);
-            spriteBatch.Draw(texture,rectangle,Color.Cyan);
         }
     }
 }
