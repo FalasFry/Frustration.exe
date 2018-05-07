@@ -43,6 +43,7 @@ namespace Frustration
         }
 
         #region Button Click
+
         private void Menu_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < 2; i++)
@@ -51,6 +52,7 @@ namespace Frustration
             }
             
         }
+
         #endregion
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
