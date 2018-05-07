@@ -43,16 +43,16 @@ namespace Frustration
             {
                 if (powerType == 1)
                 {
-                    player.ammo += 60;
+                    player.ammo += 40;
                 }
                 if (powerType == 2)
                 {
-                    player.ammo += 60;
+                    player.ammo += 40;
                 }
                 if (powerType == 3)
                 {
                     player.hp += 5;
-                    player.ammo += 60;
+                    player.ammo += 40;
                 }
             }
 

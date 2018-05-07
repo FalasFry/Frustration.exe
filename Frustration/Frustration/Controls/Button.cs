@@ -23,6 +23,7 @@ namespace Frustration
 
         #endregion
 
+
         // All properties that is needed so that you can set the values of the buttn outside fo this code.
         #region Props
 

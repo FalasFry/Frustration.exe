@@ -14,7 +14,7 @@ namespace Frustration
     {
         #region Structs
 
-        public float speed = 5, rotation = 0, ammo = 20, hp = 5;
+        public float speed = 5, rotation = 0, ammo = 20, hp = 5, attackSpeed = 0.5f, attackTimer;
         public bool dead = false, normalDiff = false;
 
         #endregion
