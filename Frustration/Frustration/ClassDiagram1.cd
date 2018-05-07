@@ -17,14 +17,14 @@
   <Class Name="Frustration.Player">
     <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AASAAABBACAAAgAAAACAIiACAQAAAwAIAABAAAAgAAA=</HashCode>
+      <HashCode>AASAAABAACAAAgAAAACAIiAAAQAAAwAIAEBAAAAgAAA=</HashCode>
       <FileName>Controls\Player.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Frustration.Player">
-    <Position X="4" Y="0.5" Width="1.5" />
+  <Class Name="Frustration.Game1">
+    <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQGEEAAAAACBwAEAAAAAAgABABAAAgAAAAAAgAIAAQ=</HashCode>
+      <HashCode>AAQCEEAAAAACBwAEAAAAAAgABABAAAgAAAAAAAAAAAQ=</HashCode>
       <FileName>Game1.cs</FileName>
     </TypeIdentifier>
   </Class>

@@ -17,16 +17,11 @@ namespace Frustration
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
-        public Texture2D bulletTexture;
         public float attackSpeed = 0.5f,attackTimer;
-        public Texture2D enemyTexture;
 
-        Random rnd = new Random();
+
         MenuState menu;
-
         public States curState;
-
         Stack<States> stateStack;
 
         public Game1()
@@ -44,7 +39,6 @@ namespace Frustration
 
             base.Initialize();
             IsMouseVisible = true;
-
             menu = new MenuState(this, GraphicsDevice, Content);
             curState = menu;
             stateStack.Push(menu);
