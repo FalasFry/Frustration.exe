@@ -106,12 +106,12 @@ namespace Frustration
             {
                 component.Update(gameTime);
             }
-
+            
             if(keys.IsKeyDown(Keys.Escape) && timer > 1)
             {
                 timer = 0f;
                 paused = false;
-                MediaPlayer.Play(song1);
+                MediaPlayer.Resume();
                 return false;
             }
 

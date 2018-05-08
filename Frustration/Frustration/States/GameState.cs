@@ -509,7 +509,7 @@ namespace Frustration
             {
                 game.ChangeState(new PauseState(game, graphDevice, contentManager));
                 pressTimer = 0f;
-                MediaPlayer.Stop();
+                MediaPlayer.Pause();
             }
 
             return true;
