@@ -12,6 +12,8 @@ namespace Frustration
 {
     public class PauseState : States
     {
+        #region Variables
+
         float timer = 0f;
         bool paused = true;
         List<Components> buttons;
@@ -21,6 +23,8 @@ namespace Frustration
         Vector2 centerPos = new Vector2(320, 240);
         Vector2 underPos = new Vector2(320, 290);
         Song song1,song2;
+
+        #endregion
 
         public PauseState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content) : base(Game, graphicsDevice, content)
         {
