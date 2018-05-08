@@ -109,8 +109,10 @@ namespace Frustration
             }
 
             #endregion
+
             MediaPlayer.Play(song);
             MediaPlayer.IsRepeating = true;
+
             #region Making lists
 
             player = new Player(game.Content.Load<Texture2D>("squareship"), game)
@@ -169,7 +171,7 @@ namespace Frustration
         // Enemies cant spawn outside of the sceeen.
         public float GivePosition(int num)
         {
-            return num * 47.5f - 20;
+            return num * 48 - 20;
         }
 
         // Makes enemies smarf randomly.
@@ -228,10 +230,9 @@ namespace Frustration
             }
             if(timer <= 0)
             {
-                powerUps.Add(new PowerUp(2, powerupsTexture, new Vector2(800, rnd.Next(3, 475)), rnd.Next(1, 4), player, game));
+                powerUps.Add(new PowerUp(2, powerupsTexture, new Vector2(800, rnd.Next(3 , 430)), rnd.Next(1, 4), player, game));
                 timer = rnd.Next(15, 30);
             }
-
         }
 
         // Sets it so that powerps only work for a specific amount of time.
@@ -367,11 +368,11 @@ namespace Frustration
             {
                 if (CuntDown(gameTime, false))
                 {
-                    game.attackSpeed = 0.1f;
+                    player.attackSpeed = 0.1f;
                 }
                 if (!CuntDown(gameTime, false))
                 {
-                    game.attackSpeed = 0.5f;
+                    player.attackSpeed = 0.5f;
                 }
                 if (attackTimer >= 0)
                 {
@@ -402,6 +403,7 @@ namespace Frustration
                     powerupTimer = "0";
                 }
             }
+
             PowerUpSpawn(gameTime);
 
             for (int j = 0; j < powerUps.Count; j++)
@@ -490,13 +492,13 @@ namespace Frustration
 
             if (mouse.LeftButton == ButtonState.Pressed)
             {
-                if (game.attackTimer <= 0)
+                if (player.attackTimer <= 0)
                 {
                     Shoot();
-                    game.attackTimer = game.attackSpeed;
+                    player.attackTimer = player.attackSpeed;
                 }
             }
-            game.attackTimer -= deltaTime;
+            player.attackTimer -= deltaTime;
 
             #endregion
 
