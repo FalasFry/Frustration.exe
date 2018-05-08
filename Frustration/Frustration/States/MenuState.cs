@@ -102,7 +102,8 @@ namespace Frustration
 
         private void ReadMeButton_CLick(object sender, EventArgs e)
         {
-            Process.Start(Path.GetFullPath("README.txt"));
+            Process.Start("https://github.com/FalasFry/Frustration.exe/blob/master/README.md");
+
 
         }
         #endregion
