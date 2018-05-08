@@ -112,7 +112,7 @@ namespace Frustration
         {
             spriteBatch.Begin();
             spriteBatch.Draw(menu, new Rectangle(0, 0, 800, 480), Color.White);
-            spriteBatch.DrawString(buttonFont,"Read the readme",new Vector2(150,200),Color.HotPink);
+            //spriteBatch.DrawString(buttonFont,"Read the readme",new Vector2(150,200),Color.HotPink);
             foreach (Button component in buttons)
             {
                 component.Draw(gameTime, spriteBatch);
@@ -123,9 +123,9 @@ namespace Frustration
 
         public override bool Update(GameTime gameTime)
         {
-            foreach(Button component in buttons)
+            for (int i = 0;i < buttons.Count; i++)
             {
-                component.Update(gameTime);
+                buttons[i].Update(gameTime);
             }
             return true;
         }
