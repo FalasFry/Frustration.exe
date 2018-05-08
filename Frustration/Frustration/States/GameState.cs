@@ -46,7 +46,6 @@ namespace Frustration
         Texture2D enemyTexture;
         Song song;
         
-
         #endregion
 
         #region Lists

@@ -11,6 +11,8 @@ namespace Frustration
 {
     public class PowerUp
     {
+        #region Variables
+
         public float speed, rotation;
         public Vector2 dir = new Vector2(-1, 0), position, offset;
         public Texture2D texture;
@@ -19,6 +21,8 @@ namespace Frustration
         public int powerType;
         Player player;
         Game1 game;
+
+        #endregion
 
         public PowerUp(float Speed, Texture2D Texture, Vector2 startPos, int PowerType, Player aPlayer, Game1 aGame)
         {
