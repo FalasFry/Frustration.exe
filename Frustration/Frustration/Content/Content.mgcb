@@ -213,13 +213,3 @@
 /processorParam:Quality=Best
 /build:dead.mp3
 
-#begin README.md
-/importer:
-/processor:
-/build:README.md
-
-#begin README.txt
-/importer:
-/processor:
-/build:README.txt
-
