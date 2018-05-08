@@ -63,6 +63,13 @@ namespace Frustration
             };
             quitButton.Click += QuitButton_Click;
 
+            Button readMeButton = new Button(buttonTexture, buttonFont)
+            {
+                Pos = new Vector2(150, 200),
+                Text = "Read the readme"
+            };
+            readMeButton.Click += ReadMeButton_CLick;
+
             buttons = new List<Components>()
             {
                 startEzButton,
@@ -91,6 +98,10 @@ namespace Frustration
             game.ChangeState(new GameState(game, graphDevice, contentManager, true));
         }
 
+        private void ReadMeButton_CLick(object sender, EventArgs e)
+        {
+            game.Exit();
+        }
         #endregion
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
