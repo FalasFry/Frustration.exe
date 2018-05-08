@@ -34,7 +34,7 @@ namespace Frustration
             buttonFont = content.Load<SpriteFont>("font");
             menu = content.Load<Texture2D>("menu");
             song = content.Load<Song>("menuMusic");
-            Process.Start("C:/Users/alvin.anderssonerik/Documents/Visual Studio Games/Frustration.exe/Frustration/Frustration/Content/README.md");
+            Process.Start("https://github.com/FalasFry/Frustration.exe/blob/master/README.md");
             #endregion
 
             MediaPlayer.Play(song);
