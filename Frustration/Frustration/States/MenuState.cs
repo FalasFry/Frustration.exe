@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
+using System.IO;
 
 namespace Frustration
 {
@@ -34,7 +35,7 @@ namespace Frustration
             buttonFont = content.Load<SpriteFont>("font");
             menu = content.Load<Texture2D>("menu");
             song = content.Load<Song>("menuMusic");
-            Process.Start("https://github.com/FalasFry/Frustration.exe/blob/master/README.md");
+            Process.Start(Path.GetFullPath("Content/README.txt"));
             #endregion
 
             MediaPlayer.Play(song);
