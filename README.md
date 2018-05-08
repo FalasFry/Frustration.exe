@@ -5,7 +5,7 @@ This game is a space shooter. You will be set in space and in need to fight of a
 
 ### Download
 
-* [Download link](http://www.mediafire.com/file/jd3t55423hmvdvx/Frustration.zip) - Click here to download the game
+* [Download link](http://www.mediafire.com/file/to1b5379ywamgoc/Frustration.rar) - Click here to download the game
 
 ### Installing
 
