@@ -35,6 +35,7 @@ namespace Frustration
             buttonFont = content.Load<SpriteFont>("font");
             menu = content.Load<Texture2D>("menu");
             song = content.Load<Song>("menuMusic");
+
             #endregion
 
             MediaPlayer.Play(song);
