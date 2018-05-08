@@ -102,7 +102,8 @@ namespace Frustration
 
         private void ReadMeButton_CLick(object sender, EventArgs e)
         {
-            Process.Start(Path.GetFullPath("Content/README.txt"));
+            Process.Start(Path.GetFullPath("README.txt"));
+
         }
         #endregion
 
