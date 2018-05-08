@@ -35,7 +35,6 @@ namespace Frustration
             buttonFont = content.Load<SpriteFont>("font");
             menu = content.Load<Texture2D>("menu");
             song = content.Load<Song>("menuMusic");
-            Process.Start(Path.GetFullPath("Content/README.txt"));
             #endregion
 
             MediaPlayer.Play(song);
@@ -76,6 +75,7 @@ namespace Frustration
                 startEzButton,
                 quitButton,
                 startHardButton,
+                readMeButton,
             };
 
             #endregion
@@ -101,7 +101,7 @@ namespace Frustration
 
         private void ReadMeButton_CLick(object sender, EventArgs e)
         {
-            game.Exit();
+            Process.Start(Path.GetFullPath("Content/README.txt"));
         }
         #endregion
 
