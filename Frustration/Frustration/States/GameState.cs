@@ -45,7 +45,7 @@ namespace Frustration
         Texture2D powerupsTexture;
         Texture2D enemyTexture;
         Song song;
-        
+        Color color = Color.White;
 
         #endregion
 
@@ -126,14 +126,17 @@ namespace Frustration
                 new Bullet(2, new Vector2(1, -1), bullet, new Vector2(3000, 3000), 1, Color.Black)
             };
 
-            enemies = new List<Enemy>();
+            enemies = new List<Enemy>
+            (
+            );
+            enemies.Add(new Enemy(enemyTexture, new Vector2(10000, 10000), speed, Vector2.Zero, 0, false, Color.White));
             powerUps = new List<PowerUp>();
 
             #endregion
         }
 
         #region Methods
-
+        //om en form ska användas så läser programmet av den listan som man skickar in
         public void ReadPosition()
         { 
             if (posList.Count == 0)
@@ -154,7 +157,7 @@ namespace Frustration
                 }
             }
         }
-
+        //om man ska spawna fiender randomly så ser den till att dem inte har samma position
         public void GiveValues(int amount)
         {
             for (int i = 0; i < amount; i++)
@@ -177,11 +180,15 @@ namespace Frustration
         // Makes enemies smarf randomly.
         public bool IsSmart()
         {
-            if (rnd.Next(0, (int)smartPercent) > rnd.Next(0, 100))
+            if (rnd.Next(0, (int)smartPercent) > rnd.Next(0, 10))
             {
                 return true;
             }
-            else return false;
+            else
+            {
+                return false;
+            }
+            
         }
 
         // Shoots when you have ammo and press left mouse.
@@ -444,7 +451,7 @@ namespace Frustration
 
             for (int i = 0; i < order.Count;)
             {
-                enemies.Add(new Enemy(enemyTexture, new Vector2(1000, GivePosition(order[i])), speed, new Vector2(0.2f, 0.2f), 0, Color.White, IsSmart()));
+                enemies.Add(new Enemy(enemyTexture, new Vector2(1000, GivePosition(order[i])), speed, new Vector2(0.2f, 0.2f), 0, IsSmart(), color));
                 order.RemoveAt(i);
             }
 

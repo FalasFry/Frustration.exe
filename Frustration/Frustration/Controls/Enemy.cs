@@ -21,7 +21,6 @@ namespace Frustration
         float speed;
         float rotation;
         int index = 0;
-
         List<Enemy> enemyList = new List<Enemy>();
 
         public void AddEnemy(Enemy enemy)
@@ -29,7 +28,7 @@ namespace Frustration
             enemyList.Add(enemy);
         }
 
-        public Enemy(Texture2D enemyTexture, Vector2 enemyStartPos, float enemySpeed, Vector2 enemyScale, float enemyRotation, Color enemyColor, bool smart)
+        public Enemy(Texture2D enemyTexture, Vector2 enemyStartPos, float enemySpeed, Vector2 enemyScale, float enemyRotation, bool smart, Color enemyColor)
         {
             texture = enemyTexture;
             position = enemyStartPos;
@@ -71,7 +70,7 @@ namespace Frustration
 
         public void DrawEnemy(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, null, Color.White, rotation, offset, scale, SpriteEffects.None, 0);
+            spriteBatch.Draw(texture, position, null, color, rotation, offset, scale, SpriteEffects.None, 0);
         }
 
         public void Update()
@@ -79,6 +78,10 @@ namespace Frustration
             position += (moveDir * speed);
             rectangle.Location = (position - offset).ToPoint();
             rotation = (float)Math.Atan2(moveDir.X, moveDir.Y) * -1;
+            if (enemySmart)
+            {
+                color = Color.HotPink;
+            }
         }
     }
 }
