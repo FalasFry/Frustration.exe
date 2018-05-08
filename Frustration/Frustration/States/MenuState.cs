@@ -13,6 +13,8 @@ namespace Frustration
 {
     public class MenuState : States
     {
+        #region Variables
+
         private List<Components> buttons;
         Texture2D menu;
         Vector2 overPos = new Vector2(325, 190);
@@ -20,15 +22,24 @@ namespace Frustration
         Vector2 underPos = new Vector2(325, 290);
         Song song;
 
+        #endregion
+
         // Creates a menustate that have the buttons ready for you.
         public MenuState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content) : base(Game, graphicsDevice, content)
         {
+            #region Load
+
             Texture2D buttonTexture = content.Load<Texture2D>("button");
             SpriteFont buttonFont = content.Load<SpriteFont>("font");
             menu = content.Load<Texture2D>("menu");
             song = content.Load<Song>("menuMusic");
+
+            #endregion
+
             MediaPlayer.Play(song);
             MediaPlayer.IsRepeating = true;
+
+            #region Creating Button
 
             Button startHardButton = new Button(buttonTexture, buttonFont)
             {
@@ -57,6 +68,9 @@ namespace Frustration
                 quitButton,
                 startHardButton,
             };
+
+            #endregion
+
         }
 
         #region Button clicking
