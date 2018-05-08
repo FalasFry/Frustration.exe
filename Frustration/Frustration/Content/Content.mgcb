@@ -215,6 +215,6 @@
 
 #begin README.txt
 /importer:
-/processor:
+/processor:PassThroughProcessor
 /build:README.txt
 
