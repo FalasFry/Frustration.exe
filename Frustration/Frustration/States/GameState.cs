@@ -18,7 +18,9 @@ namespace Frustration
 
         float attackTimer = 10;
         float moveTimer = 15;
-        float pressTimer, timeElapsed, smartPercent;
+        float pressTimer;
+        float timeElapsed;
+        float smartPercent;
         float delay = 2f;
         float remainingDelay = 1.5f;
         float enemyCount = 3;

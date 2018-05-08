@@ -11,18 +11,17 @@ namespace Frustration
 {
     public class PowerUp
     {
-        #region Variables
-
-        public float speed, rotation;
-        public Vector2 dir = new Vector2(-1, 0), position, offset;
+        public float speed;
+        public float rotation;
+        public Vector2 dir = new Vector2(-1, 0);
+        public Vector2 position;
+        public Vector2 offset;
         public Texture2D texture;
         public Rectangle rectangle;
         public Color color = Color.White;
         public int powerType;
         Player player;
         Game1 game;
-
-        #endregion
 
         public PowerUp(float Speed, Texture2D Texture, Vector2 startPos, int PowerType, Player aPlayer, Game1 aGame)
         {
