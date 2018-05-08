@@ -10,6 +10,7 @@ namespace Frustration
 {
     public class Bullet
     {
+        #region Variables
         public float speed,rotation = 0;
         public Vector2 dir,position,offset,scale = new Vector2(0.07f,0.07f);
         public Texture2D texture;
@@ -17,8 +18,9 @@ namespace Frustration
         public float damage = 1;
         public Color color;
         public float owner;
+        #endregion
 
-        
+
         public Bullet(float Speed,Vector2 Dir,Texture2D Texture, Vector2 startPos, float Owner, Color paint)
         {
             owner = Owner;

@@ -46,7 +46,7 @@ namespace Frustration
             {
                 dead = true;
             }
-
+            // Makes it so you can't move outside the screen.
             #region WorldWalls
             if (position.X < 0)
             {
@@ -66,6 +66,7 @@ namespace Frustration
             }
             #endregion
 
+            // Changes control scheme based on difficulty.
             #region Controls
 
             if (normalDiff)
