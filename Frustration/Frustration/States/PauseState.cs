@@ -22,7 +22,8 @@ namespace Frustration
         Vector2 overPos = new Vector2(320, 190);
         Vector2 centerPos = new Vector2(320, 240);
         Vector2 underPos = new Vector2(320, 290);
-        Song song1,song2;
+        Song song1;
+        Song song2;
 
         #endregion
 

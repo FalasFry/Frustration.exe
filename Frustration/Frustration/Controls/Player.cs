@@ -14,14 +14,22 @@ namespace Frustration
     {
         #region Structs
 
-        public float speed = 5, rotation = 0, ammo = 20, hp = 5, attackSpeed = 0.5f, attackTimer;
-        public bool dead = false, normalDiff = false;
+        public float speed = 5;
+        public float rotation = 0;
+        public float ammo = 20;
+        public float hp = 5;
+        public float attackSpeed = 0.5f;
+        public float attackTimer;
+        public bool dead = false;
+        public bool normalDiff = false;
 
         #endregion
 
         #region Classes
 
-        public Vector2 dir, position, offset;
+        public Vector2 dir;
+        public Vector2 position;
+        public Vector2 offset;
         public Texture2D texture;
         public Rectangle rectangle;
         Game1 game1;

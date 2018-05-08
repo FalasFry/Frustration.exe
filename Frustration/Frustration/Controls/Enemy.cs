@@ -63,7 +63,7 @@ namespace Frustration
             return enemyList[indexx].position;
         }
 
-        // Gets offet.
+        // Gets offset.
         public Vector2 FindOffset(int indexx)
         {
             return enemyList[indexx].offset;

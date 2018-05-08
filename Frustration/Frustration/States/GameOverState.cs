@@ -21,7 +21,8 @@ namespace Frustration
         Vector2 timePos = new Vector2(320, 290);
         List<Components> buttons;
         SpriteFont font;
-        Song song1,song2;
+        Song song1;
+        Song song2;
 
         #endregion
 
