@@ -92,7 +92,7 @@ namespace Frustration
         private void ResumeButton_Click(object sender, EventArgs e)
         {
             paused = false;
-            MediaPlayer.Play(song1);
+            MediaPlayer.Resume();
         }
 
         #endregion
