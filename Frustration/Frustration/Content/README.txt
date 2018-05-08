@@ -1,4 +1,3 @@
-
 # Frustration
 
 This game is a space shooter. You will be set in space and in need to fight of as many aliens as you can.
