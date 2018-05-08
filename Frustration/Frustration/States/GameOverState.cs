@@ -12,6 +12,8 @@ namespace Frustration
 {
     public class GameOverState : States
     {
+        #region Variables
+
         Texture2D gameOver;
         float score;
         float timeElapsed;
@@ -21,8 +23,12 @@ namespace Frustration
         SpriteFont font;
         Song song1,song2;
 
+        #endregion
+
         public GameOverState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content, float points, int time) : base(Game, graphicsDevice, content)
         {
+            #region Load
+
             gameOver = content.Load<Texture2D>("gameover");
             score = points;
             timeElapsed = time;
@@ -30,21 +36,28 @@ namespace Frustration
             song1 = content.Load<Song>("dead");
             song2 = content.Load<Song>("menuMusic");
 
+            #endregion
+
             Texture2D buttonTexture = content.Load<Texture2D>("button");
             SpriteFont buttonFont = content.Load<SpriteFont>("font");
-            
+            MediaPlayer.Play(song1);
+            MediaPlayer.IsRepeating = true;
+
+            #region Creating buttons
+
             Button menu = new Button(buttonTexture, buttonFont)
             {
                 Pos = new Vector2(325, 340),
                 Text = "Main Menu"
             };
             menu.Click += Menu_Click;
-            MediaPlayer.Play(song1);
-            MediaPlayer.IsRepeating = true;
+
             buttons = new List<Components>()
             {
                 menu,
             };
+
+            #endregion
         }
 
         #region Button Click

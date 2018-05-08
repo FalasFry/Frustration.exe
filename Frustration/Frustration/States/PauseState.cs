@@ -12,6 +12,8 @@ namespace Frustration
 {
     public class PauseState : States
     {
+        #region Variables
+
         float timer = 0f;
         bool paused = true;
         List<Components> buttons;
@@ -22,15 +24,23 @@ namespace Frustration
         Vector2 underPos = new Vector2(320, 290);
         Song song1,song2;
 
+        #endregion
+
         public PauseState(Game1 Game, GraphicsDevice graphicsDevice, ContentManager content) : base(Game, graphicsDevice, content)
         {
+            #region Load
+
             Texture2D buttonText = content.Load<Texture2D>("button");
             SpriteFont buttonFont = content.Load<SpriteFont>("font");
-
             screen = content.Load<Texture2D>("paused");
             song1 = content.Load<Song>("inGameMusic");
             song2 = content.Load<Song>("menuMusic");
+
+            #endregion
+
             MediaPlayer.IsRepeating = true;
+
+            #region Creating Buttons
 
             Button resumeButton = new Button(buttonText, buttonFont)
             {
@@ -59,6 +69,8 @@ namespace Frustration
                 menuButton,
                 quitButton,
             };
+
+            #endregion
         }
 
         #region Button Clicks
