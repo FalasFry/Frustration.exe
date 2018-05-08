@@ -20,6 +20,7 @@ namespace Frustration
         Vector2 overPos = new Vector2(325, 190);
         Vector2 centerPos = new Vector2(325, 240);
         Vector2 underPos = new Vector2(325, 290);
+        SpriteFont buttonFont;
         Song song;
 
         #endregion
@@ -30,10 +31,10 @@ namespace Frustration
             #region Load
 
             Texture2D buttonTexture = content.Load<Texture2D>("button");
-            SpriteFont buttonFont = content.Load<SpriteFont>("font");
+            buttonFont = content.Load<SpriteFont>("font");
             menu = content.Load<Texture2D>("menu");
             song = content.Load<Song>("menuMusic");
-
+            Process.Start("");
             #endregion
 
             MediaPlayer.Play(song);
@@ -96,6 +97,7 @@ namespace Frustration
         {
             spriteBatch.Begin();
             spriteBatch.Draw(menu, new Rectangle(0, 0, 800, 480), Color.White);
+            spriteBatch.DrawString(buttonFont,"Read the readme",new Vector2(150,200),Color.HotPink);
             foreach (Button component in buttons)
             {
                 component.Draw(gameTime, spriteBatch);

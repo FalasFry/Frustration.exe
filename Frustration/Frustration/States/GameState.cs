@@ -257,6 +257,7 @@ namespace Frustration
                 attackTimer -= deltaTime;
             }
 
+
             if (attackTimer <= 0 || moveTimer <= 0)
             {
                 return false;
