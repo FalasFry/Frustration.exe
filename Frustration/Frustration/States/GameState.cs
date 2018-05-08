@@ -379,7 +379,7 @@ namespace Frustration
                 {
                     player.attackSpeed = 0.1f;
                 }
-                if (!CuntDown(gameTime, false))
+                else if (!CuntDown(gameTime, false))
                 {
                     player.attackSpeed = 0.5f;
                 }
@@ -399,7 +399,7 @@ namespace Frustration
                     player.speed = 7;
 
                 }
-                if (!CuntDown(gameTime, true))
+                else if (!CuntDown(gameTime, true))
                 {
                     player.speed = 5;
                 }
@@ -412,7 +412,6 @@ namespace Frustration
                     powerupTimer = "0";
                 }
             }
-
             PowerUpSpawn(gameTime);
 
             for (int j = 0; j < powerUps.Count; j++)
