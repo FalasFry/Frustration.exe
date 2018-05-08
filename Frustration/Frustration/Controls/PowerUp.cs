@@ -38,7 +38,8 @@ namespace Frustration
             rectangle.Location = (position).ToPoint();
             rotation = (float)Math.Atan2(dir.X, dir.Y) * -1;
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
+            // Gives the powerups effects.
+            #region Effects
             if (rectangle.Intersects(player.rectangle))
             {
                 if (powerType == 1)
@@ -55,7 +56,9 @@ namespace Frustration
                     player.ammo += 40;
                 }
             }
-
+            #endregion
+            // Gives the powerups color.
+            #region Colors
             if (powerType == 1)
             {
                 color = Color.Green;
@@ -68,6 +71,7 @@ namespace Frustration
             {
                 color = Color.Red;
             }
+            #endregion
         }
         public void Draw(SpriteBatch spriteBatch)
         {
