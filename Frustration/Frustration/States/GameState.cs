@@ -47,12 +47,7 @@ namespace Frustration
         Texture2D powerupsTexture;
         Texture2D enemyTexture;
         Song song;
-<<<<<<< HEAD
         Color color = Color.White;
-
-=======
-        
->>>>>>> ec9f42943faefaf1869dd18339fdc6c8c979239f
         #endregion
 
         #region Lists
