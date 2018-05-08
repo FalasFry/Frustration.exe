@@ -180,7 +180,7 @@ namespace Frustration
         // Makes enemies smarf randomly.
         public bool IsSmart()
         {
-            if (rnd.Next(0, (int)smartPercent) > rnd.Next(0, 10))
+            if (rnd.Next(0, (int)smartPercent) > rnd.Next(0, 100))
             {
                 return true;
             }
