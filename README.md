@@ -1,3 +1,4 @@
+
 # Frustration
 
 This game is a space shooter. You will be set in space and in need to fight of as many aliens as you can.
@@ -16,9 +17,12 @@ Click the .exe file and it should be up and running.
 
 every bullet does 1 damage to you
 You get ammo from powerups
-GREEN = more fire rate
-BLUE = more speed
-RED = 5 more health points.
+Pink enemies will shoot after you
+normal enemies will shoot straiht
+
+If the powerup is GREEN = more fire rate
+If the powerup is BLUE = more speed
+If the powerup is RED = 5 more health points.
 
 * In normal mode
 You move towards the mouse, and shoow towards it, you only have one life.

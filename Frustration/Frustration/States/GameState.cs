@@ -18,7 +18,9 @@ namespace Frustration
 
         float attackTimer = 10;
         float moveTimer = 15;
-        float pressTimer, timeElapsed, smartPercent;
+        float pressTimer;
+        float timeElapsed;
+        float smartPercent;
         float delay = 2f;
         float remainingDelay = 1.5f;
         float enemyCount = 3;
@@ -45,8 +47,12 @@ namespace Frustration
         Texture2D powerupsTexture;
         Texture2D enemyTexture;
         Song song;
+<<<<<<< HEAD
         Color color = Color.White;
 
+=======
+        
+>>>>>>> ec9f42943faefaf1869dd18339fdc6c8c979239f
         #endregion
 
         #region Lists
